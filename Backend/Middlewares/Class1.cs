@@ -1,4 +1,4 @@
-﻿namespace Data
+﻿namespace Middlewares
 {
     public class Class1
     {

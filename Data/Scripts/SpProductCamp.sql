@@ -32,7 +32,7 @@ BEGIN
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
     AND TipoDato LIKE CASE WHEN ISNULL(@TipoDato,'')='' THEN TipoDato ELSE '%'+@TipoDato+'%' END
     AND Obligatorio = CASE WHEN ISNULL(@Obligatorio,0) = 1 THEN 1 ELSE 0 END
-    AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProducto ELSE @IdProducto END
+    AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
 END

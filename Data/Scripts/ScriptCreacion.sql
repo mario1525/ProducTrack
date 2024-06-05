@@ -40,7 +40,7 @@ BEGIN
         Apellido      VARCHAR(255) NOT NULL DEFAULT '',              /*Apellido del usuario*/
         Correo        VARCHAR(255) NOT NULL DEFAULT '',             /*Apellido del usuario*/
         IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/
-        Cargo         VARCHAR(60) NOT NULL DEFAULT 'Cordinador',  /*Cargo interno en la compania*/
+        Cargo         VARCHAR(60) NOT NULL DEFAULT '',            /*Cargo interno en la compania*/
         Rol           VARCHAR(60) NOT NULL DEFAULT 'Usuario',    /*Rol del usuario*/
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
