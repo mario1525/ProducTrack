@@ -40,6 +40,7 @@ BEGIN
     AND Eliminado = 0
 END
 
+GO
 PRINT 'Creacion procedimiento usuario Set '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioSet
@@ -70,6 +71,7 @@ BEGIN
 	END
 END
 
+GO
 PRINT 'Creacion procedimiento usuario Del '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioDel
@@ -87,6 +89,7 @@ BEGIN
     WHERE Id = @Id;    
 END 
 
+GO
 PRINT 'Creacion procedimiento usuario Active '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioActive

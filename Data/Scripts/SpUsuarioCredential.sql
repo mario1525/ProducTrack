@@ -30,6 +30,7 @@ BEGIN
     AND Eliminado = 0
 END
 
+GO
 PRINT 'Creacion procedimiento UsuarioCredencial Set '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioCredencialSet
@@ -55,6 +56,7 @@ BEGIN
 END
 
 
+GO
 PRINT 'Creacion procedimiento UsuarioCredencial Del '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioCredencialDel
@@ -72,6 +74,7 @@ BEGIN
     WHERE Id = @Id;    
 END
 
+GO
 PRINT 'Creacion procedimiento UsuarioCredencial Active '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioCredencialActive

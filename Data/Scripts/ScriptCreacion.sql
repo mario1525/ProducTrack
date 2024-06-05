@@ -46,7 +46,7 @@ BEGIN
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
-    ALTER TABLE dbo.UsuarioCompania ADD CONSTRAINT
+    ALTER TABLE dbo.Usuario ADD CONSTRAINT
 		FKUsuariocompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
 END
 GO

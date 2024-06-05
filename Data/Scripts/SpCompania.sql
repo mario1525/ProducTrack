@@ -33,7 +33,7 @@ BEGIN
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
 END
-
+GO
 
 
 PRINT 'Creacion procedimiento Compania Set '
@@ -59,7 +59,7 @@ BEGIN
         WHERE Id = @Id
     END
 END
-
+GO
 
 
 PRINT 'Creacion procedimiento Compania Del '
@@ -79,6 +79,7 @@ BEGIN
     WHERE Id = @Id;    
 END
 
+GO
 PRINT 'Creacion procedimiento Compania Active '
 GO
 CREATE PROCEDURE dbo.dbSpCompaniaActive

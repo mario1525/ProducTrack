@@ -32,6 +32,7 @@ BEGIN
     AND Eliminado = 0
 END
 
+GO
 PRINT 'Creacion procedimiento ProcesEtap Set '
 GO
 CREATE PROCEDURE dbo.dbSpProcesEtapSet
@@ -55,6 +56,7 @@ BEGIN
     END
 END
 
+GO
 PRINT 'Creacion procedimiento ProcesEtap Del '
 GO
 CREATE PROCEDURE dbo.dbSpProcesEtapDel
@@ -72,6 +74,7 @@ BEGIN
     WHERE Id = @Id;    
 END
 
+GO
 PRINT 'Creacion procedimiento ProcesEtap Active '
 GO
 CREATE PROCEDURE dbo.dbSpProcesEtapActive

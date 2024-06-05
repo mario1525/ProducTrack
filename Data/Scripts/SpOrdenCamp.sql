@@ -16,6 +16,7 @@ BEGIN
     DROP PROCEDURE dbo.dbSpOrdenCampActive
 END
 
+GO
 PRINT 'Creacion procedimiento OrdenCamp Get '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenCampGet
@@ -38,6 +39,7 @@ BEGIN
     AND Eliminado = 0
 END
 
+GO
 PRINT 'Creacion procedimiento OrdenCamp Set '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenCampSet
@@ -63,6 +65,7 @@ BEGIN
     END
 END
 
+GO
 PRINT 'Creacion procedimiento OrdenCamp Del '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenCampDel
@@ -80,6 +83,7 @@ BEGIN
     WHERE Id = @Id;    
 END
 
+GO
 PRINT 'Creacion procedimiento OrdenCamp Active '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenCampActive
