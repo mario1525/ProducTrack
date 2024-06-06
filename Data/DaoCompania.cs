@@ -1,24 +1,20 @@
 ﻿using Entity;
 using Data.SQLClient;
 using Microsoft.Data.SqlClient;
-//using Microsoft.Data;
 using System.Data;
-
 
 namespace Data
 {
-    public class DaoUsuario
-    {        
-
+    public class DaoCompania
+    {
         #region Metodos 
 
         private readonly SqlClient _sqlClient;
 
-        public DaoUsuario(SqlClient dbContext)
+        public DaoCompania(SqlClient dbContext)
         {
             _sqlClient = dbContext;
-        }
-        Guid uid = Guid.NewGuid();
+        }        
 
         // metodo get 
         public async Task<DataTable> GetUsers(Usuario user)
@@ -52,14 +48,14 @@ namespace Data
                 Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
                 throw;
             }
-        }         
+        }
 
         // Metodo Set 
         public async void SetUsers(string operacion, Usuario user)
-        {   
+        {
             try
             {
-            
+
                 if (user == null)
                 {
                     throw new ArgumentNullException(nameof(user));
@@ -78,7 +74,7 @@ namespace Data
                     new SqlParameter("@Estado", ""),
                     new SqlParameter("@Operacion", operacion),
                };
-               await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+                await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
                 // _sqlClient.
             }
             catch (Exception ex)
@@ -87,7 +83,7 @@ namespace Data
                 Console.WriteLine($"Error al crear/modificar un usuario: {ex.Message}");
                 throw;
             }
-        }        
+        }
 
         // Metodo Delete
         public async Task<DataTable> DeleteUser(string userId)
@@ -95,7 +91,7 @@ namespace Data
             try
             {
 
-            
+
                 string procedureName = "dbo.dbSpUsuariosDel";
                 SqlParameter[] parameters =
                 {
@@ -116,7 +112,7 @@ namespace Data
         public async Task<DataTable> ActiveUser(string userId, int estado)
         {
             try
-            {            
+            {
                 string procedureName = "dbo.dbSpUsuariosActive";
                 SqlParameter[] parameters =
                 {
