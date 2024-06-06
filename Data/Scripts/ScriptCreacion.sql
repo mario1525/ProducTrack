@@ -223,10 +223,10 @@ PRINT 'creacion de la tabla RegisProduct '
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisProduct')
 BEGIN
     CREATE TABLE dbo.RegisProduct(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Producto*/
-        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla RegisOrden*/
-        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Usuarios*/
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
+        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Producto*/
+        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla RegisOrden*/
+        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Usuarios*/
         Estado			BIT NOT NULL DEFAULT 1,                 /*Estado*/
 		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
@@ -323,10 +323,10 @@ IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Lab')
 BEGIN
     CREATE TABLE dbo.Lab(
         Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre Laboratorio*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/
-        Estado			BIT NOT NULL DEFAULT 1, /*Estado del Usuario*/
-		Eliminado		BIT NOT NULL DEFAULT 0, /*Eliminado usuario*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre Laboratorio*/
+        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/
+        Estado			BIT NOT NULL DEFAULT 1,                 /*Estado del Usuario*/
+		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado usuario*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.Lab ADD CONSTRAINT

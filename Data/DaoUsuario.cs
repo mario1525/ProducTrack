@@ -17,8 +17,7 @@ namespace Data
         public DaoUsuario(SqlClient dbContext)
         {
             _sqlClient = dbContext;
-        }
-        Guid uid = Guid.NewGuid();
+        }        
 
         // metodo get 
         public async Task<DataTable> GetUsers(Usuario user)

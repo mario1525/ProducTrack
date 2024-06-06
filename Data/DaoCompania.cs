@@ -17,23 +17,20 @@ namespace Data
         }        
 
         // metodo get 
-        public async Task<DataTable> GetUsers(Usuario user)
+        public async Task<DataTable> GetCompania(Compania compania)
         {
             try
             {
                 // Nombre del procedimiento almacenado
-                const string procedureName = "dbo.dbSpUsuarioGet";
+                const string procedureName = "dbo.dbSpCompaniaGet";
 
                 // Definición de parámetros
                 var parameters = new[]
                 {
-                new SqlParameter("@Id", user.Id),
-                new SqlParameter("@Nombre", user.Nombre),
-                new SqlParameter("@Apellido", user.Apellido),
-                new SqlParameter("@Correo", user.Correo),
-                new SqlParameter("@IdCompania", user.IdCompania),
-                new SqlParameter("@Cargo", user.Cargo),
-                new SqlParameter("@Rol", user.Rol),
+                new SqlParameter("@Id", compania.Id),
+                new SqlParameter("@Nombre", compania.Nombre),
+                new SqlParameter("@NIT", compania.NIT),
+                new SqlParameter("@Direccion", compania.Direccion),                
                 new SqlParameter("@Estado", 1)
                 };
 
@@ -45,33 +42,30 @@ namespace Data
             catch (Exception ex)
             {
                 // Manejar errores aquí
-                Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
+                Console.WriteLine($"Error al obtener companias: {ex.Message}");
                 throw;
             }
         }
 
         // Metodo Set 
-        public async void SetUsers(string operacion, Usuario user)
+        public async void SetCompania(string operacion, Compania compania)
         {
             try
             {
 
-                if (user == null)
+                if (compania == null)
                 {
-                    throw new ArgumentNullException(nameof(user));
+                    throw new ArgumentNullException(nameof(compania));
                 }
 
-                string procedureName = "dbo.dbSpUsuariosSet";
+                string procedureName = "dbo.dbSpCompaniaSet";
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("@Id", user.Id),
-                    new SqlParameter("@Nombre", user.Nombre),
-                    new SqlParameter("@Apellido", user.Apellido),
-                    new SqlParameter("@Correo", user.Correo),
-                    new SqlParameter("@IdCompania", user.IdCompania),
-                    new SqlParameter("@Cargo", user.Cargo),
-                    new SqlParameter("@Rol", user.Rol),
-                    new SqlParameter("@Estado", ""),
+                    new SqlParameter("@Id", compania.Id),
+                    new SqlParameter("@Nombre", compania.Nombre),
+                    new SqlParameter("@NIT", compania.NIT),
+                    new SqlParameter("@Direccion", compania.Direccion),
+                    new SqlParameter("@Estado", 1),
                     new SqlParameter("@Operacion", operacion),
                };
                 await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
@@ -80,43 +74,43 @@ namespace Data
             catch (Exception ex)
             {
                 // Manejar errores aquí
-                Console.WriteLine($"Error al crear/modificar un usuario: {ex.Message}");
+                Console.WriteLine($"Error al crear/modificar una compania: {ex.Message}");
                 throw;
             }
         }
 
         // Metodo Delete
-        public async Task<DataTable> DeleteUser(string userId)
+        public async Task<DataTable> DeleteCompania(string Id)
         {
             try
             {
 
 
-                string procedureName = "dbo.dbSpUsuariosDel";
+                string procedureName = "dbo.dbSpCompaniaDel";
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("@Id", userId)
+                    new SqlParameter("@Id", Id)
                 };
                 return await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
             }
             catch (Exception ex)
             {
                 // Manejar errores aquí
-                Console.WriteLine($"Error al eliminar un usuario: {ex.Message}");
+                Console.WriteLine($"Error al eliminar una compania: {ex.Message}");
                 throw;
             }
 
         }
 
         // Metodo Active        
-        public async Task<DataTable> ActiveUser(string userId, int estado)
+        public async Task<DataTable> ActiveCompania(string Id, int estado)
         {
             try
             {
-                string procedureName = "dbo.dbSpUsuariosActive";
+                string procedureName = "dbo.dbSpCompaniaActive";
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("@Id", userId),
+                    new SqlParameter("@Id", Id),
                     new SqlParameter("@Estado", estado)
                 };
                 return await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
@@ -124,7 +118,7 @@ namespace Data
             catch (Exception ex)
             {
                 // Manejar errores aquí
-                Console.WriteLine($"Error al carbiar el estado del usuario: {ex.Message}");
+                Console.WriteLine($"Error al carbiar el estado de la compania: {ex.Message}");
                 throw;
             }
         }
