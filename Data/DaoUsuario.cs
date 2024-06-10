@@ -20,7 +20,7 @@ namespace Data
         }        
 
         // metodo get 
-        public async Task<DataTable> GetUsers(Usuario user)
+        public async Task<List<Usuario>> GetUsersList(Usuario user)
         {
             try
             {
@@ -43,7 +43,8 @@ namespace Data
                 // Ejecutar el procedimiento almacenado
                 DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
 
-                return dataTable;
+                List<Usuario> ListaCompania = MapDataTableToList(dataTable);
+                return ListaCompania;
             }
             catch (Exception ex)
             {
@@ -51,7 +52,75 @@ namespace Data
                 Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
                 throw;
             }
-        }         
+        }
+
+        public async Task<List<Usuario>> GetUsers()
+        {
+            try
+            {
+                // Nombre del procedimiento almacenado
+                const string procedureName = "dbo.dbSpUsuarioGet";
+
+                // Definición de parámetros
+                var parameters = new[]
+                {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@Apellido", ""),
+                new SqlParameter("@Correo", ""),
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@Cargo", ""),
+                new SqlParameter("@Rol", ""),
+                new SqlParameter("@Estado", 1)
+                };
+
+                // Ejecutar el procedimiento almacenado
+                DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+
+                List<Usuario> ListaCompania = MapDataTableToList(dataTable);
+                return ListaCompania;
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores aquí
+                Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<List<Usuario>> GetUser(string user)
+        {
+            try
+            {
+                // Nombre del procedimiento almacenado
+                const string procedureName = "dbo.dbSpUsuarioGet";
+
+                // Definición de parámetros
+                var parameters = new[]
+                {
+                new SqlParameter("@Id", user),
+                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@Apellido", ""),
+                new SqlParameter("@Correo", ""),
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@Cargo", ""),
+                new SqlParameter("@Rol", ""),
+                new SqlParameter("@Estado", 1)
+                };
+
+                // Ejecutar el procedimiento almacenado
+                DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+
+                List<Usuario> ListaCompania = MapDataTableToList(dataTable);
+                return ListaCompania;
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores aquí
+                Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
+                throw;
+            }
+        }
 
         // Metodo Set 
         public async void SetUsers(string operacion, Usuario user)
@@ -89,7 +158,7 @@ namespace Data
         }        
 
         // Metodo Delete
-        public async Task<DataTable> DeleteUser(string userId)
+        public async void DeleteUser(string userId)
         {
             try
             {
@@ -100,7 +169,7 @@ namespace Data
                 {
                     new SqlParameter("@Id", userId)
                 };
-                return await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+                await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
             }
             catch (Exception ex)
             {
@@ -112,7 +181,7 @@ namespace Data
         }
 
         // Metodo Active        
-        public async Task<DataTable> ActiveUser(string userId, int estado)
+        public async void ActiveUser(string userId, int estado)
         {
             try
             {            
@@ -122,7 +191,7 @@ namespace Data
                     new SqlParameter("@Id", userId),
                     new SqlParameter("@Estado", estado)
                 };
-                return await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+                await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
             }
             catch (Exception ex)
             {
@@ -130,6 +199,30 @@ namespace Data
                 Console.WriteLine($"Error al carbiar el estado del usuario: {ex.Message}");
                 throw;
             }
+        }
+
+        private static List<Usuario> MapDataTableToList(DataTable dataTable)
+        {
+            List<Usuario> usuariosList = new List<Usuario>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Usuario usuario = new Usuario
+                {
+                    Id = row["Id"].ToString(),
+                    Nombre = row["Nombre"].ToString(),
+                    Apellido = row["Apellido"].ToString(),
+                    IdCompania = row["IdCompania"].ToString(),
+                    Rol = row["Rol"].ToString(),
+                    Cargo = row["Cargo"].ToString(),
+                    Correo = row["Correo"].ToString(),
+                    Estado = row["Estado"].ToString(),
+                    Fecha_log = row["Fecha_log"].ToString(),
+                    // Asigna otras propiedades según tu DataTable
+                };
+                usuariosList.Add(usuario);
+            }
+            return usuariosList;
         }
         #endregion
     }

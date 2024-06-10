@@ -12,35 +12,52 @@ namespace Services
             _daoCompania = daoCompania;
         }
 
-        public List<Compania> GetCompaniaList(Compania compania)
+        public async Task<List<Compania>> GetCompania(String compania)
+        {            
+            return await _daoCompania.GetCompania(compania);
+        }
+
+        public async Task<List<Compania>> GetCompanias()
         {
-            Task<DataTable> taskDataTable = _daoCompania.GetCompania(compania);
-            DataTable companias = taskDataTable.Result;
-            List<Compania> ListaCompania = MapDataTableToList(companias);
-            return ListaCompania;
+            return await _daoCompania.GetCompanias();
+        }
+
+        public Mensaje CreateCompania(Compania compania)
+        {
+            Guid uid = Guid.NewGuid();
+            compania.Id = uid.ToString();
+            _daoCompania.SetCompania("I", compania);
+            Mensaje mensaje = new Mensaje();    
+            mensaje.mensaje = uid.ToString();
+            return mensaje;
 
         }
 
-        private static List<Compania> MapDataTableToList(DataTable dataTable)
+        public Mensaje UpdateCompania(Compania compania)
         {
-            List<Compania> usuariosList = new List<Compania>();
+            _daoCompania.SetCompania("A", compania);
+            Mensaje mensaje = new Mensaje();
+            mensaje.mensaje = "Comapañia actualizada";
+            return mensaje;
 
-            foreach (DataRow row in dataTable.Rows)
-            {
-                Compania compania = new Compania 
-                {
-                    Id = row["Id"].ToString(),
-                    Nombre = row["Nombre"].ToString(),
-                    NIT = row["NIT"].ToString(),
-                    Direccion = row["Direccion"].ToString(),
-                    Estado = row["Estado"].ToString(),
-                    Eliminado = row["Eliminado"].ToString(),
-                    Fecha_log = row["Fecha_log"].ToString(),
-                    // Asigna otras propiedades según tu DataTable
-                };
-                usuariosList.Add(compania);
-            }
-            return usuariosList;
         }
+
+        public Mensaje DeleteCompania(string Id)
+        {
+            _daoCompania.DeleteCompania(Id);
+            Mensaje mensaje = new Mensaje();
+            mensaje.mensaje = "Comapañia eliminada";
+            return mensaje;
+
+        }
+
+        public Mensaje ActiveCompania(string Id, int estado)
+        {
+            _daoCompania.ActiveCompania(Id, estado);
+            Mensaje mensaje = new Mensaje();
+            mensaje.mensaje = "se cambio el estado de la compañia";
+            return mensaje;
+
+        }        
     }
 }

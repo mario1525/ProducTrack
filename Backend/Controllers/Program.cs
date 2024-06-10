@@ -1,7 +1,52 @@
+using Data;
+using Entity;
+using Services;
+using Data.SQLClient;
+
+// Configuración de las variables de entorno 
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .Build();
+
+string connectionString = configuration["Configuracion:connectionString"];
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
+
+//Data
+builder.Services.AddSingleton<DaoCompania>();
+builder.Services.AddSingleton<DaoUsuario>();
+
+//Entity
+builder.Services.AddSingleton<Compania>();
+builder.Services.AddSingleton<Usuario>();
+builder.Services.AddSingleton<Mensaje>();
+
+//Services
+builder.Services.AddSingleton<CompaniaLogical>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+
+// Add Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy",
+        policy =>
+        {
+            policy.WithOrigins("https://mine-to-plant.azurewebsites.net", "http://localhost:4200", "https://mine-to-plant.vercel.app", "https://mine-to-plant-dev.vercel.app")
+                 .AllowAnyHeader()
+                 .AllowAnyMethod();
+        });
+});
+
+// swagger 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -21,5 +66,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+// swagger 
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
