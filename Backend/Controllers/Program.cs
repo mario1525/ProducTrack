@@ -27,6 +27,7 @@ builder.Services.AddSingleton<Mensaje>();
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
+builder.Services.AddSingleton<UsuarioLogical>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

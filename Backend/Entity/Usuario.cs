@@ -9,8 +9,7 @@
         public string IdCompania { get; set; }
         public string Cargo { get; set; }
         public string Rol { get; set; }
-        public string Estado { get; set; }
-        public string Eliminado { get; set; }
+        public string Estado { get; set; }        
         public string Fecha_log { get; set; }
 
         // Constructor vacío

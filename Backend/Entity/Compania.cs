@@ -12,8 +12,7 @@ namespace Entity
         public string Nombre { get; set; }
         public string NIT { get; set; }
         public string Direccion { get; set; }
-        public string Estado { get; set; }
-        public string Eliminado { get; set; }
+        public string Estado { get; set; }        
         public string Fecha_log { get; set; }
 
         // Constructor vacío

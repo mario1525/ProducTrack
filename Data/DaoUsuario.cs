@@ -1,7 +1,6 @@
 ﻿using Entity;
 using Data.SQLClient;
 using Microsoft.Data.SqlClient;
-//using Microsoft.Data;
 using System.Data;
 
 
@@ -133,7 +132,7 @@ namespace Data
                     throw new ArgumentNullException(nameof(user));
                 }
 
-                string procedureName = "dbo.dbSpUsuariosSet";
+                string procedureName = "dbo.dbSpUsuarioSet";
                 SqlParameter[] parameters =
                 {
                     new SqlParameter("@Id", user.Id),
@@ -143,7 +142,7 @@ namespace Data
                     new SqlParameter("@IdCompania", user.IdCompania),
                     new SqlParameter("@Cargo", user.Cargo),
                     new SqlParameter("@Rol", user.Rol),
-                    new SqlParameter("@Estado", ""),
+                    new SqlParameter("@Estado", 1),
                     new SqlParameter("@Operacion", operacion),
                };
                await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
@@ -164,7 +163,7 @@ namespace Data
             {
 
             
-                string procedureName = "dbo.dbSpUsuariosDel";
+                string procedureName = "dbo.dbSpUsuarioDel";
                 SqlParameter[] parameters =
                 {
                     new SqlParameter("@Id", userId)
@@ -185,7 +184,7 @@ namespace Data
         {
             try
             {            
-                string procedureName = "dbo.dbSpUsuariosActive";
+                string procedureName = "dbo.dbSpUsuarioActive";
                 SqlParameter[] parameters =
                 {
                     new SqlParameter("@Id", userId),
