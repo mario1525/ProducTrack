@@ -2,6 +2,7 @@ using Data;
 using Entity;
 using Services;
 using Data.SQLClient;
+using Middlewares;
 
 // Configuración de las variables de entorno 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -19,15 +20,24 @@ builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
 //Data
 builder.Services.AddSingleton<DaoCompania>();
 builder.Services.AddSingleton<DaoUsuario>();
+builder.Services.AddSingleton<DaoUsuarioCredential>();
 
 //Entity
 builder.Services.AddSingleton<Compania>();
 builder.Services.AddSingleton<Usuario>();
 builder.Services.AddSingleton<Mensaje>();
+builder.Services.AddSingleton<UsuarioCredential>();
+builder.Services.AddSingleton<Login>();
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
 builder.Services.AddSingleton<UsuarioLogical>();
+builder.Services.AddSingleton<UsuarioCredentialLogical>();
+
+//Middlewares
+builder.Services.AddSingleton<HashPassword>();
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();

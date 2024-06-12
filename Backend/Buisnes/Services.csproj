@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Data.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\Middlewares\Middlewares.csproj" />
   </ItemGroup>
 
 </Project>

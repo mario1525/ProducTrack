@@ -1,14 +1,16 @@
 ﻿using Data;
 using Entity;
-
+using Middlewares;
 namespace Services
 {
     public class UsuarioLogical
     {
         private readonly DaoUsuario _daoUsuario;
+        
         public UsuarioLogical(DaoUsuario daoUsuario)
         {
             _daoUsuario = daoUsuario;
+            
         }
 
         public async Task<List<Usuario>> GetUsuario(String Id)
@@ -24,7 +26,7 @@ namespace Services
         public Mensaje CreateUsuario(Usuario usuario)
         {
             Guid uid = Guid.NewGuid();
-            usuario.Id = uid.ToString();
+            usuario.Id = uid.ToString();           
             _daoUsuario.SetUsers("I", usuario);
             Mensaje mensaje = new Mensaje();    
             mensaje.mensaje = uid.ToString();
