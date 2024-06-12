@@ -11,6 +11,9 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 string connectionString = configuration["Configuracion:connectionString"];
+string SecretKey = configuration["Jwt:SecretKey"];
+string Issuer = configuration["Jwt:Issuer"];
+string Audience = configuration["Jwt:Audience"];
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +31,7 @@ builder.Services.AddSingleton<Usuario>();
 builder.Services.AddSingleton<Mensaje>();
 builder.Services.AddSingleton<UsuarioCredential>();
 builder.Services.AddSingleton<Login>();
+builder.Services.AddSingleton<Token>();
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
@@ -36,6 +40,7 @@ builder.Services.AddSingleton<UsuarioCredentialLogical>();
 
 //Middlewares
 builder.Services.AddSingleton<HashPassword>();
+builder.Services.AddSingleton<GenerateToken>(new GenerateToken(SecretKey,Issuer,Audience));
 
 
 

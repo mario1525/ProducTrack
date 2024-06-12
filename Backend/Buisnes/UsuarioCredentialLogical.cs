@@ -7,21 +7,36 @@ namespace Services
     public class UsuarioCredentialLogical
     {
         private readonly DaoUsuarioCredential _daoCredential;
+        private readonly DaoUsuario _daoUsuario;
         private readonly HashPassword _password;
-        public UsuarioCredentialLogical(DaoUsuarioCredential daoUsuario, HashPassword password)
+        private readonly GenerateToken _Token;
+        public UsuarioCredentialLogical(DaoUsuarioCredential daoCredential, HashPassword password, GenerateToken token, DaoUsuario daoUsuario)
         {
-            _daoCredential = daoUsuario;
+            _daoCredential = daoCredential;
+            _daoUsuario = daoUsuario;
             _password = password;
+            _Token = token;
+
         }
 
-        public async Task<bool> VerifyCredentials(Login login)
+        public async Task<Token> Login(Login login)
         {
             List<UsuarioCredential> credential = await _daoCredential.GetUserName(login.Usuario);
-            if (credential == null)
+            if (credential != null)
             {
-                return false;
+                bool acep = _password.VerifyPassword(login.Contrasenia, credential[0].Contrasenia);
+                if (acep)
+                {
+                    List<UsuarioCredential> credetial = await _daoCredential.GetUserName(login.Usuario);
+                    List<Usuario> usuario = await _daoUsuario.GetUser(credetial[0].IdUsuario);
+                    Token token = _Token.GenerateJwtToken(usuario[0]);
+                    return token;
+
+                }   
+                return null;
             }
-            return _password.VerifyPassword(login.Contrasenia, credential[0].Contrasenia);
+
+            return null;
         }
 
         public Mensaje CreateUsuario(UsuarioCredential usuario)
