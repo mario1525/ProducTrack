@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Entity;
 using Services;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,6 +19,7 @@ namespace Controllers.Endpoint
         }
         // GET: api/<CompaniaController>
         [HttpGet]
+        [Authorize]
         public async  Task<List<Compania>> Get()
         {
             return await _CompaniaLogical.GetCompanias();
@@ -25,6 +27,7 @@ namespace Controllers.Endpoint
 
         // GET api/<CompaniaController>/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<List<Compania>> Get(string id)
         {
             
@@ -34,6 +37,7 @@ namespace Controllers.Endpoint
 
         // POST api/<CompaniaController>
         [HttpPost]
+        [Authorize]
         public Mensaje Post([FromBody] Compania compania)
         {
             return _CompaniaLogical.CreateCompania(compania);
@@ -41,6 +45,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<CompaniaController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public Mensaje Put(string id, [FromBody] Compania compania)
         {
             compania.Id = id;
@@ -49,6 +54,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<CompaniaController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public Mensaje Delete(string id)
         {
             return _CompaniaLogical.DeleteCompania(id);

@@ -1,8 +1,11 @@
 using Data;
 using Entity;
+using System.Text;
 using Services;
 using Data.SQLClient;
 using Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 // Configuración de las variables de entorno 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -64,6 +67,22 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configuración de la autenticación JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = Issuer,
+            ValidAudience = Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey))
+        };
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,6 +98,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Middleware de autenticación y autorización
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
