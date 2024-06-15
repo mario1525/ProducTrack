@@ -1,0 +1,25 @@
+<main>
+  <div class="nav">
+
+  </div>
+    <section>      
+      <div class="nombre-app">      
+      </div>
+      <form [formGroup]="myformulario" (ngSubmit)="submitFormulario()" class="formulario">
+        <div>
+          <label>Usuario:</label>
+          <input formControlName="usuario" type="text" placeholder="Usuario" name="usuario" required>
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input formControlName="password" type="password"  placeholder="*****************" name="password" required>
+        </div>
+        <div class="buttom-contenedor">
+          <button type="submit">Ingresar</button>
+        </div>
+      </form>
+    </section>
+    <div class="footer">
+      
+    </div>
+  </main>
