@@ -1,14 +1,16 @@
-FROM node:19
+# Use the official Node.js image to build the app
+FROM node:18 AS build
+WORKDIR /app
 
-
-COPY ["package.json","package-lock.json", "/usr/src/"]
-
-WORKDIR /usr/src/
-
+# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-COPY [".", "/usr/src/"]
+# Copy the rest of the app and build it
+COPY . .
+RUN npm run build --prod
 
-EXPOSE 3000
-
-CMD ["npm", "run" "dev"]
+# Use an Nginx image to serve the app
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
