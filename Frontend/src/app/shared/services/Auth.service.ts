@@ -23,7 +23,7 @@ export class AuthtenticationService {
   // Método para establecer el token en las cookies
   setTokenInCookie({ Id, Rol }: { Id: string, Rol: string }): void {
     // Aquí 'miToken' es el nombre de la cookie, ajusta según tus necesidades
-    this.cookieService.set('usuario', Id);
+    this.cookieService.set('Id', Id);
     this.cookieService.set('Rol', Rol);
     return;
   }
@@ -31,14 +31,14 @@ export class AuthtenticationService {
   // Método para obtener el token desde las cookies
   getTokenFromCookie(): {"usuario":string,"rol":string} {
     // Aquí 'miToken' es el nombre de la cookie, ajusta según tus necesidades
-    const usuario = {"usuario":this.cookieService.get('usuario'),"rol":this.cookieService.get('Rol')};
+    const usuario = {"usuario":this.cookieService.get('Id'),"rol":this.cookieService.get('Rol')};
     return usuario
   }
 
   // Método para eliminar el token de las cookies
   removeTokenFromCookie(): boolean {
     // Aquí 'miToken' es el nombre de la cookie, ajusta según tus necesidades
-    this.cookieService.delete('usuario');
+    this.cookieService.delete('Id');
     this.cookieService.delete('Rol');
     return true;
   }

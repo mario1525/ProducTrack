@@ -27,6 +27,23 @@ builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
 builder.Services.AddSingleton<DaoCompania>();
 builder.Services.AddSingleton<DaoUsuario>();
 builder.Services.AddSingleton<DaoUsuarioCredential>();
+builder.Services.AddSingleton<DaoArchivo>();
+builder.Services.AddSingleton<DaoArchivoVal>();
+builder.Services.AddSingleton<DaoLab>();
+builder.Services.AddSingleton<DaoLabCamp>();
+builder.Services.AddSingleton<DaoLabCampVal>();
+builder.Services.AddSingleton<DaoOrden>();
+builder.Services.AddSingleton<DaoOrdenCamp>();
+builder.Services.AddSingleton<DaoOrdenCampVal>();
+builder.Services.AddSingleton<DaoProcesEtap>();
+builder.Services.AddSingleton<DaoProceso>();
+builder.Services.AddSingleton<DaoProductCamp>();
+builder.Services.AddSingleton<DaoProductCampVal>();
+builder.Services.AddSingleton<DaoProducto>();
+builder.Services.AddSingleton<DaoRegisLabProcesEtap>();
+builder.Services.AddSingleton<DaoRegisOrden>();
+builder.Services.AddSingleton<DaoRegisProduct>();
+builder.Services.AddSingleton<DaoRegisProductProcesEtap>();
 
 //Entity
 builder.Services.AddSingleton<Compania>();
@@ -35,11 +52,32 @@ builder.Services.AddSingleton<Mensaje>();
 builder.Services.AddSingleton<UsuarioCredential>();
 builder.Services.AddSingleton<Login>();
 builder.Services.AddSingleton<Token>();
+builder.Services.AddSingleton<Archivo>();
+builder.Services.AddSingleton<ArchivoVal>();
+builder.Services.AddSingleton<Lab>();
+builder.Services.AddSingleton<LabCamp>();
+builder.Services.AddSingleton<LabCampVal>();
+builder.Services.AddSingleton<Orden>();
+builder.Services.AddSingleton<OrdenCamp>();
+builder.Services.AddSingleton<OrdenCampVal>();
+builder.Services.AddSingleton<Producto>();
+builder.Services.AddSingleton<ProcesEtap>();
+builder.Services.AddSingleton<Proceso>();
+builder.Services.AddSingleton<CreateProces>();
+builder.Services.AddSingleton<ProductCamp>();
+builder.Services.AddSingleton<ProductCampVal>();
+builder.Services.AddSingleton<Producto>();
+builder.Services.AddSingleton<RegisLabProcesEtap>();
+builder.Services.AddSingleton<RegisOrden>();
+builder.Services.AddSingleton<RegisProduct>();
+builder.Services.AddSingleton<RegisProductProcesEtap>();
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
 builder.Services.AddSingleton<UsuarioLogical>();
 builder.Services.AddSingleton<UsuarioCredentialLogical>();
+builder.Services.AddSingleton<ProcesoLogical>();
+builder.Services.AddSingleton<EtapaProcesoLogical>();
 
 //Middlewares
 builder.Services.AddSingleton<HashPassword>();
@@ -57,7 +95,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("MyPolicy",
         policy =>
         {
-            policy.WithOrigins("https://mine-to-plant.azurewebsites.net", "http://localhost:4200", "https://mine-to-plant.vercel.app", "https://mine-to-plant-dev.vercel.app")
+            policy.WithOrigins("http://localhost:4200")
                  .AllowAnyHeader()
                  .AllowAnyMethod();
         });
@@ -97,6 +135,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("MyPolicy");
 
 // Middleware de autenticación y autorización
 app.UseAuthentication();

@@ -216,7 +216,7 @@ namespace Data
                     Cargo = row["Cargo"].ToString(),
                     Correo = row["Correo"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    //Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                     // Asigna otras propiedades según tu DataTable
                 };

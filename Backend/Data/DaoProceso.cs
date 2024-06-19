@@ -11,27 +11,27 @@ namespace Data
         {
         }
 
-        public async Task<List<Proceso>> Get(string Id)
+        public async Task<List<Proceso>> Get(string Id, string IdCompania)
         {
             const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Proceso>> Gets()
+        public async Task<List<Proceso>> Gets(string IdCompania)
         {
             const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);

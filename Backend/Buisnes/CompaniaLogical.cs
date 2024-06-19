@@ -14,19 +14,19 @@ namespace Services
 
         public async Task<List<Compania>> GetCompania(String compania)
         {            
-            return await _daoCompania.GetCompania(compania);
+            return await _daoCompania.Get(compania);
         }
 
         public async Task<List<Compania>> GetCompanias()
         {
-            return await _daoCompania.GetCompanias();
+            return await _daoCompania.Gets();
         }
 
         public Mensaje CreateCompania(Compania compania)
         {
             Guid uid = Guid.NewGuid();
             compania.Id = uid.ToString();
-            _daoCompania.SetCompania("I", compania);
+            _daoCompania.Set("I", compania);
             Mensaje mensaje = new Mensaje();    
             mensaje.mensaje = uid.ToString();
             return mensaje;
@@ -35,7 +35,7 @@ namespace Services
 
         public Mensaje UpdateCompania(Compania compania)
         {
-            _daoCompania.SetCompania("A", compania);
+            _daoCompania.Set("A", compania);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "Comapañia actualizada";
             return mensaje;
@@ -44,7 +44,7 @@ namespace Services
 
         public Mensaje DeleteCompania(string Id)
         {
-            _daoCompania.DeleteCompania(Id);
+            _daoCompania.Delete(Id);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "Comapañia eliminada";
             return mensaje;
@@ -53,7 +53,7 @@ namespace Services
 
         public Mensaje ActiveCompania(string Id, int estado)
         {
-            _daoCompania.ActiveCompania(Id, estado);
+            _daoCompania.Active(Id, estado);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "se cambio el estado de la compañia";
             return mensaje;

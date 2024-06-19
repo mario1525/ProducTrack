@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
 
   private createmyformulario() {
     return this.fb.group({
-      usuario: [''],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      Usuario: [''],
+      Contrasenia: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
@@ -52,14 +52,14 @@ export class LoginComponent implements OnInit {
             alert(data.error);
             return;
           }
-          if (data.Rol == 'Cliente') {
+          if (data.Rol == 'Admin') {
             // Redirige al usuario a la página de inicio
             this.auth.setTokenInCookie(data)
-            this.route.navigate(['/app/home']); // Ajusta la ruta según tu estructura de la aplicación
+            this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           this.auth.setTokenInCookie(data)
-          this.route.navigate(['/app/home']); // Ajusta la ruta según tu estructura de la aplicación
+          this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
           return;
         },
         error: (error) => { console.log(error); alert('Usuario o contraseña incorrectos') }
