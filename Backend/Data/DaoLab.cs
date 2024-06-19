@@ -5,61 +5,67 @@ using System.Data;
 
 namespace Data
 {
-    public class DaoCompania : BaseDao<Compania>
+    public class DaoLab : BaseDao<Lab>
     {
-        public DaoCompania(SqlClient dbContext) : base(dbContext)
+        public DaoLab(SqlClient dbContext) : base(dbContext)
         {
         }
 
-        public async Task<List<Compania>> Get(string Id)
+        // Metodo Get
+        public async Task<List<Lab>> Get(string Id)
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpLabGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
-                new SqlParameter("@Estado", 1)
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Eliminado", 0)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Compania>> Gets()
+        // Metodo Gets
+        public async Task<List<Lab>> Gets()
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpLabGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
-                new SqlParameter("@Estado", 1)
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Eliminado", 0)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async void Set(string operacion, Compania compania)
+        // Metodo Set
+        public async void Set(string operacion, Lab lab)
         {
-            if (compania == null)
+            if (lab == null)
             {
-                throw new ArgumentNullException(nameof(compania));
+                throw new ArgumentNullException(nameof(lab));
             }
 
-            string procedureName = "dbo.dbSpCompaniaSet";
+            string procedureName = "dbo.dbSpLabSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", compania.Id),
-                new SqlParameter("@Nombre", compania.Nombre),
-                new SqlParameter("@NIT", compania.NIT),
-                new SqlParameter("@Direccion", compania.Direccion),
-                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Id", lab.Id),
+                new SqlParameter("@Nombre", lab.Nombre),
+                new SqlParameter("@IdCompania", lab.IdCompania),
+                new SqlParameter("@Estado", lab.Estado),
+                new SqlParameter("@Eliminado", lab.Eliminado),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Delete
         public async void Delete(string Id)
         {
-            string procedureName = "dbo.dbSpCompaniaDel";
+            string procedureName = "dbo.dbSpLabDel";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id)
@@ -67,9 +73,10 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Active
         public async void Active(string Id, int estado)
         {
-            string procedureName = "dbo.dbSpCompaniaActive";
+            string procedureName = "dbo.dbSpLabActive";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id),
@@ -78,25 +85,24 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
-        protected override List<Compania> MapDataTableToList(DataTable dataTable)
+        // Metodo para mapear DataTable a una lista de Lab
+        protected override List<Lab> MapDataTableToList(DataTable dataTable)
         {
-            List<Compania> companiaList = new List<Compania>();
+            List<Lab> labList = new List<Lab>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Compania compania = new Compania
+                Lab lab = new Lab
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    NIT = row["NIT"].ToString(),
-                    Direccion = row["Direccion"].ToString(),
+                    IdCompania = row["IdCompania"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
-                    // Asigna otras propiedades según tu DataTable
                 };
-                companiaList.Add(compania);
+                labList.Add(lab);
             }
-            return companiaList;
+            return labList;
         }
     }
 }

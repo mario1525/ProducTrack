@@ -1,16 +1,14 @@
 ﻿namespace Entity
 {
-    public class Compania
+    public class OrdenCamp
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
-        public string NIT { get; set; }
-        public string Direccion { get; set; }
+        public string TipoDato { get; set; }
+        public bool Obligatorio { get; set; }
+        public string IdOrden { get; set; }
         public bool Estado { get; set; }
         public bool Eliminado { get; set; }
         public DateTime Fecha_log { get; set; }
-
-        // Constructor vacío
-        public Compania() { }
     }
 }

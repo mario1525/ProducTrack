@@ -1,56 +1,55 @@
-﻿using Entity;
-using Data.SQLClient;
-using Microsoft.Data.SqlClient;
+﻿using Data.SQLClient;
+using Entity;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace Data
 {
-    public class DaoCompania : BaseDao<Compania>
+    public class DaoProceso : BaseDao<Proceso>
     {
-        public DaoCompania(SqlClient dbContext) : base(dbContext)
+        public DaoProceso(SqlClient dbContext) : base(dbContext)
         {
         }
 
-        public async Task<List<Compania>> Get(string Id)
+        public async Task<List<Proceso>> Get(string Id)
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Compania>> Gets()
+        public async Task<List<Proceso>> Gets()
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async void Set(string operacion, Compania compania)
+        public async void Set(string operacion, Proceso proceso)
         {
-            if (compania == null)
+            if (proceso == null)
             {
-                throw new ArgumentNullException(nameof(compania));
+                throw new ArgumentNullException(nameof(proceso));
             }
 
-            string procedureName = "dbo.dbSpCompaniaSet";
+            string procedureName = "dbo.dbSpProcesoSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", compania.Id),
-                new SqlParameter("@Nombre", compania.Nombre),
-                new SqlParameter("@NIT", compania.NIT),
-                new SqlParameter("@Direccion", compania.Direccion),
+                new SqlParameter("@Id", proceso.Id),
+                new SqlParameter("@Nombre", proceso.Nombre),
+                new SqlParameter("@IdCompania", proceso.IdCompania),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Operacion", operacion),
             };
@@ -59,7 +58,7 @@ namespace Data
 
         public async void Delete(string Id)
         {
-            string procedureName = "dbo.dbSpCompaniaDel";
+            string procedureName = "dbo.dbSpProcesoDel";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id)
@@ -69,7 +68,7 @@ namespace Data
 
         public async void Active(string Id, int estado)
         {
-            string procedureName = "dbo.dbSpCompaniaActive";
+            string procedureName = "dbo.dbSpProcesoActive";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id),
@@ -78,25 +77,24 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
-        protected override List<Compania> MapDataTableToList(DataTable dataTable)
+        protected override List<Proceso> MapDataTableToList(DataTable dataTable)
         {
-            List<Compania> companiaList = new List<Compania>();
+            List<Proceso> procesoList = new List<Proceso>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Compania compania = new Compania
+                Proceso proceso = new Proceso
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    NIT = row["NIT"].ToString(),
-                    Direccion = row["Direccion"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    IdCompania = row["NIT"].ToString(),
+                    Estado = row["Estado"].ToString(),
+                    Fecha_log = row["Fecha_log"].ToString(),
                     // Asigna otras propiedades según tu DataTable
                 };
-                companiaList.Add(compania);
+                procesoList.Add(proceso);
             }
-            return companiaList;
+            return procesoList;
         }
     }
 }
+

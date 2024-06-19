@@ -3,63 +3,67 @@ using Data.SQLClient;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
+
 namespace Data
 {
-    public class DaoCompania : BaseDao<Compania>
+    public class DaoOrden : BaseDao<Orden>
     {
-        public DaoCompania(SqlClient dbContext) : base(dbContext)
+        public DaoOrden(SqlClient dbContext) : base(dbContext)
         {
         }
 
-        public async Task<List<Compania>> Get(string Id)
+        // Metodo Get
+        public async Task<List<Orden>> Get(string Id)
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Compania>> Gets()
+        // Metodo Gets
+        public async Task<List<Orden>> Gets()
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async void Set(string operacion, Compania compania)
+        // Metodo Set
+        public async void Set(string operacion, Orden orden)
         {
-            if (compania == null)
+            if (orden == null)
             {
-                throw new ArgumentNullException(nameof(compania));
+                throw new ArgumentNullException(nameof(orden));
             }
 
-            string procedureName = "dbo.dbSpCompaniaSet";
+            string procedureName = "dbo.dbSpOrdenSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", compania.Id),
-                new SqlParameter("@Nombre", compania.Nombre),
-                new SqlParameter("@NIT", compania.NIT),
-                new SqlParameter("@Direccion", compania.Direccion),
-                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Id", orden.Id),
+                new SqlParameter("@Nombre", orden.Nombre),
+                new SqlParameter("@IdCompania", orden.IdCompania),
+                new SqlParameter("@Estado", orden.Estado),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Delete
         public async void Delete(string Id)
         {
-            string procedureName = "dbo.dbSpCompaniaDel";
+            string procedureName = "dbo.dbSpOrdenDel";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id)
@@ -67,9 +71,10 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Active
         public async void Active(string Id, int estado)
         {
-            string procedureName = "dbo.dbSpCompaniaActive";
+            string procedureName = "dbo.dbSpOrdenActive";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id),
@@ -78,25 +83,24 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
-        protected override List<Compania> MapDataTableToList(DataTable dataTable)
+        // Metodo para mapear DataTable a una lista de Orden
+        protected override List<Orden> MapDataTableToList(DataTable dataTable)
         {
-            List<Compania> companiaList = new List<Compania>();
+            List<Orden> ordenList = new List<Orden>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Compania compania = new Compania
+                Orden orden = new Orden
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    NIT = row["NIT"].ToString(),
-                    Direccion = row["Direccion"].ToString(),
+                    IdCompania = row["IdCompania"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
-                    // Asigna otras propiedades según tu DataTable
                 };
-                companiaList.Add(compania);
+                ordenList.Add(orden);
             }
-            return companiaList;
+            return ordenList;
         }
     }
 }

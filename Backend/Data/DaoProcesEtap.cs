@@ -1,65 +1,69 @@
-﻿using Entity;
+﻿using Entity; 
 using Data.SQLClient;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
+
 namespace Data
 {
-    public class DaoCompania : BaseDao<Compania>
+    public class DaoProcesEtap : BaseDao<ProcesEtap>
     {
-        public DaoCompania(SqlClient dbContext) : base(dbContext)
+        public DaoProcesEtap(SqlClient dbContext) : base(dbContext)
         {
         }
 
-        public async Task<List<Compania>> Get(string Id)
+        // Metodo Get
+        public async Task<List<ProcesEtap>> Get(string Id)
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpProcesEtapGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Compania>> Gets()
+        // Metodo Gets
+        public async Task<List<ProcesEtap>> Gets()
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
+            const string procedureName = "dbo.dbSpProcesEtapGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
+                new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
 
-        public async void Set(string operacion, Compania compania)
+        // Metodo Set
+        public async void Set(string operacion, ProcesEtap procesEtap)
         {
-            if (compania == null)
+            if (procesEtap == null)
             {
-                throw new ArgumentNullException(nameof(compania));
+                throw new ArgumentNullException(nameof(procesEtap));
             }
 
-            string procedureName = "dbo.dbSpCompaniaSet";
+            string procedureName = "dbo.dbSpProcesEtapSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", compania.Id),
-                new SqlParameter("@Nombre", compania.Nombre),
-                new SqlParameter("@NIT", compania.NIT),
-                new SqlParameter("@Direccion", compania.Direccion),
-                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Id", procesEtap.Id),
+                new SqlParameter("@Nombre", procesEtap.Nombre),
+                new SqlParameter("@IdProceso", procesEtap.IdProceso),
+                new SqlParameter("@Estado", procesEtap.Estado),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Delete
         public async void Delete(string Id)
         {
-            string procedureName = "dbo.dbSpCompaniaDel";
+            string procedureName = "dbo.dbSpProcesEtapDel";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id)
@@ -67,9 +71,10 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
+        // Metodo Active
         public async void Active(string Id, int estado)
         {
-            string procedureName = "dbo.dbSpCompaniaActive";
+            string procedureName = "dbo.dbSpProcesEtapActive";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id),
@@ -78,25 +83,24 @@ namespace Data
             await ExecuteProcedure(procedureName, parameters);
         }
 
-        protected override List<Compania> MapDataTableToList(DataTable dataTable)
+        // Metodo para mapear DataTable a una lista de ProcesEtap
+        protected override List<ProcesEtap> MapDataTableToList(DataTable dataTable)
         {
-            List<Compania> companiaList = new List<Compania>();
+            List<ProcesEtap> procesEtapList = new List<ProcesEtap>();
             foreach (DataRow row in dataTable.Rows)
             {
-                Compania compania = new Compania
+                ProcesEtap procesEtap = new ProcesEtap
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    NIT = row["NIT"].ToString(),
-                    Direccion = row["Direccion"].ToString(),
+                    IdProceso = row["IdProceso"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
-                    // Asigna otras propiedades según tu DataTable
                 };
-                companiaList.Add(compania);
+                procesEtapList.Add(procesEtap);
             }
-            return companiaList;
+            return procesEtapList;
         }
     }
 }
