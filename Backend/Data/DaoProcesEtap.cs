@@ -18,7 +18,7 @@ namespace Data
             const string procedureName = "dbo.dbSpProcesEtapGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProcesEtap", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdProceso", Id),
                 new SqlParameter("@Estado", 1)
@@ -32,7 +32,7 @@ namespace Data
             const string procedureName = "dbo.dbSpProcesEtapGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProcesEtap", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
@@ -95,8 +95,8 @@ namespace Data
                     Nombre = row["Nombre"].ToString(),
                     IdProceso = row["IdProceso"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    //Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 procesEtapList.Add(procesEtap);
             }

@@ -17,8 +17,9 @@ namespace Data
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
-                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@Nombre", ""),                
                 new SqlParameter("@NIT", ""),
+                new SqlParameter("@Direccion", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
@@ -32,6 +33,7 @@ namespace Data
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@NIT", ""),
+                new SqlParameter("@Direccion", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
@@ -90,7 +92,7 @@ namespace Data
                     NIT = row["NIT"].ToString(),
                     Direccion = row["Direccion"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    //Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                     // Asigna otras propiedades según tu DataTable
                 };

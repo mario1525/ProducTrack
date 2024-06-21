@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent {
-
+  navRoutes = [
+    { path: '/App/Compania', label: 'Compania' },
+    { path: '/App/Usuarios', label: 'Usuarios' },
+    { path: '/App/Productos', label: 'Productos' }
+  ];
 }

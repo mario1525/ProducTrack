@@ -1,0 +1,14 @@
+<main>
+    <div class="header-logo">
+        <h1 style="margin: 0; padding: 0;"><span style="color: #FFFFFF;">Product</span><span style="color: #52B4FA;">Track</span></h1>
+    </div>
+    <section>
+        <nav>
+            <button *ngFor="let route of routes" [routerLink]="route.path">
+              {{ route.label }}
+            </button>
+          </nav>
+    </section>
+</main>
+
+

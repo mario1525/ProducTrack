@@ -7,10 +7,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { LoginModule } from './module/login/login.module';
 import { HomeModule } from './module/home/home.module';
+import { CompaniaModule } from './module/compania/compania.module';
+import { UsuariosModule } from './module/usuarios/usuarios.module';
+import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './component/header/header.component';
+import { ProductosModule } from './module/productos/productos.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,    
+    HeaderComponent
   ],
   imports: [
     HttpClientModule,
@@ -18,7 +24,11 @@ import { HomeModule } from './module/home/home.module';
     AppRoutingModule,
     ReactiveFormsModule,
     LoginModule,
-    HomeModule
+    SharedModule,
+    HomeModule,
+    CompaniaModule,
+    UsuariosModule,
+    ProductosModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

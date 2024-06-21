@@ -13,6 +13,6 @@ namespace Entity
         public string IdProceso { get; set; }
         public bool Estado { get; set; }
         public bool Eliminado { get; set; }
-        public DateTime Fecha_log { get; set; }
+        public string Fecha_log { get; set; }
     }
 }

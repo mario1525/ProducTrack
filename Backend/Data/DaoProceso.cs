@@ -16,7 +16,7 @@ namespace Data
             const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdProceso", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
@@ -29,7 +29,7 @@ namespace Data
             const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
@@ -86,7 +86,7 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    IdCompania = row["NIT"].ToString(),
+                    IdCompania = row["IdCompania"].ToString(),
                     Estado = row["Estado"].ToString(),
                     Fecha_log = row["Fecha_log"].ToString(),
                     // Asigna otras propiedades según tu DataTable
