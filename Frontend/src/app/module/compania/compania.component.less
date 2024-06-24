@@ -1,0 +1,122 @@
+main {
+    font-family: sans-serif;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+  }
+  
+  section {
+    width: 100%;
+    height: 100%;
+  } 
+ 
+  table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 0px 0px 10px;
+    height: 100%;
+    border-collapse: collapse;
+    align-items: center;
+    min-width: 520px;
+    min-height: 520px;
+    overflow-x: auto;
+  }
+  
+  .contenedor_tabla {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 50px;
+    height: 100%;
+  }
+  .contenedor_tabla > h2 {
+    text-transform: capitalize;
+  }
+
+
+  //cabecera de la tabla
+  
+  thead {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    position: relative;
+    bottom: 1px;
+  }
+
+  thead > tr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    position: relative;
+  }
+  
+  thead > tr > td {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+    padding-right: 10px;
+    text-align: center;
+    border-bottom: 2px solid black;
+  }
+
+  //cuerpo de la tabla
+  
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    height: 80%;
+    align-items: center;
+    position: relative;
+  }
+  
+  tbody > tr :last-child {
+    display: flex;
+    border: none;
+    justify-content: flex-start;
+    padding-left: 5px;
+    width: 150px;
+    padding-right: 5px;
+  }
+  
+  tbody > tr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+  }
+  
+  tbody > tr > td {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 2px solid black;
+  }
+  .contenedor-tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }  

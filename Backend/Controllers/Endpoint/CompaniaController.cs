@@ -20,7 +20,7 @@ namespace Controllers.Endpoint
         // GET: api/<CompaniaController>
         [HttpGet]
         [Authorize]
-        public async  Task<List<Compania>> Get()
+        public async  Task<List<VistaCompania>> Get()
         {
             return await _CompaniaLogical.GetCompanias();
         }

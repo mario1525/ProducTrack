@@ -17,7 +17,7 @@ namespace Services
             return await _daoCompania.Get(compania);
         }
 
-        public async Task<List<Compania>> GetCompanias()
+        public async Task<List<VistaCompania>> GetCompanias()
         {
             return await _daoCompania.Gets();
         }

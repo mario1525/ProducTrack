@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthtenticationService } from 'src/app/shared/services/Auth.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { TokenserviceService } from 'src/app/shared/services/Token.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   token: any;
 
   // Inyecta el servicio AutenticacionService en el constructor
-  constructor(private fb: FormBuilder, private auth: AuthtenticationService, private route: Router) { }
+  constructor(private fb: FormBuilder, private Token : TokenserviceService, private auth: AuthtenticationService, private route: Router) { }
 
   ngOnInit(): void {
     this.myformulario = this.createmyformulario();
@@ -54,11 +55,11 @@ export class LoginComponent implements OnInit {
           }
           if (data.Rol == 'Admin') {
             // Redirige al usuario a la página de inicio
-            this.auth.setTokenInCookie(data)
+            this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
-          this.auth.setTokenInCookie(data)
+          this.Token.setTokenInCookie(data)
           this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
           return;
         },

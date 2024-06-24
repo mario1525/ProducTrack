@@ -12,6 +12,7 @@ BEGIN
 	DROP PROCEDURE dbo.dbSpCompaniaSet
 	DROP PROCEDURE dbo.dbSpCompaniaDet
 	DROP PROCEDURE dbo.dbSpCompaniaActive
+    DROP PROCEDURE dbo.dbSpCompaniaGetVista
 END
 
 PRINT 'Creacion procedimiento Compania Get '
@@ -92,3 +93,26 @@ BEGIN
     WHERE Id = @Id
 END
 GO
+
+PRINT 'Creacion procedimiento Compania Get vista'
+GO
+CREATE PROCEDURE dbo.dbSpCompaniaGetVista  
+AS 
+BEGIN
+    SELECT C.Id AS ID, C.Nombre AS Compania,
+		COUNT(U.Id) AS NumeroDeUsuarios,
+		COUNT(RO.Id) AS NOrdenesRegis, 
+		COUNT(RP.Id) AS NProductosRegis,
+		C.Fecha_log
+	FROM Compania C
+		LEFT JOIN Usuario U ON C.Id = U.IdCompania
+		LEFT JOIN Orden O ON C.Id = O.IdCompania
+		LEFT JOIN RegisOrden RO ON C.Id = O.Id
+		LEFT JOIN Producto P ON C.Id = p.IdCompania
+		LEFT JOIN RegisOrden RP ON C.Id = P.Id
+	WHERE C.Eliminado = 0
+	GROUP BY C.Nombre, C.Id, C.Fecha_log	
+	ORDER BY NumeroDeUsuarios DESC;	
+END
+GO
+

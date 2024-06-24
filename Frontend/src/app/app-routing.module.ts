@@ -6,6 +6,9 @@ import { HomeComponent } from './module/home/home.component';
 import { CompaniaComponent } from './module/compania/compania.component';
 import { UsuariosComponent } from './module/usuarios/usuarios.component';
 import { ProductosComponent } from './module/productos/productos.component';
+import { ProcesosComponent } from './module/procesos/procesos.component';
+import { OrdenesComponent } from './module/ordenes/ordenes.component';
+import { LaboratoriosComponent } from './module/laboratorios/laboratorios.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,7 +16,10 @@ const routes: Routes = [
     { path: 'App/Home', component: HomeComponent},
     { path: 'App/Compania', component: CompaniaComponent},
     { path: 'App/Usuarios', component: UsuariosComponent},
-    { path: 'App/Productos', component: ProductosComponent}      
+    { path: 'App/Productos', component: ProductosComponent},
+    { path: 'App/Procesos', component: ProcesosComponent},
+    { path: 'App/Ordenes', component: OrdenesComponent},
+    { path: 'App/Laboratorios', component: LaboratoriosComponent}      
   
   ];
   

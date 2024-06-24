@@ -25,19 +25,30 @@ namespace Data
             return await GetList(procedureName, parameters);
         }
 
-        public async Task<List<Compania>> Gets()
+        public async Task<List<VistaCompania>> Gets()
         {
-            const string procedureName = "dbo.dbSpCompaniaGet";
-            var parameters = new[]
+            const string procedureName = "dbo.dbSpCompaniaGetVista";
+
+            DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName);
+            List<VistaCompania> companiaList = new List<VistaCompania>();
+            foreach (DataRow row in dataTable.Rows)
             {
-                new SqlParameter("@Id", ""),
-                new SqlParameter("@Nombre", ""),
-                new SqlParameter("@NIT", ""),
-                new SqlParameter("@Direccion", ""),
-                new SqlParameter("@Estado", 1)
-            };
-            return await GetList(procedureName, parameters);
+                VistaCompania compania = new VistaCompania
+                {
+                    Id = row["Id"].ToString(),
+                    Compania = row["Compania"].ToString(),
+                    NumeroDeUsuarios = row["NumeroDeUsuarios"].ToString(),
+                    NOrdenesRegis = row["NOrdenesRegis"].ToString(),
+                    NProductosRegis = row["NProductosRegis"].ToString(),                    
+                    Fecha_log = row["Fecha_log"].ToString(),
+                   
+                };
+                companiaList.Add(compania);
+            }
+            return companiaList;
         }
+          
+        
 
         public async void Set(string operacion, Compania compania)
         {

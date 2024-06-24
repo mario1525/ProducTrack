@@ -47,6 +47,7 @@ builder.Services.AddSingleton<DaoRegisProductProcesEtap>();
 
 //Entity
 builder.Services.AddSingleton<Compania>();
+builder.Services.AddSingleton<VistaCompania>();
 builder.Services.AddSingleton<Usuario>();
 builder.Services.AddSingleton<Mensaje>();
 builder.Services.AddSingleton<UsuarioCredential>();

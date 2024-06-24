@@ -12,11 +12,15 @@ import { UsuariosModule } from './module/usuarios/usuarios.module';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './component/header/header.component';
 import { ProductosModule } from './module/productos/productos.module';
+import { LaboratoriosModule } from './module/laboratorios/laboratorios.module';
+import { ProcesosModule } from './module/procesos/procesos.module';
+import { OrdenesModule } from './module/ordenes/ordenes.module';
 
 @NgModule({
   declarations: [
     AppComponent,    
-    HeaderComponent
+    HeaderComponent,  
+
   ],
   imports: [
     HttpClientModule,
@@ -26,6 +30,9 @@ import { ProductosModule } from './module/productos/productos.module';
     LoginModule,
     SharedModule,
     HomeModule,
+    LaboratoriosModule,
+    ProcesosModule,
+    OrdenesModule,
     CompaniaModule,
     UsuariosModule,
     ProductosModule,
