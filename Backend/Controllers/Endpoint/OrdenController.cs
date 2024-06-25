@@ -7,43 +7,51 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/Proceso")]
+    [Route("api/Orden")]
     [ApiController]
-    public class ProcesoController : ControllerBase
+    public class OrdenController : ControllerBase
     {
-        private readonly ProcesoLogical _Logical;
+        private readonly OrdenLogical _Logical;
 
-        public ProcesoController(ProcesoLogical procesoLogical)
+        public OrdenController(OrdenLogical logical)
         {
-            _Logical = procesoLogical;
+            _Logical = logical;
         }
 
-        // GET: api/<ProcesoController>/5
-        [HttpGet("{idCompania}")]
+
+        // GET: api/<OrdenController>/5
+        [HttpGet("{id}")]
         [Authorize]
-        public async Task<List<Proceso>> Get(string id)
+        public async Task<List<Orden>> Get(string id)
         {
             return await _Logical.Gets(id);
         }
 
-        // POST api/<ProcesoController>
+        // GET api/<OrdenController>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST api/<OrdenController>
         [HttpPost]
         [Authorize]
-        public Mensaje Post([FromBody] CreateProces value)
+        public Mensaje Post([FromBody] CreateOrden value)
         {
             return _Logical.Create(value);
         }
 
-        // PUT api/<ProcesoController>/5
+        // PUT api/<OrdenController>/5
         [HttpPut("{id}")]
         [Authorize]
-        public Mensaje Put(string id, [FromBody] Proceso value)
+        public Mensaje Put(string id, [FromBody] Orden value)
         {
             value.Id = id;
             return _Logical.Update(value);
         }
 
-        // DELETE api/<ProcesoController>/5
+        // DELETE api/<OrdenController>/5
         [HttpDelete("{id}")]
         [Authorize]
         public Mensaje Delete(string id)

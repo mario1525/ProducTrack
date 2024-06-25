@@ -16,9 +16,9 @@ namespace Services
 
         }
 
-        public async Task<List<Proceso>> Gets(String IdCompania)
+        public async Task<List<Proceso>> Gets(string IdCompania)
         {
-            return await _DataProces.Gets(IdCompania);
+             return await _DataProces.Gets(IdCompania);
         }
 
         public Mensaje Create(CreateProces Process)

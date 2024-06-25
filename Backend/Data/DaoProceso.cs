@@ -11,14 +11,14 @@ namespace Data
         {
         }
 
-        public async Task<List<Proceso>> Get(string Id, string IdCompania)
+        public async Task<List<Proceso>> Get(string Id)
         {
             const string procedureName = "dbo.dbSpProcesoGet";
             var parameters = new[]
             {
                 new SqlParameter("@IdProceso", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", IdCompania),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);

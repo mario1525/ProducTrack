@@ -27,14 +27,14 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<Orden>> Gets()
+        public async Task<List<Orden>> Gets(string IdCompania)
         {
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
@@ -93,10 +93,10 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    IdCompania = row["IdCompania"].ToString(),
+                    IdCompania = row["Compania"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString(),
                 };
                 ordenList.Add(orden);
             }

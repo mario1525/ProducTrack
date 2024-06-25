@@ -24,13 +24,14 @@ CREATE PROCEDURE dbo.dbSpOrdenGet
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, Nombre, IdCompania, Estado, Fecha_log     
-    FROM dbo.Orden
-    WHERE Id = CASE WHEN ISNULL(@IdOrden,'')='' THEN Id ELSE @IdOrden END
-    AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
-    AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
-    AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
-    AND Eliminado = 0
+    SELECT O.Id, O.Nombre, C.Nombre AS Compania, O.Estado, O.Fecha_log     
+    FROM Orden O
+	LEFT JOIN Compania C ON O.IdCompania = C.Id
+    WHERE O.Id = CASE WHEN ISNULL(@IdOrden,'')='' THEN O.Id ELSE @IdOrden END
+    AND O.Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN O.Nombre ELSE '%'+@Nombre+'%' END
+    AND O.IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN O.IdCompania ELSE @IdCompania END
+    AND O.Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
+    AND O.Eliminado = 0
 END
 
 GO
