@@ -7,7 +7,7 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/ORdenCamp")]
+    [Route("api/Orden/Campo")]
     [ApiController]
     public class OrdenCampController : ControllerBase
     {
@@ -18,7 +18,8 @@ namespace Controllers.Endpoint
             _Logical = logical;
         }
         // GET api/<OrdenCampController>/5
-        [HttpGet("{idProceso}")]
+        [HttpGet("{idOrden}")]
+        [Authorize]
         public async Task<List<OrdenCamp>> Get(string idOrden)
         {
             return await _Logical.Gets(idOrden);

@@ -30,7 +30,7 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<LabCamp>> Gets()
+        public async Task<List<LabCamp>> Gets(string IdLab)
         {
             const string procedureName = "dbo.dbSpLabCampGet";
             var parameters = new[]
@@ -40,7 +40,7 @@ namespace Data
                 new SqlParameter("@TipoDato", ""),
                 new SqlParameter("@UnidadMedida", ""),
                 new SqlParameter("@Obligatorio", 0),
-                new SqlParameter("@IdLab", ""),
+                new SqlParameter("@IdLab", IdLab),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Eliminado", 0)
             };

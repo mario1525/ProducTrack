@@ -18,7 +18,7 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdOrden", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@Estado", 1)
@@ -32,7 +32,7 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@Estado", 1)
@@ -95,7 +95,7 @@ namespace Data
                     Nombre = row["Nombre"].ToString(),
                     IdCompania = row["Compania"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    //Eliminado = Convert.ToBoolean(row["Eliminado"]),
                     Fecha_log = row["Fecha_log"].ToString(),
                 };
                 ordenList.Add(orden);

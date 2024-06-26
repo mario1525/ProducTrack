@@ -1,42 +1,41 @@
 ﻿
 
-using Azure;
 using Data;
 using Entity;
 
 namespace Services
 {
-    public class OrdenLogical
+    public class ProductLogical
     {
-        private readonly DaoOrden _orden;
-        private readonly DaoOrdenCamp _camp;
+        private readonly DaoProducto  _Dao;
+        private readonly DaoProductCamp _camp;
 
-        public OrdenLogical(DaoOrden orden, DaoOrdenCamp camp)
+        public ProductLogical(DaoProducto orden, DaoProductCamp camp)
         {
-            _orden = orden;
+            _Dao = orden;
             _camp = camp;
         }
 
-        public async Task<List<Orden>> Gets(string IdCompania)
+        public async Task<List<Producto>> Gets(string IdCompania)
         {
-            return await _orden.Gets(IdCompania);
+            return await _Dao.Gets(IdCompania);
         }
 
-        public async Task<List<Orden>> Get(string Id)
+        public async Task<List<Producto>> Get(string Id)
         {
-            return await _orden.Get(Id);
+            return await _Dao.Get(Id);
         }
 
-        public Mensaje Create(CreateOrden Orden)
+        public Mensaje Create(CreateProduct Value)
         {
             Guid uid = Guid.NewGuid();
-            Orden.Orden.Id = uid.ToString();
-            _orden.Set("I", Orden.Orden);
-            foreach (OrdenCamp campo in Orden.Campos)
+            Value.producto.Id = uid.ToString();
+            _Dao.Set("I", Value.producto);
+            foreach (ProductCamp campo in Value.campos)
             {
                 Guid uidCamp = Guid.NewGuid();
                 campo.Id = uidCamp.ToString();
-                campo.IdOrden = uid.ToString();
+                campo.IdProduct = uid.ToString();
                 _camp.Set("I", campo);
             }
 
@@ -46,9 +45,9 @@ namespace Services
 
         }
 
-        public Mensaje Update(Orden value)
+        public Mensaje Update(Producto value)
         {
-            _orden.Set("A", value);
+            _Dao.Set("A", value);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;
@@ -57,7 +56,7 @@ namespace Services
 
         public Mensaje Delete(string Id)
         {
-            _orden.Delete(Id);
+            _Dao.Delete(Id);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "eliminado";
             return mensaje;
@@ -65,7 +64,7 @@ namespace Services
 
         public Mensaje Active(string Id, int estado)
         {
-            _orden.Active(Id, estado);
+            _Dao.Active(Id, estado);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "estado actualizado";
             return mensaje;

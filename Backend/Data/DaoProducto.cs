@@ -28,14 +28,14 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<Producto>> Gets()
+        public async Task<List<Producto>> Gets(string IdCompania)
         {
             const string procedureName = "dbo.dbSpProductoGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Eliminado", 0)

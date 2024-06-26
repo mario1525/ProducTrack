@@ -7,8 +7,7 @@
         public string TipoDato { get; set; }
         public bool Obligatorio { get; set; }
         public string IdOrden { get; set; }
-        public bool Estado { get; set; }
-        public bool Eliminado { get; set; }
+        public bool Estado { get; set; }        
         public DateTime Fecha_log { get; set; }
     }
 }

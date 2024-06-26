@@ -7,44 +7,44 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/Orden")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class OrdenController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly OrdenLogical _Logical;
+        private readonly ProductLogical _Logical;
 
-        public OrdenController(OrdenLogical logical)
+        public ProductController(ProductLogical logical)
         {
             _Logical = logical;
         }
 
 
-        // GET: api/<OrdenController>/5
+        // GET: api/<ProductController>/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<List<Orden>> Get(string id)
+        public async Task<List<Producto>> Get(string id)
         {
             return await _Logical.Gets(id);
-        }      
+        }
 
-        // POST api/<OrdenController>
+        // POST api/<ProductController>
         [HttpPost]
         [Authorize]
-        public Mensaje Post([FromBody] CreateOrden value)
+        public Mensaje Post([FromBody] CreateProduct value)
         {
             return _Logical.Create(value);
         }
 
-        // PUT api/<OrdenController>/5
+        // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         [Authorize]
-        public Mensaje Put(string id, [FromBody] Orden value)
+        public Mensaje Put(string id, [FromBody] Producto value)
         {
             value.Id = id;
             return _Logical.Update(value);
         }
 
-        // DELETE api/<OrdenController>/5
+        // DELETE api/<labController>/5
         [HttpDelete("{id}")]
         [Authorize]
         public Mensaje Delete(string id)

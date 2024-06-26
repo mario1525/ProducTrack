@@ -7,44 +7,43 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/Orden")]
+    [Route("api/Product/Campo")]
     [ApiController]
-    public class OrdenController : ControllerBase
+    public class ProductCampController : ControllerBase
     {
-        private readonly OrdenLogical _Logical;
-
-        public OrdenController(OrdenLogical logical)
+        private readonly ProductCampLogical _Logical;
+        public ProductCampController(ProductCampLogical camp)
         {
-            _Logical = logical;
+            _Logical = camp;
         }
 
-
-        // GET: api/<OrdenController>/5
-        [HttpGet("{id}")]
+        // GET api/<ProductCampController>/5
+        [HttpGet("{idOrden}")]
         [Authorize]
-        public async Task<List<Orden>> Get(string id)
+        public async Task<List<ProductCamp>> Get(string idProduct)
         {
-            return await _Logical.Gets(id);
-        }      
+            return await _Logical.Gets(idProduct);
+        }
 
-        // POST api/<OrdenController>
+        // POST api/<ProductCampController>
         [HttpPost]
         [Authorize]
-        public Mensaje Post([FromBody] CreateOrden value)
+        public Mensaje Post([FromBody] ProductCamp value)
         {
             return _Logical.Create(value);
         }
 
-        // PUT api/<OrdenController>/5
+
+        // PUT api/<ProductCampController>/5
         [HttpPut("{id}")]
         [Authorize]
-        public Mensaje Put(string id, [FromBody] Orden value)
+        public Mensaje Put(string id, [FromBody] ProductCamp value)
         {
             value.Id = id;
             return _Logical.Update(value);
         }
 
-        // DELETE api/<OrdenController>/5
+        // DELETE api/<productCampController>/5
         [HttpDelete("{id}")]
         [Authorize]
         public Mensaje Delete(string id)

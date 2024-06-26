@@ -29,7 +29,7 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<ProductCamp>> Gets()
+        public async Task<List<ProductCamp>> Gets(string IdOrden)
         {
             const string procedureName = "dbo.dbSpProductCampGet";
             var parameters = new[]

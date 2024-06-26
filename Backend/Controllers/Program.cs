@@ -65,6 +65,8 @@ builder.Services.AddSingleton<Producto>();
 builder.Services.AddSingleton<ProcesEtap>();
 builder.Services.AddSingleton<Proceso>();
 builder.Services.AddSingleton<CreateProces>();
+builder.Services.AddSingleton<CreateOrden>();
+builder.Services.AddSingleton<CreateLab>();
 builder.Services.AddSingleton<ProductCamp>();
 builder.Services.AddSingleton<ProductCampVal>();
 builder.Services.AddSingleton<Producto>();
@@ -78,6 +80,10 @@ builder.Services.AddSingleton<CompaniaLogical>();
 builder.Services.AddSingleton<UsuarioLogical>();
 builder.Services.AddSingleton<UsuarioCredentialLogical>();
 builder.Services.AddSingleton<ProcesoLogical>();
+builder.Services.AddSingleton<OrdenLogical>();
+builder.Services.AddSingleton<OrdenCampLogical>();
+builder.Services.AddSingleton<LabLogical>();
+builder.Services.AddSingleton<LabCampLogical>();
 builder.Services.AddSingleton<EtapaProcesoLogical>();
 
 //Middlewares

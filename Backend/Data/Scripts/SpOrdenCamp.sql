@@ -23,7 +23,7 @@ CREATE PROCEDURE dbo.dbSpOrdenCampGet
     @IdOrdenCamp VARCHAR(36),
     @Nombre VARCHAR(255),
     @TipoDato VARCHAR(60),
-    @Obligatorio BIT,
+    @Obligatorio INT,
     @IdOrden VARCHAR(36),
     @Estado INT
 AS 

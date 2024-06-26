@@ -17,10 +17,10 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenCampGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdOrdenCamp", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", 0),
+                new SqlParameter("@Obligatorio", 1),
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -33,10 +33,10 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenCampGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdOrdenCamp", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", 0),
+                new SqlParameter("@Obligatorio", 1),
                 new SqlParameter("@IdOrden", IdOrden),
                 new SqlParameter("@Estado", 1)
             };
@@ -101,8 +101,7 @@ namespace Data
                     TipoDato = row["TipoDato"].ToString(),
                     Obligatorio = Convert.ToBoolean(row["Obligatorio"]),
                     IdOrden = row["IdOrden"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                 };
                 ordenCampList.Add(ordenCamp);

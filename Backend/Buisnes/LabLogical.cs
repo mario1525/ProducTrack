@@ -1,42 +1,40 @@
 ﻿
 
-using Azure;
 using Data;
 using Entity;
 
 namespace Services
-{
-    public class OrdenLogical
+{    public class LabLogical
     {
-        private readonly DaoOrden _orden;
-        private readonly DaoOrdenCamp _camp;
+        private readonly DaoLab _lab;
+        private readonly DaoLabCamp _camp;
 
-        public OrdenLogical(DaoOrden orden, DaoOrdenCamp camp)
+        public LabLogical(DaoLab orden, DaoLabCamp camp)
         {
-            _orden = orden;
+            _lab = orden;
             _camp = camp;
         }
 
-        public async Task<List<Orden>> Gets(string IdCompania)
+        public async Task<List<Lab>> Gets(string IdCompania)
         {
-            return await _orden.Gets(IdCompania);
+            return await _lab.Gets(IdCompania);
         }
 
-        public async Task<List<Orden>> Get(string Id)
+        public async Task<List<Lab>> Get(string Id)
         {
-            return await _orden.Get(Id);
+            return await _lab.Get(Id);
         }
 
-        public Mensaje Create(CreateOrden Orden)
+        public Mensaje Create(CreateLab Value)
         {
             Guid uid = Guid.NewGuid();
-            Orden.Orden.Id = uid.ToString();
-            _orden.Set("I", Orden.Orden);
-            foreach (OrdenCamp campo in Orden.Campos)
+            Value.Lab.Id = uid.ToString();
+            _lab.Set("I", Value.Lab);
+            foreach (LabCamp campo in Value.Campos)
             {
                 Guid uidCamp = Guid.NewGuid();
                 campo.Id = uidCamp.ToString();
-                campo.IdOrden = uid.ToString();
+                campo.IdLab = uid.ToString();
                 _camp.Set("I", campo);
             }
 
@@ -46,9 +44,9 @@ namespace Services
 
         }
 
-        public Mensaje Update(Orden value)
+        public Mensaje Update(Lab value)
         {
-            _orden.Set("A", value);
+            _lab.Set("A", value);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;
@@ -57,7 +55,7 @@ namespace Services
 
         public Mensaje Delete(string Id)
         {
-            _orden.Delete(Id);
+            _lab.Delete(Id);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "eliminado";
             return mensaje;
@@ -65,7 +63,7 @@ namespace Services
 
         public Mensaje Active(string Id, int estado)
         {
-            _orden.Active(Id, estado);
+            _lab.Active(Id, estado);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "estado actualizado";
             return mensaje;
