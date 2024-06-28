@@ -20,6 +20,7 @@ namespace Controllers.Endpoint
 
         // GET api/<EtapaController>/5
         [HttpGet("{idProceso}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<ProcesEtap>> Get(string idProceso)
         {
             return await _Logical.Gets(idProceso);
@@ -27,7 +28,7 @@ namespace Controllers.Endpoint
 
         // POST api/<EtapaController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] ProcesEtap value)
         {
             return _Logical.Create(value);
@@ -36,7 +37,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<EtapaController>/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] ProcesEtap value)
         {
             value.Id = id;
@@ -45,7 +46,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<EtapaController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
         {
             return _Logical.Delete(id);

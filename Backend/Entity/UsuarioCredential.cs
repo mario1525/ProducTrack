@@ -6,9 +6,8 @@
         public string Usuario { get; set; }
         public string Contrasenia { get; set; }
         public string IdUsuario { get; set; }
-        public bool Estado { get; set; }
-        public bool Eliminado { get; set; }
-        public DateTime Fecha_log { get; set; }
+        public string Estado { get; set; }     
+        public string Fecha_log { get; set; }
 
         // Constructor vacío
         public UsuarioCredential() { }

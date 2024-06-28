@@ -21,7 +21,7 @@ namespace Controllers.Endpoint
 
         // GET: api/<ProductController>/5
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Producto>> Get(string id)
         {
             return await _Logical.Gets(id);
@@ -29,7 +29,7 @@ namespace Controllers.Endpoint
 
         // POST api/<ProductController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] CreateProduct value)
         {
             return _Logical.Create(value);
@@ -37,7 +37,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] Producto value)
         {
             value.Id = id;
@@ -46,7 +46,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<labController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
         {
             return _Logical.Delete(id);

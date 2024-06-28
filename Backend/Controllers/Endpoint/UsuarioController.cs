@@ -19,7 +19,7 @@ namespace Controllers.Endpoint
         }
         // GET: api/<UsuarioController>
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<List<Usuario>> Get()
         {
             return await _UserLogical.GetUsuarios();
@@ -27,7 +27,7 @@ namespace Controllers.Endpoint
 
         // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Usuario>> Get(string id)
         {
             return await _UserLogical.GetUsuario(id) ;
@@ -35,7 +35,7 @@ namespace Controllers.Endpoint
 
         // POST api/<UsuarioController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] Usuario value)
         {
             return _UserLogical.CreateUsuario(value);
@@ -43,7 +43,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<UsuarioController>/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public  Mensaje Put(string id, [FromBody] Usuario value)
         {
             value.Id = id;
@@ -52,7 +52,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<UsuarioController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
         {
             return _UserLogical.DeleteUsuario(id);

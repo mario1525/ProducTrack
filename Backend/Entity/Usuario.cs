@@ -9,9 +9,8 @@
         public string IdCompania { get; set; }
         public string Cargo { get; set; }
         public string Rol { get; set; }
-        public bool Estado { get; set; }
-        public bool Eliminado { get; set; }
-        public DateTime Fecha_log { get; set; }
+        public string Estado { get; set; }       
+        public string Fecha_log { get; set; }
 
         // Constructor vacío
         public Usuario() { }

@@ -215,9 +215,9 @@ namespace Data
                     Rol = row["Rol"].ToString(),
                     Cargo = row["Cargo"].ToString(),
                     Correo = row["Correo"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
+                    Estado = row["Estado"].ToString(),
                     //Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString()
                     // Asigna otras propiedades según tu DataTable
                 };
                 usuariosList.Add(usuario);

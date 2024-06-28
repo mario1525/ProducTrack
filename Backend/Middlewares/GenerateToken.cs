@@ -27,9 +27,9 @@ namespace Middlewares
             var claims = new[]
             {
                  new Claim(JwtRegisteredClaimNames.Sub, user.Nombre),
-                 new Claim("Rol", user.Rol),
+                 new Claim(ClaimTypes.Role, user.Rol),
                  new Claim("IdCompania", user.IdCompania),
-                 new Claim("Id", user.Id),
+                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 // Puedes agregar más claims según tus necesidades
             };

@@ -133,9 +133,9 @@ namespace Data
                     Usuario = row["Id"].ToString(),
                     Contrasenia = row["Contrasenia"].ToString(),
                     IdUsuario = row["IdUsuario"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
+                    Estado = row["Estado"].ToString(),
                     //Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString()
                     // Asigna otras propiedades según tu DataTable
                 };
                 usuariosList.Add(usuario);

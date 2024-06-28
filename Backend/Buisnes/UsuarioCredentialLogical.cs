@@ -21,9 +21,11 @@ namespace Services
 
         public async Task<Token> Login(Login login)
         {
-            List<UsuarioCredential> credential = await _daoCredential.GetUserName(login.Usuario);
+            List<UsuarioCredential> credential = await _daoCredential.GetUserName(login.Usuario);            
             if (credential != null)
             {
+                Console.WriteLine("usuario encontrado");
+                Console.WriteLine(credential[0].Contrasenia);
                 bool acep = _password.VerifyPassword(login.Contrasenia, credential[0].Contrasenia);
                 if (acep)
                 {

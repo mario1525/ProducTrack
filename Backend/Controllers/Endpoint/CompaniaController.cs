@@ -19,15 +19,15 @@ namespace Controllers.Endpoint
         }
         // GET: api/<CompaniaController>
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async  Task<List<VistaCompania>> Get()
         {
             return await _CompaniaLogical.GetCompanias();
         }
 
         // GET api/<CompaniaController>/5
-        [HttpGet("{id}")]
-        [Authorize]
+        [HttpGet("{id}")]       
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Compania>> Get(string id)
         {
             
@@ -37,7 +37,7 @@ namespace Controllers.Endpoint
 
         // POST api/<CompaniaController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public Mensaje Post([FromBody] Compania compania)
         {
             return _CompaniaLogical.CreateCompania(compania);
@@ -45,7 +45,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<CompaniaController>/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public Mensaje Put(string id, [FromBody] Compania compania)
         {
             compania.Id = id;
@@ -54,7 +54,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<CompaniaController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public Mensaje Delete(string id)
         {
             return _CompaniaLogical.DeleteCompania(id);

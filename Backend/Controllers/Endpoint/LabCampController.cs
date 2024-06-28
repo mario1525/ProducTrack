@@ -19,7 +19,7 @@ namespace Controllers.Endpoint
 
         // GET api/<labCampController>/5
         [HttpGet("{idOrden}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<LabCamp>> Get(string idOrden)
         {
             return await _Logical.Gets(idOrden);
@@ -27,7 +27,7 @@ namespace Controllers.Endpoint
 
         // POST api/<labCampController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] LabCamp value)
         {
             return _Logical.Create(value);
@@ -36,7 +36,7 @@ namespace Controllers.Endpoint
 
         // PUT api/<labCampController>/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] LabCamp value)
         {
             value.Id = id;
@@ -45,7 +45,7 @@ namespace Controllers.Endpoint
 
         // DELETE api/<labCampController>/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
         {
             return _Logical.Delete(id);
