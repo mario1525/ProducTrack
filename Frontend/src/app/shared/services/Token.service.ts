@@ -56,9 +56,10 @@ export class TokenserviceService {
   }
 
   // Método para obtener el token desde las cookies
-  getTokenFromCookie(): { token: string } {
+  getTokenFromCookie(): string  {
     const token = { token: this.cookieService.get('token') };
-    return token;
+    console.log(token.token)
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXJpbyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiSWRDb21wYW5pYSI6ImQ3ZjllZmI5LTU3Y2QtNDk3ZS1iYTMwLWMxOTRhMzIxZWZpcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNmQ0YWJlNDMtZWU3OS00OTg5LTkzYWQtNDRhNzQ5MGY4NzFkIiwianRpIjoiMWZjMTczM2QtOWMxMi00NmRkLWE2OTctOTBkMGY3OTg3MjU3IiwiZXhwIjoxNzE5NjU1NTE5NjA2LCJpc3MiOiJtYXJpaWpkYWgiLCJhdWQiOiJhc2RmaWlpZWxzZGoifQ.RAp3Yuh0-P3jzEOFaIzdZVmYN800wPsbBl55xsqeuaY";
   }
 
   // Método para eliminar el token de las cookies

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   navRoutes = [
-    { path: '/App/Compania', label: 'Compania' },
+    { path: '/App/Companias', label: 'Compania' },
     { path: '/App/Usuarios', label: 'Usuarios' },
     { path: '/App/Productos', label: 'Productos' },
     { path: '/App/Procesos', label: 'Procesos' },

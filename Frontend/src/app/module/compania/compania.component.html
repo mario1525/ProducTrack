@@ -1,28 +1,30 @@
-<main>    
-    <section>
-        <div class="contenedor_tabla">
-          <h2>Companias</h2>
+<main> 
+  <app-nav-menu [routes]="navRoutes"></app-nav-menu>   
+    <section>      
+        <div class="table-container">
+          <div class="header">
+            <h2>Compañías</h2>
+            <button class="add-button">Agregar</button>
+          </div>
           <table>
             <thead>
-              <tr>
-                <td id="#index">Num</td>
-                <td>ID</td>
-                <td>Proceso</td>
-                <td>Producto</td>
-                <td>Fecha de Proceso</td>
-                <td>Fecha de solicitud</td>
-                <td></td>
+              <tr>  
+                <th></th>              
+                <th>Nombre</th>
+                <th>N.ordenes</th>
+                <th>N.Productos</th>
+                <th>N.Usuarios</th>
+                <th>F Creación</th>
               </tr>
             </thead>
-            <tbody *ngIf="datos_Companias.length">
-              <tr *ngFor="let datos of datos_Companias; let indice = index;">
-                <td id="#index">{{indice+1}}</td>
-                <td>{{datos.Id}}</td>
+            <tbody *ngIf="datos_Companias.length">              
+              <tr *ngFor="let datos of datos_Companias; let indice = index;"> 
+                <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="redirecCompaniadetalle(indice)" /></td>          
                 <td>{{datos.compania}}</td>
                 <td>{{datos.numeroDeUsuarios}}</td>
                 <td>{{datos.nOrdenesRegis}}</td>
                 <td>{{datos.nProductosRegis}}</td>
-                <td>{{datos.fecha_log}}</td>                
+                <td>{{datos.fecha_log  }}</td>                
               </tr>
             </tbody>
           </table>

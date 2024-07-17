@@ -1,0 +1,126 @@
+<main>
+  <app-nav-menu [routes]="navRoutes"></app-nav-menu>   
+  <div class="dashboard">
+    <div class="header">
+      <h2 class="title">Generales</h2>
+      <div class="btns">
+        <button class="btn eliminar">Eliminar</button>
+        <button class="btn actualizar">Actualizar</button>
+        <button class="btn agregar">Agregar</button>        
+      </div>      
+    </div>
+  
+    <div class="general-info">
+      <div>
+        <label>Nombre</label>
+        <input type="text" class="custom-input" [placeholder]="Compania?.Nombre"/>
+      </div>
+      <div>
+        <label>Ciudad</label>
+        <input type="text" class="custom-input" [placeholder]="Compania?.Ciudad"/>
+      </div>
+      <div>
+        <label>Dirección</label>
+        <input type="text" class="custom-input" [placeholder]="Compania?.Direccion"/>
+      </div>
+      <div>
+        <label>NIT</label>
+        <input type="text" class="custom-input" [placeholder]="Compania?.Nit"/>
+      </div>
+      <div>
+        <label>Sector</label>
+        <input type="text" class="custom-input" [placeholder]="Compania?.Sector"/>
+      </div>
+    </div>  
+  
+    <div class="sections">
+      <div class="section">
+        <h3>Productos</h3>
+        <button class="btn agregar">Agregar</button>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Proceso</th>
+            <th>Fecha Creación</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let producto of productos">
+            <td>{{ producto.id }}</td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.idProceso }}</td>
+            <td>{{ producto.fecha_log }}</td>
+            <td>
+              <button class="btn editar">✏️</button>
+              <button class="btn eliminar">🗑️</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="section">
+        <h3>Laboratorios</h3>
+        <button class="btn agregar">Agregar</button>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let laboratorio of laboratorios">
+            <td>{{ laboratorio.id }}</td>
+            <td>{{ laboratorio.nombre }}</td>
+            <td>
+              <button class="btn editar">✏️</button>
+              <button class="btn eliminar">🗑️</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="section">
+        <h3>Procesos</h3>
+        <button class="btn agregar">Agregar</button>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>N. Etapas</th>
+            <th>Fecha Creación</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let proceso of procesos">
+            <td>{{ proceso.id }}</td>
+            <td>{{ proceso.nombre }}</td>
+            <td>{{ proceso.nombre }}</td>
+            <td>{{ proceso.fecha_log }}</td>
+            <td>
+              <button class="btn editar">✏️</button>
+              <button class="btn eliminar">🗑️</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="section">
+        <h3>Ordenes</h3>
+        <button class="btn agregar">Agregar</button>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let orden of ordenes">
+            <td>{{ orden.id }}</td>
+            <td>{{ orden.nombre }}</td>
+            <td>
+              <button class="btn editar">✏️</button>
+              <button class="btn eliminar">🗑️</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>  

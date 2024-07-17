@@ -13,14 +13,21 @@ import { CompaniaService } from 'src/app/shared/services/Compania.service';
 export class CompaniaComponent implements OnInit {  
   opciones = false
   datos_Companias: VistaCompania[] = [];
+  navRoutes = [
+    { path: '/App/Companias', label: 'Compania' },
+    { path: '/App/Usuarios', label: 'Usuarios' },
+    { path: '/App/Productos', label: 'Productos' },
+    { path: '/App/Procesos', label: 'Procesos' },
+    { path: '/App/Ordenes', label: 'Ordenes' },
+    { path: '/App/Laboratorios', label: 'Laboratorios' }
+  ];
   constructor(private route: Router, private CompaniaService : CompaniaService , private auth: TokenserviceService) {
   }
-
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.CompaniaService.obtener_companias().subscribe({
       next: (Companias) => {
         this.datos_Companias = Companias
-        return;
+        return; 
       },
       error: (error) => {
         console.log(error)
@@ -28,8 +35,16 @@ export class CompaniaComponent implements OnInit {
     })
   }
 
+  public redirecCompaniadetalle(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.datos_Companias[indice];
+
+    // Realiza la redirección con los datos específicos
+    this.route.navigate(['App/Compania', datosSeleccionados.id]);
+  }
+
   public homeback() {
-    this.route.navigate(['app/home']);
+    this.route.navigate(['App/Home']);
     return
   }
 

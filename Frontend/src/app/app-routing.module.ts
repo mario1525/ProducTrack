@@ -9,12 +9,14 @@ import { ProductosComponent } from './module/productos/productos.component';
 import { ProcesosComponent } from './module/procesos/procesos.component';
 import { OrdenesComponent } from './module/ordenes/ordenes.component';
 import { LaboratoriosComponent } from './module/laboratorios/laboratorios.component';
+import { DetallecompaniaComponent } from './module/compania/detallecompania/detallecompania.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'App/Home', component: HomeComponent},
-    { path: 'App/Compania', component: CompaniaComponent},
+    { path: 'App/Companias', component: CompaniaComponent},
+    { path: 'App/Compania/:id', component: DetallecompaniaComponent},
     { path: 'App/Usuarios', component: UsuariosComponent},
     { path: 'App/Productos', component: ProductosComponent},
     { path: 'App/Procesos', component: ProcesosComponent},

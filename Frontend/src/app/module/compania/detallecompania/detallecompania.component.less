@@ -1,0 +1,106 @@
+main {
+  display: flex;       
+  flex-direction:row; 
+  
+}
+.dashboard {
+  margin-left: 10px;
+  font-family: Arial, sans-serif;
+  }
+  
+  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 5px solid #52B4FA; /* Línea azul debajo del header */
+}
+
+.title {
+  margin: 0;
+}
+
+.btns {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px; /* Bordes redondeados */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+  
+  .btn.eliminar {
+    background-color: red;
+    color: white;
+  }
+  
+  .btn.actualizar {
+    background-color: yellow;
+    color: black;
+  }
+  
+  .btn.agregar {
+    background-color: green;
+    color: white;
+  }
+  
+  .general-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .general-info div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .section {
+    width: 48%;
+    margin-bottom: 20px;
+  }
+  
+  .section h3 {
+    margin-top: 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .btn.editar {
+    background-color: blue;
+    color: white;
+    padding: 3px 6px;
+    margin-right: 5px;
+  }
+  
+  .btn.eliminar {
+    background-color: red;
+    color: white;
+    padding: 3px 6px;
+  }
+  

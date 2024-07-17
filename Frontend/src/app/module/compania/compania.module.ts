@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompaniaComponent } from './compania.component';
+import { DetallecompaniaComponent } from './detallecompania/detallecompania.component';
 
-
+import { SharedModule } from './../../shared/shared.module'
+import { share } from 'rxjs';
 
 @NgModule({
   declarations: [
-    CompaniaComponent
+    CompaniaComponent,
+    DetallecompaniaComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule 
   ]
 })
 export class CompaniaModule { }
