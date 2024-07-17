@@ -68,7 +68,7 @@ namespace Data
                 new SqlParameter("@Tamanio", archivoVal.Tamanio),
                 new SqlParameter("@IdArchivo", archivoVal.IdArchivo),
                 new SqlParameter("@Estado", archivoVal.Estado),
-                new SqlParameter("@Eliminado", archivoVal.Eliminado),
+                new SqlParameter("@Eliminado", ""),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -100,8 +100,7 @@ namespace Data
                     Archivos = GetFileBytes(row["Archivos"]),
                     Tamanio = Convert.ToDouble(row["Tamanio"]),
                     IdArchivo = row["IdArchivo"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                 };
                 archivoValList.Add(archivoVal);

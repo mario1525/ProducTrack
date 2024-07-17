@@ -8,8 +8,7 @@ namespace Entity
         public string TipoDato { get; set; }
         public bool Obligatorio { get; set; }
         public string IdProduct { get; set; }
-        public bool Estado { get; set; }
-        public bool Eliminado { get; set; }
-        public DateTime Fecha_log { get; set; }
+        public bool Estado { get; set; }       
+        public string Fecha_log { get; set; }
     }
 }

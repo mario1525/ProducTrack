@@ -56,7 +56,7 @@ namespace Data
                 new SqlParameter("@Nombre", lab.Nombre),
                 new SqlParameter("@IdCompania", lab.IdCompania),
                 new SqlParameter("@Estado", lab.Estado),
-                new SqlParameter("@Eliminado", lab.Eliminado),
+                new SqlParameter("@Eliminado", ""),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -96,8 +96,7 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
                     IdCompania = row["IdCompania"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                 };
                 labList.Add(lab);

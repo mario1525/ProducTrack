@@ -59,7 +59,7 @@ namespace Data
                 new SqlParameter("@TipoArchv", archivo.TipoArchv),
                 new SqlParameter("@IdCompania", archivo.IdCompania),
                 new SqlParameter("@Estado", archivo.Estado),
-                new SqlParameter("@Eliminado", archivo.Eliminado),
+                new SqlParameter("@Eliminado", ""),
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -100,8 +100,7 @@ namespace Data
                     Nombre = row["Nombre"].ToString(),
                     TipoArchv = row["TipoArchv"].ToString(),
                     IdCompania = row["IdCompania"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = Convert.ToDateTime(row["Fecha_log"])
                 };
                 archivoList.Add(archivo);

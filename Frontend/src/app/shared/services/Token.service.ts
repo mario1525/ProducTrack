@@ -46,21 +46,23 @@ export class TokenserviceService {
 
   // Método para establecer el token en las cookies
   async setTokenInCookie(token: string): Promise<void> {
+    console.log("Token being set:", token);
     this.cookieService.set('token', token, {
-      expires: 0.5,
+      expires: 0.5, // 0.5 días (12 horas)
       path: '/',
       sameSite: 'Strict',
       secure: true,
-    });    
+    });
     return;
-  }
+}
+
 
   // Método para obtener el token desde las cookies
-  getTokenFromCookie(): string  {
-    const token = { token: this.cookieService.get('token') };
-    console.log(token.token)
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtYXJpbyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiSWRDb21wYW5pYSI6ImQ3ZjllZmI5LTU3Y2QtNDk3ZS1iYTMwLWMxOTRhMzIxZWZpcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNmQ0YWJlNDMtZWU3OS00OTg5LTkzYWQtNDRhNzQ5MGY4NzFkIiwianRpIjoiMWZjMTczM2QtOWMxMi00NmRkLWE2OTctOTBkMGY3OTg3MjU3IiwiZXhwIjoxNzE5NjU1NTE5NjA2LCJpc3MiOiJtYXJpaWpkYWgiLCJhdWQiOiJhc2RmaWlpZWxzZGoifQ.RAp3Yuh0-P3jzEOFaIzdZVmYN800wPsbBl55xsqeuaY";
-  }
+  getTokenFromCookie(): {"token":string} {
+    const token = {"token":this.cookieService.get('token')};
+    console.log("Token from Cookie:", token);
+    return token
+}
 
   // Método para eliminar el token de las cookies
   async removeTokenFromCookie(): Promise<boolean> {

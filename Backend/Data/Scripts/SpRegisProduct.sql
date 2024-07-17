@@ -29,7 +29,7 @@ BEGIN
     SELECT Id, IdProduct, IdRegisOrden, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisProduct
     WHERE Id = CASE WHEN ISNULL(@IdRegisProduct,'')='' THEN Id ELSE @IdRegisProduct END
-    AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProducto ELSE @IdProducto END
+    AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
     AND IdRegisOrden = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN IdRegisOrden ELSE @IdRegisOrden END
     AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END

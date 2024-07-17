@@ -21,8 +21,7 @@ namespace Data
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdProceso", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),               
             };
             return await GetList(procedureName, parameters);
         }
@@ -37,8 +36,7 @@ namespace Data
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@IdProceso", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),                
             };
             return await GetList(procedureName, parameters);
         }
@@ -58,8 +56,7 @@ namespace Data
                 new SqlParameter("@Nombre", producto.Nombre),
                 new SqlParameter("@IdCompania", producto.IdCompania),
                 new SqlParameter("@IdProceso", producto.IdProceso),
-                new SqlParameter("@Estado", producto.Estado),
-                new SqlParameter("@Eliminado", producto.Eliminado),
+                new SqlParameter("@Estado", producto.Estado),               
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -100,9 +97,8 @@ namespace Data
                     Nombre = row["Nombre"].ToString(),
                     IdCompania = row["IdCompania"].ToString(),
                     IdProceso = row["IdProceso"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
+                    Fecha_log = row["Fecha_log"].ToString(),
                 };
                 productoList.Add(producto);
             }

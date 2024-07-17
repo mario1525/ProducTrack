@@ -19,10 +19,12 @@ PRINT 'creacion de la tabla Compania'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Compania')
 BEGIN
     CREATE TABLE dbo.Compania(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre de la compania*/
-        NIT           VARCHAR(255) NOT NULL DEFAULT '',           /*Numero mercantil de la compañia*/
-        Direccion     VARCHAR(255) NOT NULL DEFAULT '',          /*Direccion de la compania*/       
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',              /*Nombre de la compania*/
+        Ciudad        VARCHAR(255) NOT NULL DEFAULT '',             /*ciudad hubicada la cede principal donde de la compania*/
+        NIT           VARCHAR(255) NOT NULL DEFAULT '',            /*Numero mercantil de la compañia*/
+        Direccion     VARCHAR(255) NOT NULL DEFAULT '',           /*Direccion de la compania*/ 
+        Sector        VARCHAR(255) NOT NULL DEFAULT '',          /*sector en el que opera la compania*/
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado */
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/

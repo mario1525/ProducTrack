@@ -14,7 +14,7 @@ import { producto } from 'src/types/Producto'
   constructor(private http: HttpClient, private auth:TokenserviceService ) { }
 
   obtener_Productos(id: string): Observable<producto[] | []> {    
-    const url = `${this.apiUrl}api/Product/${id}`;
+    const url = `${this.apiUrl}api/Producto/${id}`;
     return this.http.get<producto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 }

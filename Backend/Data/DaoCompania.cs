@@ -19,6 +19,8 @@ namespace Data
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),                
                 new SqlParameter("@NIT", ""),
+                new SqlParameter("@Sector", ""),
+                new SqlParameter("@Ciudad", ""),
                 new SqlParameter("@Direccion", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -63,6 +65,8 @@ namespace Data
                 new SqlParameter("@Id", compania.Id),
                 new SqlParameter("@Nombre", compania.Nombre),
                 new SqlParameter("@NIT", compania.NIT),
+                new SqlParameter("@Sector", compania.Sector),
+                new SqlParameter("@Ciudad", compania.Ciudad),
                 new SqlParameter("@Direccion", compania.Direccion),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Operacion", operacion),
@@ -101,10 +105,12 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
                     NIT = row["NIT"].ToString(),
+                    Sector = row["Sector"].ToString(),
+                    Ciudad = row["Ciudad"].ToString(),
                     Direccion = row["Direccion"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     //Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString(),
                     // Asigna otras propiedades según tu DataTable
                 };
                 companiaList.Add(compania);

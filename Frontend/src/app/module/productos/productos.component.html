@@ -1,1 +1,50 @@
-<p>productos works!</p>
+<main>
+    <app-nav-menu [routes]="navRoutes"></app-nav-menu> 
+    <div class="product-table">
+        <div class="header">
+          <div class="header-item">
+            <label for="identification">Identificación</label>
+            <input id="identification" type="text" placeholder="Identificación">
+          </div>
+          <div class="header-item">
+            <label for="name">Nombre</label>
+            <input id="name" type="text" placeholder="Nombre">
+          </div>
+          <div class="header-item">
+            <label for="process">Proceso</label>
+            <input id="process" type="text" placeholder="Proceso">
+          </div>
+          <div class="header-item">
+            <label for="company">Compañía</label>
+            <input id="company" type="text" placeholder="Compañía">
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="btn filtrar">Filtrar</button>
+          <button class="btn agregar">Agregar</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Proceso</th>
+                <th>Compañía</th>
+                <th>Fecha Creación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of datos_Productos">
+                <td>{{ product.id }}</td>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.idProceso }}</td>
+                <td>{{ product.idCompania }}</td>
+                <td>{{ product.estado }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+</main>

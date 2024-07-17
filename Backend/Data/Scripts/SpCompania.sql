@@ -21,15 +21,19 @@ CREATE PROCEDURE dbo.dbSpCompaniaGet
     @Id          VARCHAR(36),
     @Nombre      VARCHAR(255),
     @NIT         VARCHAR(255),
+    @Sector      VARCHAR(255),
+    @Ciudad      VARCHAR(255),
     @Direccion   VARCHAR(255),
     @Estado      INT
 AS 
 BEGIN
-    SELECT Id, Nombre, NIT, Direccion, Estado, Fecha_log     
+    SELECT Id, Nombre, Ciudad, NIT, Direccion, Sector, Estado, Fecha_log     
     FROM dbo.Compania
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END    
     AND NIT LIKE CASE WHEN ISNULL(@NIT,'')='' THEN NIT ELSE '%'+@NIT+'%' END
+    AND Ciudad LIKE CASE WHEN ISNULL(@Ciudad,'')='' THEN Ciudad ELSE '%'+@Ciudad+'%' END
+    AND Sector LIKE CASE WHEN ISNULL(@Sector,'')='' THEN Sector ELSE '%'+@Sector+'%' END
     AND Direccion LIKE CASE WHEN ISNULL(@Direccion,'')='' THEN Direccion ELSE '%'+@Direccion+'%' END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
@@ -44,19 +48,21 @@ CREATE PROCEDURE dbo.dbSpCompaniaSet
     @Nombre      VARCHAR(255),
     @NIT         VARCHAR(255),
     @Direccion   VARCHAR(255),
+    @Sector      VARCHAR(255),
+    @Ciudad      VARCHAR(255),
     @Estado      BIT,
     @Operacion   VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.Compania(Id, Nombre, NIT, Direccion, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @NIT, @Direccion, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.Compania(Id, Nombre, Ciudad, NIT, Direccion, Sector, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @Nombre,@Ciudad, @NIT, @Direccion, @Sector, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.Compania
-        SET Nombre = @Nombre, NIT = @NIT, Direccion = @Direccion, Estado = @Estado
+        SET Nombre = @Nombre, Ciudad = @Ciudad, NIT = @NIT, Direccion = @Direccion, Sector = @Sector, Estado = @Estado
         WHERE Id = @Id
     END
 END

@@ -21,9 +21,9 @@ namespace Controllers.Endpoint
         // GET: api/<ProcesoController>/5
         [HttpGet("{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public async Task<List<Proceso>> Get(string id)
+        public async Task<List<Proceso>> Get(string idCompania)
         {
-            return await _Logical.Gets(id);
+            return await _Logical.Gets(idCompania);
         }
 
         // POST api/<ProcesoController>

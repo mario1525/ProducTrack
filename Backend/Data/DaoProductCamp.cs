@@ -60,9 +60,8 @@ namespace Data
                 new SqlParameter("@Nombre", productCamp.Nombre),
                 new SqlParameter("@TipoDato", productCamp.TipoDato),
                 new SqlParameter("@Obligatorio", productCamp.Obligatorio),
-                new SqlParameter("@IdProduct", productCamp.IdProduct),
-                new SqlParameter("@Estado", productCamp.Estado),
-                new SqlParameter("@Eliminado", productCamp.Eliminado),
+                new SqlParameter("@IdProducto", productCamp.IdProduct),
+                new SqlParameter("@Estado", productCamp.Estado),                
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -104,9 +103,8 @@ namespace Data
                     TipoDato = row["TipoDato"].ToString(),
                     Obligatorio = Convert.ToBoolean(row["Obligatorio"]),
                     IdProduct = row["IdProduct"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Estado = Convert.ToBoolean(row["Estado"]),                   
+                    Fecha_log = row["Fecha_log"].ToString(),
                 };
                 productCampList.Add(productCamp);
             }

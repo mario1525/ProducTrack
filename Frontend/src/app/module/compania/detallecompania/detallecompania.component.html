@@ -40,15 +40,13 @@
         <table>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Proceso</th>
+            <th>Nombre</th>            
             <th>Fecha Creación</th>
             <th>Acciones</th>
           </tr>
           <tr *ngFor="let producto of productos">
             <td>{{ producto.id }}</td>
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.idProceso }}</td>
+            <td>{{ producto.nombre }}</td>            
             <td>{{ producto.fecha_log }}</td>
             <td>
               <button class="btn editar">✏️</button>
@@ -84,15 +82,13 @@
         <table>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>N. Etapas</th>
+            <th>Nombre</th>           
             <th>Fecha Creación</th>
             <th>Acciones</th>
           </tr>
           <tr *ngFor="let proceso of procesos">
             <td>{{ proceso.id }}</td>
-            <td>{{ proceso.nombre }}</td>
-            <td>{{ proceso.nombre }}</td>
+            <td>{{ proceso.nombre }}</td>            
             <td>{{ proceso.fecha_log }}</td>
             <td>
               <button class="btn editar">✏️</button>

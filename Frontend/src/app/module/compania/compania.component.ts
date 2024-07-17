@@ -48,6 +48,10 @@ export class CompaniaComponent implements OnInit {
     return
   }
 
+  public createCompania() {
+    this.route.navigate(['App/Compania']);
+  }
+
   public cerrarsession() {
     //localStorage.removeItem('token')
     this.auth
