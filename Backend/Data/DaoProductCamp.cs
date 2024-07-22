@@ -19,11 +19,9 @@ namespace Data
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", false),
-                new SqlParameter("@IdProduct", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@TipoDato", ""),                
+                new SqlParameter("@IdProducto", ""),
+                new SqlParameter("@Estado", 1),               
             };
             return await GetList(procedureName, parameters);
         }
@@ -36,11 +34,9 @@ namespace Data
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", false),
-                new SqlParameter("@IdProduct", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@TipoDato", ""),          
+                new SqlParameter("@IdProducto", ""),
+                new SqlParameter("@Estado", 1)              
             };
             return await GetList(procedureName, parameters);
         }

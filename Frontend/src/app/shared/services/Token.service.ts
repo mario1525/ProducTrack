@@ -23,9 +23,9 @@ export class TokenserviceService {
 
   decodetoken(token: string): Usuario {
     const tokenDecoded: UsuarioJwtPayload = jwt(token);
-    const Id = tokenDecoded.Id ? tokenDecoded.Id : '';
+    const Id = tokenDecoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || '';
     const IdCompania = tokenDecoded.IdCompania ? tokenDecoded.IdCompania : '';
-    const Rol = tokenDecoded?.Rol ? tokenDecoded?.Rol : '';
+    const Rol = tokenDecoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '';
     return {
       sub: tokenDecoded.sub ? tokenDecoded.sub : '',
       Rol: Rol,
@@ -45,8 +45,9 @@ export class TokenserviceService {
   }
 
   // Método para establecer el token en las cookies
-  async setTokenInCookie(token: string): Promise<void> {
-    console.log("Token being set:", token);
+  async setTokenInCookie(tokenObj: { token: string }): Promise<void> {
+    const token = tokenObj.token; // Extraer la cadena del token del objeto
+   // console.log("Token being set:", token);
     this.cookieService.set('token', token, {
       expires: 0.5, // 0.5 días (12 horas)
       path: '/',
@@ -58,10 +59,10 @@ export class TokenserviceService {
 
 
   // Método para obtener el token desde las cookies
-  getTokenFromCookie(): {"token":string} {
-    const token = {"token":this.cookieService.get('token')};
-    console.log("Token from Cookie:", token);
-    return token
+  getTokenFromCookie(): string | '' {
+    const tokenString = this.cookieService.get('token');
+    //console.log("Token from Cookie:", tokenString);
+    return tokenString;
 }
 
   // Método para eliminar el token de las cookies

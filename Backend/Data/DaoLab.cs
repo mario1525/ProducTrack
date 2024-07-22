@@ -20,8 +20,7 @@ namespace Data
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),               
             };
             return await GetList(procedureName, parameters);
         }
@@ -35,8 +34,7 @@ namespace Data
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdCompania", IdCompania),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),                
             };
             return await GetList(procedureName, parameters);
         }
@@ -55,8 +53,7 @@ namespace Data
                 new SqlParameter("@Id", lab.Id),
                 new SqlParameter("@Nombre", lab.Nombre),
                 new SqlParameter("@IdCompania", lab.IdCompania),
-                new SqlParameter("@Estado", lab.Estado),
-                new SqlParameter("@Eliminado", ""),
+                new SqlParameter("@Estado", lab.Estado),                
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -97,7 +94,7 @@ namespace Data
                     Nombre = row["Nombre"].ToString(),
                     IdCompania = row["IdCompania"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 labList.Add(lab);
             }

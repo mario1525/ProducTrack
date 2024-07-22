@@ -27,39 +27,35 @@ export class LoginComponent implements OnInit {
       Usuario: [''],
       Contrasenia: ['', [Validators.required, Validators.minLength(5)]],
     });
-  }
-
-  private decodeToken(token: string): any {
-    try {
-      // Decodifica el token JWT
-      const decodedToken: any = jwtDecode(token);
-
-      // Puedes acceder a los datos decodificados del token, por ejemplo, el contenido del payload
-      console.log('Datos decodificados del token:', decodedToken);
-
-      return decodedToken;
-    } catch (error) {
-      console.error('Error al decodificar el token:', error);
-      return null;
-    }
-  }
+  }  
 
   public submitFormulario() {
     if (this.myformulario.valid) {
       // Mueve la lógica de obtener el token aquí, dentro del if
-      this.auth.autenticar(this.myformulario.value).subscribe({
+     this.auth.autenticar(this.myformulario.value).subscribe({
         next: (data) => {
           if (data.error) {
             alert(data.error);
             return;
           }
-          if (data.Rol == 'Admin') {
+         //const Data = this.Token.decodetoken(data);
+          //console.log(this.Token.decodetoken(data.token));
+          //Sconsole.log();
+          if (this.Token.decodetoken(data.token).Rol == 'Admin') {
             // Redirige al usuario a la página de inicio
             this.Token.setTokenInCookie(data)
-            this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
+            console.log('R1')
+            this.route.navigate(['/App/Companias']); // Ajusta la ruta según tu estructura de la aplicación
+            return;
+          }
+          if (this.Token.decodetoken(data.token).Rol == 'Admin-Compania') {
+            console.log('R2')
+            this.Token.setTokenInCookie(data)
+            this.route.navigate(['/App/Compania', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           this.Token.setTokenInCookie(data)
+          console.log('RD')
           this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
           return;
         },

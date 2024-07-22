@@ -5,9 +5,14 @@
         </div>
         <div class="nombre-app">
             <h1 style="margin: 0; padding: 0;"><span style="color: #FFFFFF;">Product</span><span style="color: #52B4FA;">Track</span></h1>
-          </div>
-        <div class="user">
-            <p>user</p>
+        </div>
+        <div *ngIf="showHeader" class="user">
+                <img class="user-img" src="../../../assets/img/image.png" (click)="opcionesclick()">
+            <div class="opciones">
+                <div *ngIf="opciones">          
+                    <button (click)="cerrarsession()">Cerrar Session</button>
+                </div>
+            </div>
         </div>
     </section>
 </main>

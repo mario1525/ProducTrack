@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TokenserviceService } from './../../shared/services/Token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent {
+  opciones = true
   navRoutes = [
     { path: '/App/Companias', label: 'Compania' },
     { path: '/App/Usuarios', label: 'Usuarios' },
@@ -14,4 +17,26 @@ export class HomeComponent {
     { path: '/App/Ordenes', label: 'Ordenes' },
     { path: '/App/Laboratorios', label: 'Laboratorios' }
   ];
+  constructor(private route: Router,  private auth: TokenserviceService) {
+
+  }
+   public opcionesclick() {
+    this.opciones = !this.opciones
+  }
+
+  public cerrarsession() {
+
+    this.auth
+      .removeTokenFromCookie()
+      .then(() => {
+        alert("session cerrada")
+        this.route.navigate(['login']);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Error al eliminar la cookie');
+      });
+
+    return;
+  }
 }

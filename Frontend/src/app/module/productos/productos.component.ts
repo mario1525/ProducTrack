@@ -24,8 +24,8 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    console.log(this.auth.decodetoken(this.auth.getTokenFromCookie().token).IdCompania);
-    this.productoservices.obtener_Productos(this.auth.decodetoken(this.auth.getTokenFromCookie().token).IdCompania).subscribe({
+    //console.log(this.auth.decodetoken(this.auth.getTokenFromCookie()).IdCompania);
+    this.productoservices.obtener_Productos(this.auth.decodetoken(this.auth.getTokenFromCookie()).IdCompania).subscribe({
       next: (productos) => {
         this.datos_Productos = productos
         return; 

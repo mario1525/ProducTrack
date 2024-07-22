@@ -18,20 +18,18 @@ END
 PRINT 'Creacion procedimiento ProductCamp Get '
 GO
 CREATE PROCEDURE dbo.dbSpProductCampGet
-    @IdProductCamp VARCHAR(36),
+    @Id VARCHAR(36),
     @Nombre VARCHAR(255),
-    @TipoDato VARCHAR(60),
-    @Obligatorio BIT,
+    @TipoDato VARCHAR(60),    
     @IdProducto VARCHAR(36),
     @Estado INT
 AS 
 BEGIN
     SELECT Id, Nombre, TipoDato, Obligatorio, IdProduct, Estado, Fecha_log     
     FROM dbo.ProductCamp
-    WHERE Id = CASE WHEN ISNULL(@IdProductCamp,'')='' THEN Id ELSE @IdProductCamp END
+    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
-    AND TipoDato LIKE CASE WHEN ISNULL(@TipoDato,'')='' THEN TipoDato ELSE '%'+@TipoDato+'%' END
-    AND Obligatorio = CASE WHEN ISNULL(@Obligatorio,0) = 1 THEN 1 ELSE 0 END
+    AND TipoDato LIKE CASE WHEN ISNULL(@TipoDato,'')='' THEN TipoDato ELSE '%'+@TipoDato+'%' END    
     AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0

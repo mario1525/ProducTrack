@@ -13,9 +13,9 @@ namespace Services
             _Camp = camp;
         }
 
-        public async Task<List<ProductCamp>> Gets(string IdOrden)
+        public async Task<List<ProductCamp>> Gets(string IdProduct)
         {
-            return await _Camp.Gets(IdOrden);
+            return await _Camp.Gets(IdProduct);
         }
 
         public Mensaje Create(ProductCamp value)

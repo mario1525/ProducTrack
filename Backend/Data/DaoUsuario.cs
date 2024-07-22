@@ -87,6 +87,41 @@ namespace Data
             }
         }
 
+        public async Task<List<Usuario>> GetUsersComp(string Comp)
+        {
+            try
+            {
+                // Nombre del procedimiento almacenado
+                const string procedureName = "dbo.dbSpUsuarioGet";
+
+                // Definición de parámetros
+                var parameters = new[]
+                {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@Apellido", ""),
+                new SqlParameter("@Correo", ""),
+                new SqlParameter("@IdCompania", Comp),
+                new SqlParameter("@Cargo", ""),
+                new SqlParameter("@Rol", ""),
+                new SqlParameter("@Estado", 1)
+                };
+
+                // Ejecutar el procedimiento almacenado
+                DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+
+                List<Usuario> ListaCompania = MapDataTableToList(dataTable);
+                return ListaCompania;
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores aquí
+                Console.WriteLine($"Error al obtener usuarios: {ex.Message}");
+                throw;
+            }
+        }
+
+
         public async Task<List<Usuario>> GetUser(string user)
         {
             try

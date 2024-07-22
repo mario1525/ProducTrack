@@ -33,7 +33,7 @@ export class CompaniaComponent implements OnInit {
         console.log(error)
       }
     })
-  }
+  } 
 
   public redirecCompaniadetalle(indice: number): void {
     // Accede a los datos específicos de la fila actual

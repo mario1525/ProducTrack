@@ -9,12 +9,12 @@ export type VistaCompania = {
   }
 
   export type Compania = {
-    Id: string,    
-    Nombre: string,
-    Nit: string,
-    Ciudad: string,
-    Direccion: string,
-    Sector: string,
-    estado: string,
-    fecha_log : string
+    "id": string,    
+    "nombre": string,
+    "nit": string,
+    "ciudad": string,
+    "direccion": string,
+    "sector": string,
+    "estado": boolean,
+    "fecha_log" : string
   }  

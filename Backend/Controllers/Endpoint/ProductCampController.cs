@@ -7,7 +7,7 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/Product/Campo")]
+    [Route("api/Producto/Campo")]
     [ApiController]
     public class ProductCampController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace Controllers.Endpoint
         }
 
         // GET api/<ProductCampController>/5
-        [HttpGet("{idOrden}")]
+        [HttpGet("{idProduct}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<ProductCamp>> Get(string idProduct)
         {

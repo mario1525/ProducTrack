@@ -11,6 +11,7 @@ import { ordenService } from 'src/app/shared/services/Orden.service';
 import { procesoService } from 'src/app/shared/services/Proceso.service';
 import { productoService } from 'src/app/shared/services/Producto.service';
 import { labService } from 'src/app/shared/services/laboratorio.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { labService } from 'src/app/shared/services/laboratorio.service';
   styleUrls: ['./detallecompania.component.less']
 })
 export class DetallecompaniaComponent implements OnInit {
+  CompaniaForm: FormGroup;
   opciones = false;
   IdCompania: string = "";
   Compania: Compania | undefined;
@@ -34,61 +36,137 @@ export class DetallecompaniaComponent implements OnInit {
     { path: '/App/Ordenes', label: 'Ordenes' },
     { path: '/App/Laboratorios', label: 'Laboratorios' }
   ];
-  constructor(private route: Router, private procesoService : procesoService, private productoService : productoService, private labService : labService, private CompaniaService : CompaniaService, private ordenService : ordenService , private auth: TokenserviceService) {
+  constructor(
+     private route: Router,
+     private procesoService : procesoService, 
+     private productoService : productoService, 
+     private labService : labService, 
+     private CompaniaService : CompaniaService, 
+     private ordenService : ordenService ,
+     private auth: TokenserviceService, 
+     private fb: FormBuilder,
+    ) {
+      this.CompaniaForm = this.fb.group({
+        id:[''],
+        nombre: ['', [Validators.required, Validators.minLength(3)]],
+        nit: ['', [Validators.required, Validators.min(100)]],
+        ciudad: ['', [Validators.required, Validators.minLength(8)]],
+        direccion: ['', [Validators.required, Validators.minLength(8)]],
+        sector: ['', [Validators.required, Validators.minLength(8)]],        
+        estado:[true],
+        fecha_log: ['']
+      })
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.IdCompania = this.route.url.split('/')[3]
-    this.CompaniaService.obtener_compania(this.IdCompania).subscribe({
-      next: (Compania) => {
-        this.Compania = Compania
-        return; 
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-
-    this.procesoService.obtener_Procesos(this.IdCompania).subscribe({
-      next: (Procesos) => {
-        this.procesos = Procesos
-        return; 
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-
-    this.ordenService.obtener_Orden(this.IdCompania).subscribe({
-      next: (ordenes) => {
-        this.ordenes = ordenes
-        return; 
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-
-    this.productoService.obtener_Productos(this.IdCompania).subscribe({
-      next: (productos) => {
-        this.productos = productos
-        return; 
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-
-    this.labService.obtener_Procesos(this.IdCompania).subscribe({
-      next: (laboratorios) => {
-        this.laboratorios = laboratorios
-        return; 
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
+    if(this.IdCompania){
+      this.CompaniaService.obtener_compania(this.IdCompania).subscribe({
+        next: (Compania) => {
+          this.CompaniaForm.patchValue(Compania[0])
+          this.Compania = Compania[0]
+          console.log(this.Compania)
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })    
+  
+      this.procesoService.obtener_Procesos(this.IdCompania).subscribe({
+        next: (Procesos) => {
+          this.procesos = Procesos
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+  
+      this.ordenService.obtener_Orden(this.IdCompania).subscribe({
+        next: (ordenes) => {
+          this.ordenes = ordenes
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+  
+      this.productoService.obtener_Productos(this.IdCompania).subscribe({
+        next: (productos) => {
+          this.productos = productos
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+  
+      this.labService.obtener_Procesos(this.IdCompania).subscribe({
+        next: (laboratorios) => {
+          this.laboratorios = laboratorios
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+    }    
   }
+
+  onSubmit(): void {
+    if(this.CompaniaForm.valid){
+      const compania = this.CompaniaForm.value
+      
+      console.log(compania)   
+      if(this.IdCompania){
+        this.CompaniaService.update_compania(this.IdCompania,compania).subscribe({
+          next: () => {
+            alert("compania actualizada")
+            this.route.navigate(['/App/Companias']);
+          },
+          error: (error) =>{
+            console.log(error)
+            alert('Error al actualizar la compania');
+          }
+        })
+      } else {
+        this.CompaniaService.create_compania(compania).subscribe({
+          next: () => {
+            alert("compania creada")
+            this.route.navigate(['/App/Companias']);
+          },
+          error: (error) =>{
+            console.log(error)
+            alert('Error al crear la compania');
+          }
+        })
+      }   
+    }else {
+      alert("formulario invalido")
+    }
+  }
+
+  delete_compania(): void { 
+    if(this.auth.decodetoken(this.auth.getTokenFromCookie()).Rol == 'Admin'){
+      const id = this.route.url.split('/')[3]
+      this.CompaniaService.delete_compania(id).subscribe({
+        next: () => {
+          alert("compania eliminada")
+          this.route.navigate(['/App/Companias']);
+        },
+        error: (error) =>{
+          console.log(error)
+          alert('Error al eliminar la compania');
+        }
+      })
+    } else {
+      alert("el usuario no tiene permisos necesarios para estra accion")
+    }     
+  }
+
+
 
   
   

@@ -3,34 +3,34 @@
   <div class="dashboard">
     <div class="header">
       <h2 class="title">Generales</h2>
-      <div class="btns">
-        <button class="btn eliminar">Eliminar</button>
-        <button class="btn actualizar">Actualizar</button>
-        <button class="btn agregar">Agregar</button>        
+      <div class="btns">          
+        <button *ngIf="IdCompania" class="btn eliminar" (click)="delete_compania()">Eliminar</button>
+        <button class="{{ IdCompania ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ IdCompania? 'Actualizar' : 'agregar' }}</button>               
       </div>      
-    </div>
-  
-    <div class="general-info">
-      <div>
-        <label>Nombre</label>
-        <input type="text" class="custom-input" [placeholder]="Compania?.Nombre"/>
-      </div>
-      <div>
-        <label>Ciudad</label>
-        <input type="text" class="custom-input" [placeholder]="Compania?.Ciudad"/>
-      </div>
-      <div>
-        <label>Dirección</label>
-        <input type="text" class="custom-input" [placeholder]="Compania?.Direccion"/>
-      </div>
-      <div>
-        <label>NIT</label>
-        <input type="text" class="custom-input" [placeholder]="Compania?.Nit"/>
-      </div>
-      <div>
-        <label>Sector</label>
-        <input type="text" class="custom-input" [placeholder]="Compania?.Sector"/>
-      </div>
+    </div>  
+    <div class="general-info"> 
+      <form [formGroup]="CompaniaForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Nombre</label>
+          <input formControlName="nombre" type="text" class="custom-input" />
+        </div>
+        <div>
+          <label>Ciudad</label>
+          <input formControlName="ciudad" type="text" class="custom-input" />
+        </div>
+        <div>
+          <label>Dirección</label>
+          <input formControlName="direccion" type="text" class="custom-input" />
+        </div>
+        <div>
+          <label>NIT</label>
+          <input formControlName="nit" type="text" class="custom-input" />
+        </div>
+        <div>
+          <label>Sector</label>
+          <input formControlName="sector" type="text" class="custom-input"/>
+        </div>
+      </form>      
     </div>  
   
     <div class="sections">

@@ -82,6 +82,7 @@ builder.Services.AddSingleton<UsuarioLogical>();
 builder.Services.AddSingleton<UsuarioCredentialLogical>();
 builder.Services.AddSingleton<ProcesoLogical>();
 builder.Services.AddSingleton<ProductLogical>();
+builder.Services.AddSingleton<ProductCampLogical>();
 builder.Services.AddSingleton<OrdenLogical>();
 builder.Services.AddSingleton<OrdenCampLogical>();
 builder.Services.AddSingleton<LabLogical>();

@@ -1,3 +1,8 @@
-<main>
+<main>  
   <app-nav-menu [routes]="navRoutes"></app-nav-menu>
+  <div class="opciones">
+    <div *ngIf="opciones">      
+      <button (click)="cerrarsession()">Cerrar Session</button>
+    </div>
+  </div>
 </main>

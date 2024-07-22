@@ -18,6 +18,11 @@ namespace Services
             return await _daoUsuario.GetUser(Id);
         }
 
+        public async Task<List<Usuario>> GetUsuariosComp(String IdCompania)
+        {
+            return await _daoUsuario.GetUsersComp(IdCompania);
+        }
+
         public async Task<List<Usuario>> GetUsuarios()
         {
             return await _daoUsuario.GetUsers();

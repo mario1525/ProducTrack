@@ -7,6 +7,6 @@ namespace Entity
         public string Nombre { get; set; }
         public string IdCompania { get; set; }
         public bool Estado { get; set; }        
-        public DateTime Fecha_log { get; set; }
+        public string Fecha_log { get; set; }
     }
 }

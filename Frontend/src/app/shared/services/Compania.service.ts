@@ -18,8 +18,25 @@ import { VistaCompania, Compania } from 'src/types/compania';
     return this.http.get<VistaCompania[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  obtener_compania(id: string ): Observable<Compania> {    
+  obtener_compania(id: string ): Observable<Compania[] | []> {    
     const url = `${this.apiUrl}api/Compania/${id}`;
-    return this.http.get<Compania>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    return this.http.get<Compania[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  create_compania(compania: Compania): Observable<any> {
+    const url = `${this.apiUrl}api/Compania`;
+    return this.http.post<{mensaje: string}>(url, compania, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  update_compania(id: string, compania : Compania): Observable<any> {
+    const url = `${this.apiUrl}api/Compania/${id}`;
+    return this.http.put<Compania>(url, compania, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  delete_compania(id: string): Observable<any> {
+    const url = `${this.apiUrl}api/Compania/${id}`;
+    return this.http.delete<Compania>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 }
+
+

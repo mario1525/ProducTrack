@@ -24,7 +24,7 @@ namespace Data
                 new SqlParameter("@Obligatorio", 0),
                 new SqlParameter("@IdLab", ""),
                 new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+               
             };
             return await GetList(procedureName, parameters);
         }
@@ -41,8 +41,7 @@ namespace Data
                 new SqlParameter("@UnidadMedida", ""),
                 new SqlParameter("@Obligatorio", 0),
                 new SqlParameter("@IdLab", IdLab),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),                
             };
             return await GetList(procedureName, parameters);
         }
@@ -61,11 +60,9 @@ namespace Data
                 new SqlParameter("@Id", labCamp.Id),
                 new SqlParameter("@Nombre", labCamp.Nombre),
                 new SqlParameter("@TipoDato", labCamp.TipoDato),
-                new SqlParameter("@UnidadMedida", labCamp.UnidadMedida),
-                new SqlParameter("@Obligatorio", labCamp.Obligatorio),
+                new SqlParameter("@UnidadMedida", labCamp.UnidadMedida),              
                 new SqlParameter("@IdLab", labCamp.IdLab),
-                new SqlParameter("@Estado", labCamp.Estado),
-                new SqlParameter("@Eliminado", labCamp.Eliminado),
+                new SqlParameter("@Estado", labCamp.Estado),             
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -108,9 +105,8 @@ namespace Data
                     UnidadMedida = row["UnidadMedida"].ToString(),
                     Obligatorio = Convert.ToBoolean(row["Obligatorio"]),
                     IdLab = row["IdLab"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 labCampList.Add(labCamp);
             }
