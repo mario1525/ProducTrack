@@ -1,1 +1,52 @@
-<p>usuarios works!</p>
+<!-- src/app/users/users.component.html -->
+<div class="header">
+    <div class="filter-section">
+      <div class="filter-group">
+        <label for="identificacion">Identificación</label>
+        <input id="identificacion" type="text" placeholder="Identificación">
+      </div>
+      <div class="filter-group">
+        <label for="compania">Compañía</label>
+        <input id="compania" type="text" placeholder="Compañía">
+      </div>
+      <div class="filter-group">
+        <label for="roles">Cargo</label>
+        <input id="roles" type="text" placeholder="Cargo">
+      </div>
+      <div class="filter-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" placeholder="Nombre">
+      </div>
+    </div>  
+    <div class="buttons">
+      <button class="filter">Filtrar</button>
+      <button class="add" (click)="createUsuario()">Agregar</button>
+    </div>
+  </div>
+  
+  <div class="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th></th> 
+          <th>Identificación</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cargo</th>
+          <th>Compañía</th>
+          <th>Fecha creación</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="Usuarios.length">
+        <tr *ngFor="let user of Usuarios; let indice = index;">
+          <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="redirecCompaniadetalle(indice)" /></td>
+          <td>{{ user.identificacion }}</td>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.apellido }}</td>
+          <td>{{ user.cargo }}</td>
+          <td>{{ user.cargo }}</td>
+          <td>{{ user.fecha_log }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -20,21 +20,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./detallecompania.component.less']
 })
 export class DetallecompaniaComponent implements OnInit {
-  CompaniaForm: FormGroup;
-  opciones = false;
+  CompaniaForm: FormGroup;  
   IdCompania: string = "";
   Compania: Compania | undefined;
   procesos: Proceso[] = [];
   laboratorios: lab[] = [];
   ordenes: orden[] = [];
   productos: producto[] = [];
-  navRoutes = [
-    { path: '/App/Companias', label: 'Compania' },
-    { path: '/App/Usuarios', label: 'Usuarios' },
-    { path: '/App/Productos', label: 'Productos' },
-    { path: '/App/Procesos', label: 'Procesos' },
-    { path: '/App/Ordenes', label: 'Ordenes' },
-    { path: '/App/Laboratorios', label: 'Laboratorios' }
+  navRoutes = [ 
+    { path: 'App/Compania/:id/Usuarios', label: 'Usuarios' },
+    { path: 'App/Compania/:id/Productos', label: 'Productos' },
+    { path: 'App/Compania/:id/Procesos', label: 'Procesos' },
+    { path: 'App/Compania/:id/Ordenes', label: 'Ordenes' },
+    { path: 'App/Compania/:id/Laboratorios', label: 'Laboratorios' }
   ];
   constructor(
      private route: Router,
@@ -59,13 +57,12 @@ export class DetallecompaniaComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    this.IdCompania = this.route.url.split('/')[3]
+    this.IdCompania = this.route.url.split('/')[3]     
     if(this.IdCompania){
       this.CompaniaService.obtener_compania(this.IdCompania).subscribe({
         next: (Compania) => {
           this.CompaniaForm.patchValue(Compania[0])
-          this.Compania = Compania[0]
-          console.log(this.Compania)
+          this.Compania = Compania[0]          
           return; 
         },
         error: (error) => {
@@ -113,13 +110,12 @@ export class DetallecompaniaComponent implements OnInit {
         }
       })
     }    
-  }
+  } 
 
   onSubmit(): void {
     if(this.CompaniaForm.valid){
-      const compania = this.CompaniaForm.value
-      
-      console.log(compania)   
+      const compania = this.CompaniaForm.value   
+        
       if(this.IdCompania){
         this.CompaniaService.update_compania(this.IdCompania,compania).subscribe({
           next: () => {
@@ -164,13 +160,7 @@ export class DetallecompaniaComponent implements OnInit {
     } else {
       alert("el usuario no tiene permisos necesarios para estra accion")
     }     
-  }
-
-
-
-  
-  
-  
+  } 
 
   public homeback() {
     this.route.navigate(['App/Home']);

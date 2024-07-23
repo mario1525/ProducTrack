@@ -8,9 +8,22 @@ export interface UsuarioJwtPayload extends JwtPayload {
   Id: string;
 }
 
-export type Usuario =  {
+export type UsuarioToken =  {
   sub: string;
   Rol: string;
   IdCompania: string;
   Id: string;
+}
+
+export type Usuario =  {
+  id: string;
+  identificacion: string;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  idCompania: string;
+  cargo: string;
+  rol: string;
+  estado: boolean;
+  fecha_log: string;
 }

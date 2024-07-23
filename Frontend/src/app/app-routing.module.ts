@@ -5,6 +5,7 @@ import { LoginComponent } from './module/login/login.component';
 import { HomeComponent } from './module/home/home.component';
 import { CompaniaComponent } from './module/compania/compania.component';
 import { UsuariosComponent } from './module/usuarios/usuarios.component';
+import { UsuarioComponent } from './module/usuarios/usuario/usuario.component';
 import { ProductosComponent } from './module/productos/productos.component';
 import { ProcesosComponent } from './module/procesos/procesos.component';
 import { OrdenesComponent } from './module/ordenes/ordenes.component';
@@ -18,11 +19,13 @@ const routes: Routes = [
     { path: 'App/Companias', component: CompaniaComponent},
     { path: 'App/Compania/:id', component: DetallecompaniaComponent},
     { path: 'App/Compania', component: DetallecompaniaComponent},
-    { path: 'App/Usuarios', component: UsuariosComponent},
-    { path: 'App/Productos', component: ProductosComponent},
-    { path: 'App/Procesos', component: ProcesosComponent},
-    { path: 'App/Ordenes', component: OrdenesComponent},
-    { path: 'App/Laboratorios', component: LaboratoriosComponent}      
+    { path: 'App/Compania/:id/Usuarios', component: UsuariosComponent},
+    { path: 'App/Usuario/:id', component: UsuarioComponent},
+    { path: 'App/Usuario', component: UsuarioComponent},
+    { path: 'App/Compania/:id/Productos', component: ProductosComponent},
+    { path: 'App/Compania/:id/Procesos', component: ProcesosComponent},
+    { path: 'App/Compania/:id/Ordenes', component: OrdenesComponent},
+    { path: 'App/Compania/:id/Laboratorios', component: LaboratoriosComponent}      
   
   ];
   

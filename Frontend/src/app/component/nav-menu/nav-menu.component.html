@@ -4,7 +4,7 @@
     </div>
     <section>
         <nav>
-            <button *ngFor="let route of routes" [routerLink]="route.path">
+            <button *ngFor="let route of routes" (click)="navigateTo(getProcessedPath(route.path))">
               {{ route.label }}
             </button>
           </nav>

@@ -12,15 +12,7 @@ import { CompaniaService } from 'src/app/shared/services/Compania.service';
 })
 export class CompaniaComponent implements OnInit {  
   opciones = false
-  datos_Companias: VistaCompania[] = [];
-  navRoutes = [
-    { path: '/App/Companias', label: 'Compania' },
-    { path: '/App/Usuarios', label: 'Usuarios' },
-    { path: '/App/Productos', label: 'Productos' },
-    { path: '/App/Procesos', label: 'Procesos' },
-    { path: '/App/Ordenes', label: 'Ordenes' },
-    { path: '/App/Laboratorios', label: 'Laboratorios' }
-  ];
+  datos_Companias: VistaCompania[] = [];  
   constructor(private route: Router, private CompaniaService : CompaniaService , private auth: TokenserviceService) {
   }
     ngOnInit(): void {
@@ -42,28 +34,14 @@ export class CompaniaComponent implements OnInit {
     // Realiza la redirección con los datos específicos
     this.route.navigate(['App/Compania', datosSeleccionados.id]);
   }
-
   public homeback() {
-    this.route.navigate(['App/Home']);
+    this.route.navigate(['App/Companias']);
     return
   }
 
+  
+
   public createCompania() {
     this.route.navigate(['App/Compania']);
-  }
-
-  public cerrarsession() {
-    //localStorage.removeItem('token')
-    this.auth
-      .removeTokenFromCookie()
-      .then(() => {
-        this.route.navigate(['login']);
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('Error al eliminar la cookie');
-      });
-
-    return;
-  }
+  }  
 }

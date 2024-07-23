@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode as jwt } from 'jwt-decode';
 import { CookieService } from 'ngx-cookie-service';
-import { Usuario, UsuarioJwtPayload } from 'src/types/usuarios';
+import { UsuarioToken, UsuarioJwtPayload } from 'src/types/usuarios';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class TokenserviceService {
     }
   }
 
-  decodetoken(token: string): Usuario {
+  decodetoken(token: string): UsuarioToken {
     const tokenDecoded: UsuarioJwtPayload = jwt(token);
     const Id = tokenDecoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] || '';
     const IdCompania = tokenDecoded.IdCompania ? tokenDecoded.IdCompania : '';

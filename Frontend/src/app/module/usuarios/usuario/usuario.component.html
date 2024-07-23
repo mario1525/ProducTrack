@@ -1,0 +1,45 @@
+<div class="user-form">
+    <div class="header">
+      <h2>Usuario</h2>
+      <div class="btns">
+        <button *ngIf="idUsuario" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idUsuario ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idUsuario? 'Actualizar' : 'agregar' }}</button>
+      </div>
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="general-info">
+        <div>
+          <label>Nombre</label>
+          <input formControlName="nombre" type="text" />
+        </div>
+        <div>
+          <label>Apellido</label>
+          <input formControlName="apellido" type="text" />
+        </div>
+        <div>
+          <label>Identificacion</label>
+          <input formControlName="identificacion" type="text" />
+        </div>
+        <div>
+          <label>Compañia</label>
+          <input formControlName="idCompania" type="text" />          
+        </div>
+        <div>
+          <label>Correo</label>
+          <input formControlName="correo" type="email" />
+        </div>
+        <div>
+          <label>Permisos</label>
+          <select formControlName="rol">
+            <option value="Admin-Compania">Admin-Compania</option>
+            <option value="Usuario">Usuario</option>
+          </select>
+        </div>
+        <div>
+          <label>Cargo</label>
+          <input formControlName="cargo" type="text" />
+        </div>
+      </div>
+    </form>
+  </div>
+  
