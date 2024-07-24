@@ -32,7 +32,7 @@ export class UsuariosComponent implements OnInit {
   const datosSeleccionados = this.Usuarios[indice];
 
   // Realiza la redirección con los datos específicos
-  this.route.navigate(['App/Usuario', datosSeleccionados.id]);
+  this.route.navigate([`App/Compania/${this.IdCompania}/Usuario/${datosSeleccionados.id}`]);
 }
 
 public homeback() {
@@ -41,7 +41,7 @@ public homeback() {
 }
 
 public createUsuario() {
-  this.route.navigate(['App/Usuario']);
+  this.route.navigate([`/App/Compania/${this.IdCompania}/Usuario`]);
 } 
 
 }

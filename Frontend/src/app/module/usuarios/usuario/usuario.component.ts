@@ -5,7 +5,6 @@ import { Usuario } from 'src/types/usuarios';
 import {UsuarioService} from 'src/app/shared/services/usuarios.service'
 import { TokenserviceService } from '../../../shared/services/Token.service';
 import { Location } from '@angular/common';
-import { Compania } from 'src/types/compania';
 
 
 @Component({
@@ -17,6 +16,7 @@ export class UsuarioComponent implements OnInit {
   userForm: FormGroup;
   Usuario: Usuario | undefined;
   idUsuario: string = "";
+  idCompania: string = "";
 
 
   constructor(
@@ -31,22 +31,22 @@ export class UsuarioComponent implements OnInit {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       identificacion: ['', Validators.required],
-      idCompania: ['', Validators.required],
+      idCompania: [ ''],
       correo: ['', [Validators.required, Validators.email]],
       rol: ['', Validators.required],
       cargo: ['', Validators.required],
       estado: [''],      
       fecha_log: ['']
-    });
-  }
+    });    
+  }  
 
-  ngOnInit(): void {
-    this.idUsuario = this.route.url.split('/')[3] 
+  ngOnInit(): void {  
+    this.idCompania = this.route.url.split('/')[3] 
+    this.idUsuario = this.route.url.split('/')[5]    
     if(this.idUsuario){
       this.UsuaioService.obtener_usuario(this.idUsuario).subscribe({
         next: (Usuario) => {
-          this.userForm.patchValue(Usuario[0])
-          this.Usuario         
+          this.userForm.patchValue(Usuario[0])                           
           return; 
         },
         error: (error) => {
@@ -58,9 +58,8 @@ export class UsuarioComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.userForm.valid) {
-      const usuario = this.userForm.value
-      console.log(usuario)
+    if (this.userForm.valid) {        
+      let usuario = this.userForm.value      
       if(this.idUsuario){
         this.UsuaioService.update_usuario(this.idUsuario,usuario).subscribe({
           next: () => {
@@ -72,8 +71,9 @@ export class UsuarioComponent implements OnInit {
             alert('Error al actualizar el usuario');
           }
         })
-      } else {
-        this.UsuaioService.create_usuario(usuario).subscribe({
+      } else {   
+        usuario.idCompania = this.idCompania;                  
+        this.UsuaioService.create_usuario(usuario).subscribe({          
           next: () => {
             alert("usuario creado")
             this.location.back();

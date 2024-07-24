@@ -11,6 +11,7 @@ import { productoService } from 'src/app/shared/services/Producto.service';
 })
 export class ProductosComponent implements OnInit {
   opciones = false
+  IdCompania: string = ""
   datos_Productos: producto[] = [];
   navRoutes = [
     //{ path: '/App/Companias', label: 'Compania' },
@@ -24,8 +25,8 @@ export class ProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    //console.log(this.auth.decodetoken(this.auth.getTokenFromCookie()).IdCompania);
-    this.productoservices.obtener_Productos(this.auth.decodetoken(this.auth.getTokenFromCookie()).IdCompania).subscribe({
+    this.IdCompania = this.route.url.split('/')[3]  
+    this.productoservices.obtener_Productos(this.IdCompania).subscribe({
       next: (productos) => {
         this.datos_Productos = productos
         return; 

@@ -1,0 +1,56 @@
+<div>
+    <div class="proces-form">    
+    <div class="header">
+        <h2>Procesos</h2>
+        <div class="btns">
+        <button *ngIf="idProceso" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idProceso ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idProceso? 'Actualizar' : 'agregar' }}</button>
+    </div>
+      </div>
+    <form [formGroup]="ProcesForm" (ngSubmit)="onSubmit()">
+        <div class="general-info">
+      <div>
+        <label>Nombre</label>
+        <input formControlName="nombre" />
+      </div>
+      <div>
+        <label>Etapa Final</label>
+        <select formControlName="etapaFinal">
+          <option *ngFor="let etapa of etapas" [value]="etapa.id">{{ etapa.nombre }}</option>
+        </select>
+      </div>
+      <div>
+        <label>Etapa Inicial</label>
+        <select formControlName="etapaInicial">
+          <option *ngFor="let etapa of etapas" [value]="etapa.id">{{ etapa.nombre }}</option>
+        </select>
+      </div>
+    </div>       
+    </form>
+</div>
+  
+    <h3>Etapas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>         
+          <th>Fecha Creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let etapa of etapas">
+          <td>{{ etapa.id }}</td>
+          <td>{{ etapa.nombre }}</td>
+          <td>{{ etapa.fecha_log }}</td>
+          
+          <td>
+            <button >✏️</button>
+            <button >🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

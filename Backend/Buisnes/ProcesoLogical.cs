@@ -21,6 +21,11 @@ namespace Services
              return await _DataProces.Gets(IdCompania);
         }
 
+        public async Task<List<Proceso>> Get(string Id)
+        {
+            return await _DataProces.Get(Id);
+        }
+
         public Mensaje Create(CreateProces Process)
         {
             Guid uid = Guid.NewGuid();
