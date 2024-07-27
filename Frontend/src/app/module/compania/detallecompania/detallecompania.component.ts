@@ -48,7 +48,7 @@ export class DetallecompaniaComponent implements OnInit {
         id:[''],
         nombre: ['', [Validators.required, Validators.minLength(3)]],
         nit: ['', [Validators.required, Validators.min(100)]],
-        ciudad: ['', [Validators.required, Validators.minLength(8)]],
+        ciudad: ['', [Validators.required, Validators.minLength(3)]],
         direccion: ['', [Validators.required, Validators.minLength(8)]],
         sector: ['', [Validators.required, Validators.minLength(8)]],        
         estado:[true],

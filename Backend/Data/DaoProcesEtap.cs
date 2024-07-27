@@ -20,6 +20,7 @@ namespace Data
             {
                 new SqlParameter("@IdProcesEtap", ""),
                 new SqlParameter("@Nombre", ""),
+                new SqlParameter("@NEtapa", ""),
                 new SqlParameter("@IdProceso", Id),
                 new SqlParameter("@Estado", 1)
             };
@@ -27,13 +28,14 @@ namespace Data
         }
 
         // Metodo Get
-        public async Task<List<ProcesEtap>> Get()
+        public async Task<List<ProcesEtap>> Get(string Id)
         {
             const string procedureName = "dbo.dbSpProcesEtapGet";
             var parameters = new[]
             {
-                new SqlParameter("@IdProcesEtap", ""),
+                new SqlParameter("@IdProcesEtap", Id),
                 new SqlParameter("@Nombre", ""),
+                new SqlParameter("@NEtapa", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -53,6 +55,7 @@ namespace Data
             {
                 new SqlParameter("@Id", procesEtap.Id),
                 new SqlParameter("@Nombre", procesEtap.Nombre),
+                new SqlParameter("@NEtapa", procesEtap.NEtapa),
                 new SqlParameter("@IdProceso", procesEtap.IdProceso),
                 new SqlParameter("@Estado", procesEtap.Estado),
                 new SqlParameter("@Operacion", operacion),
@@ -93,6 +96,7 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
+                    NEtapa = Convert.ToInt16(row["NEtapa"]),
                     IdProceso = row["IdProceso"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),
                     //Eliminado = Convert.ToBoolean(row["Eliminado"]),

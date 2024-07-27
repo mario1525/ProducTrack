@@ -1,0 +1,18 @@
+<div class="popup" *ngIf="mostrar">
+    <div class="popup-header">
+        <h2 style="margin: 0; padding: 0;"><span style="color: #FFFFFF;">Product</span><span style="color: #52B4FA;">Track</span></h2>      
+    </div>
+    <form [formGroup]="etapaForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label>Nombre</label>
+        <input formControlName="nombre" />
+      </div>
+      <div>
+        <label>N.Etapa</label>
+        <input type="number" formControlName="nEtapa" />
+      </div>
+      <div>
+        <button type="submit">Agregar</button>
+      </div>
+    </form>
+  </div> 

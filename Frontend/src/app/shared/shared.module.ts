@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { NavMenuComponent } from './../component/nav-menu/nav-menu.component';
+import { EtapaPopupComponent } from './../component/etapa-popup/etapa-popup.component'
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    NavMenuComponent
+    NavMenuComponent,
+    EtapaPopupComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
-    NavMenuComponent
+    NavMenuComponent,
+    EtapaPopupComponent
   ]
 })
 export class SharedModule { }

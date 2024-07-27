@@ -17,16 +17,18 @@ END
 PRINT 'Creacion procedimiento ProcesEtap Get '
 GO
 CREATE PROCEDURE dbo.dbSpProcesEtapGet
-    @IdProcesEtap VARCHAR(36),
-    @Nombre VARCHAR(255),
-    @IdProceso VARCHAR(36),
-    @Estado INT
+    @IdProcesEtap    VARCHAR(36),
+    @NEtapa          INT,
+    @Nombre          VARCHAR(255),
+    @IdProceso       VARCHAR(36),
+    @Estado          INT
 AS 
 BEGIN
-    SELECT Id, Nombre, IdProceso, Estado, Fecha_log     
+    SELECT Id, Nombre, NEtapa, IdProceso, Estado, Fecha_log     
     FROM dbo.ProcesEtap
     WHERE Id = CASE WHEN ISNULL(@IdProcesEtap,'')='' THEN Id ELSE @IdProcesEtap END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
+    AND NEtapa LIKE CASE WHEN ISNULL(@NEtapa,0)=0 THEN NEtapa ELSE '%'+@NEtapa+'%' END
     AND IdProceso = CASE WHEN ISNULL(@IdProceso,'')='' THEN IdProceso ELSE @IdProceso END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
@@ -38,6 +40,7 @@ GO
 CREATE PROCEDURE dbo.dbSpProcesEtapSet
     @Id VARCHAR(36),
     @Nombre VARCHAR(255),
+    @NEtapa INT,
     @IdProceso VARCHAR(36),
     @Estado BIT,
     @Operacion VARCHAR(1)
@@ -45,13 +48,17 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.ProcesEtap(Id, Nombre, IdProceso, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @IdProceso, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.ProcesEtap(Id, Nombre, NEtapa, IdProceso, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @Nombre, @NEtapa, @IdProceso, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.ProcesEtap
-        SET Nombre = @Nombre, IdProceso = @IdProceso, Estado = @Estado
+        SET 
+            Nombre    = @Nombre,
+            NEtapa    = @NEtapa,
+            IdProceso = @IdProceso,
+            Estado    = @Estado
         WHERE Id = @Id
     END
 END

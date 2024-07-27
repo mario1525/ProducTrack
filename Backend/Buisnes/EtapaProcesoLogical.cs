@@ -18,6 +18,11 @@ namespace Services
             return await _Etap.Gets(IdProceso);
         }
 
+        public async Task<List<ProcesEtap>> Get(String IdProceso)
+        {
+            return await _Etap.Get(IdProceso);
+        }
+
         public Mensaje Create(ProcesEtap Process)
         {
             Guid uid = Guid.NewGuid();

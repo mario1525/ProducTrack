@@ -6,11 +6,18 @@ export type Proceso = {
     fecha_log: string;
   }
 
+
+
 export type Etapa = {
   id: string;
   nombre: string;
   idProceso: string;
-  estado: boolean;
-  eliminado: boolean; 
+  nEtapa: number;
+  estado: boolean;   
   fecha_log: string;
+}
+
+export type create_Proces = {
+  process: Proceso;
+  procesEtaps: Etapa[];
 }

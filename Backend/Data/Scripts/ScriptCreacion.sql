@@ -37,16 +37,17 @@ PRINT 'creacion de la tabla Usuario'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Usuario')
 BEGIN
     CREATE TABLE dbo.Usuario(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',     /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',               /*Nombre del usuario*/
-        Apellido      VARCHAR(255) NOT NULL DEFAULT '',              /*Apellido del usuario*/
-        Correo        VARCHAR(255) NOT NULL DEFAULT '',             /*Apellido del usuario*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/
-        Cargo         VARCHAR(60) NOT NULL DEFAULT '',            /*Cargo interno en la compania*/
-        Rol           VARCHAR(60) NOT NULL DEFAULT 'Usuario',    /*Rol del usuario*/
-        Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
-		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
-        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',      /*id interno del registro*/
+        Nombre          VARCHAR(255) NOT NULL DEFAULT '',                /*Nombre del usuario*/
+        Apellido        VARCHAR(255) NOT NULL DEFAULT '',               /*Apellido del usuario*/
+        Identificacion  BIGINT          NOT NULL DEFAULT 0,            /*numero de indentificacion del usuario*/
+        Correo          VARCHAR(255) NOT NULL DEFAULT '',             /*Apellido del usuario*/
+        IdCompania	    VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/
+        Cargo           VARCHAR(60) NOT NULL DEFAULT '',            /*Cargo interno en la compania*/
+        Rol             VARCHAR(60) NOT NULL DEFAULT 'Usuario',    /*Rol del usuario*/
+        Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.Usuario ADD CONSTRAINT
 		FKUsuariocompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
@@ -114,8 +115,9 @@ PRINT 'creacion de la tabla ProcesEtap'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ProcesEtap')
 BEGIN
     CREATE TABLE dbo.ProcesEtap(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre de la etapa*/
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre de la etapa*/
+        NEtapa        INT    NOT NULL DEFAULT '',                 /*Nombre de la etapa*/
         IdProceso	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Proceso*/ 
         Estado	 	  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/

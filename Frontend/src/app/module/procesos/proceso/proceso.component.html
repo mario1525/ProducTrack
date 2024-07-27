@@ -2,55 +2,68 @@
     <div class="proces-form">    
     <div class="header">
         <h2>Procesos</h2>
+        <button *ngIf="pop_etapa" (click)="cerrarPopup()" class="btn eliminar">Eliminar</button>
         <div class="btns">
         <button *ngIf="idProceso" (click)="onDelete()" class="btn eliminar">Eliminar</button>
         <button class="{{ idProceso ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idProceso? 'Actualizar' : 'agregar' }}</button>
     </div>
       </div>
     <form [formGroup]="ProcesForm" (ngSubmit)="onSubmit()">
-        <div class="general-info">
+    <div class="general-info">
       <div>
         <label>Nombre</label>
         <input formControlName="nombre" />
-      </div>
-      <div>
-        <label>Etapa Final</label>
-        <select formControlName="etapaFinal">
-          <option *ngFor="let etapa of etapas" [value]="etapa.id">{{ etapa.nombre }}</option>
-        </select>
-      </div>
-      <div>
-        <label>Etapa Inicial</label>
-        <select formControlName="etapaInicial">
-          <option *ngFor="let etapa of etapas" [value]="etapa.id">{{ etapa.nombre }}</option>
-        </select>
-      </div>
+      </div>      
     </div>       
     </form>
 </div>
-  
-    <h3>Etapas</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>         
-          <th>Fecha Creación</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let etapa of etapas">
-          <td>{{ etapa.id }}</td>
-          <td>{{ etapa.nombre }}</td>
-          <td>{{ etapa.fecha_log }}</td>
-          
-          <td>
-            <button >✏️</button>
-            <button >🗑️</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+<div class="sections">
+    <div class="section">
+      <h3>Productos</h3>
+      <button (click)="createEtapa()" class="btn agregar">Agregar</button>
+      <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>   
+                <th>N.Etapa</th>         
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+              </tr>
+        </thead> 
+        <tbody *ngIf="etapas.length">
+            <tr *ngFor="let etapa of etapas; let indice = index;">
+                <td>{{ etapa.id }}</td>
+                <td>{{ etapa.nombre }}</td>
+                <td>{{ etapa.nEtapa }}</td>
+                <td>{{ etapa.fecha_log }}</td>
+              <td>
+                <button (click)="redirecEtapa(indice)" class="btn editar">✏️</button>
+                <button (click)="onDeleteEtapa(indice)" class="btn eliminar">🗑️</button>
+                <app-etapa-popup *ngIf="pop_etapa" [IdEtapa]="idEtapa" [idProceso]="idProceso" ></app-etapa-popup>                
+              </td>
+            </tr>
+        </tbody>       
+      </table>
+    </div>
+    <div class="popup" *ngIf="mostrar">
+      <div class="popup-header">
+          <h2 style="margin: 0; padding: 0;"><span style="color: #FFFFFF;">Product</span><span style="color: #52B4FA;">Track</span></h2>      
+      </div>
+      <form [formGroup]="etapaForm" (ngSubmit)="agregar_Etapa()">
+        <div>
+          <label>Nombre</label>
+          <input formControlName="nombre" />
+        </div>
+        <div>
+          <label>N.Etapa</label>
+          <input type="number" formControlName="nEtapa" />
+        </div>
+        <div>
+          <button type="submit">Agregar</button>
+        </div>
+      </form>
+    </div>  
   </div>
   

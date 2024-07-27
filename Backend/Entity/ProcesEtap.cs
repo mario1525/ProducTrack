@@ -10,9 +10,9 @@ namespace Entity
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
+        public int NEtapa { get; set; }
         public string IdProceso { get; set; }
-        public bool Estado { get; set; }
-        public bool Eliminado { get; set; }
+        public bool Estado { get; set; }        
         public string Fecha_log { get; set; }
     }
 }

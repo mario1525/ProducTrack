@@ -19,11 +19,19 @@ namespace Controllers.Endpoint
         }
 
         // GET api/<EtapaController>/5
-        [HttpGet("{idProceso}")]
+        [HttpGet("Proceso/{idProceso}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public async Task<List<ProcesEtap>> Get(string idProceso)
+        public async Task<List<ProcesEtap>> Gets(string idProceso)
         {
             return await _Logical.Gets(idProceso);
+        }
+
+        // GET api/<EtapaController>/5
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<ProcesEtap>> Get(string id)
+        {
+            return await _Logical.Get(id);
         }
 
         // POST api/<EtapaController>

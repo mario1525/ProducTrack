@@ -20,6 +20,7 @@ CREATE PROCEDURE dbo.dbSpUsuarioGet
     @Id                               VARCHAR(36),
     @Nombre                           VARCHAR(40),
     @Apellido						  VARCHAR(40),
+    @Identificacion                   BIGINT,
     @Correo						      VARCHAR(60),    
 	@IdCompania                       VARCHAR(60),
 	@Cargo                            VARCHAR(60),
@@ -27,11 +28,12 @@ CREATE PROCEDURE dbo.dbSpUsuarioGet
     @Estado                           INT 
 AS 
 BEGIN
-    SELECT Id, Nombre, Apellido, Correo, IdCompania, Cargo, Rol, Estado, Fecha_log     
+    SELECT Id, Nombre, Apellido, Identificacion, Correo, IdCompania, Cargo, Rol, Estado, Fecha_log     
     FROM dbo.Usuario
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END    
     AND Apellido LIKE CASE WHEN ISNULL(@Apellido,'')='' THEN Apellido ELSE '%'+@Apellido+'%' END
+    AND Identificacion LIKE CASE WHEN ISNULL(@Identificacion,0)=0 THEN Identificacion ELSE '%'+@Identificacion+'%' END
 	AND Correo LIKE CASE WHEN ISNULL(@Correo,'')='' THEN Correo ELSE '%'+@Correo+'%' END
 	AND IdCompania LIKE CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE '%'+@IdCompania+'%' END
     AND Cargo LIKE CASE WHEN ISNULL(@Cargo,'')='' THEN Cargo ELSE '%'+@Cargo+'%' END
@@ -41,36 +43,38 @@ BEGIN
 END
 
 GO
-PRINT 'Creacion procedimiento usuario Set '
+PRINT'Creacion procedimiento usuario Set '
 GO
 CREATE PROCEDURE dbo.dbSpUsuarioSet
-    @Id             VARCHAR(36),
-    @Nombre         VARCHAR(40),
-    @Apellido       VARCHAR(40),
-    @Correo         VARCHAR(60),
-    @IdCompania     VARCHAR(36),
-    @Cargo          VARCHAR(60),
-    @Rol            VARCHAR(200),
-    @Estado         BIT,
-    @Operacion      VARCHAR(1)
+    @Id                 VARCHAR(36),
+    @Nombre             VARCHAR(40),
+    @Apellido           VARCHAR(40),
+    @Identificacion     BIGINT,
+    @Correo             VARCHAR(60),
+    @IdCompania         VARCHAR(36),
+    @Cargo              VARCHAR(60),
+    @Rol                VARCHAR(200),
+    @Estado             BIT,
+    @Operacion          VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.Usuario(Id, Nombre, Apellido, Correo, IdCompania, Cargo, Rol, Estado, Eliminado, Fecha_log)
-        VALUES(@Id, @Nombre, @Apellido, @Correo, @IdCompania, @Cargo, @Rol, @Estado, 0, GETDATE());
+        INSERT INTO dbo.Usuario(Id, Nombre, Apellido, Identificacion, Correo, IdCompania, Cargo, Rol, Estado, Eliminado, Fecha_log)
+        VALUES(@Id, @Nombre, @Apellido,@Identificacion, @Correo, @IdCompania, @Cargo, @Rol, @Estado, 0, GETDATE());
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.Usuario
-        SET Nombre = @Nombre,
-            Apellido = @Apellido,
-            Correo = @Correo,
-            IdCompania = @IdCompania,
-            Cargo = @Cargo,
-            Rol = @Rol,
-            Estado = @Estado
-        WHERE Id = @Id;
+        SET Nombre         = @Nombre,
+            Apellido       = @Apellido,
+            Identificacion = @Identificacion,
+            Correo         = @Correo,
+            IdCompania     = @IdCompania,
+            Cargo          = @Cargo,
+            Rol            = @Rol,
+            Estado         = @Estado
+        WHERE Id           = @Id;
     END
 END;
 GO
@@ -106,6 +110,4 @@ BEGIN
         SET Estado = @Estado           
         WHERE Id = @Id;
 END;
-
-   
 

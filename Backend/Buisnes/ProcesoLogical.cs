@@ -31,6 +31,7 @@ namespace Services
             Guid uid = Guid.NewGuid();
             Process.Process.Id = uid.ToString();
             _DataProces.Set("I", Process.Process);
+            Task.Delay(1000);
             foreach (ProcesEtap etapa in Process.procesEtaps)
             {
                 Guid uidEtap = Guid.NewGuid();
