@@ -2,6 +2,7 @@
     <div class="header">
       <h2>Usuario</h2>
       <div class="btns">
+        <button *ngIf="idUsuario" (click)="create_Credencial()" class="btn agregar">agregar credenciales</button>
         <button *ngIf="idUsuario" (click)="onDelete()" class="btn eliminar">Eliminar</button>
         <button class="{{ idUsuario ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idUsuario? 'Actualizar' : 'agregar' }}</button>
       </div>

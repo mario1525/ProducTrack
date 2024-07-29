@@ -96,7 +96,7 @@ export class ProcesoComponent implements OnInit {
           process: Value,
           procesEtaps: this.etapas
         }  
-        console.log(this.create_proces)               
+        //console.log(this.create_proces)               
         this.procesoService.create(this.create_proces).subscribe({          
           next: () => {
             alert("Proceso creado")

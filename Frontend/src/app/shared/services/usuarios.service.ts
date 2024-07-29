@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { Usuario } from 'src/types/usuarios'
+import { Usuario, Credential } from 'src/types/usuarios'
 
 @Injectable({
     providedIn: 'root'
@@ -29,6 +29,11 @@ export class UsuarioService {
     
       create_usuario(usuario: Usuario): Observable<any> {
         const url = `${this.apiUrl}api/Usuario`;
+        return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+      }
+
+      create_Credential(usuario: Credential): Observable<any> {
+        const url = `${this.apiUrl}api/Credential`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
     

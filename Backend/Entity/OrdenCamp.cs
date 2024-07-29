@@ -8,6 +8,6 @@
         public bool Obligatorio { get; set; }
         public string IdOrden { get; set; }
         public bool Estado { get; set; }        
-        public DateTime Fecha_log { get; set; }
+        public string Fecha_log { get; set; }
     }
 }

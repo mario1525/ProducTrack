@@ -18,6 +18,11 @@ namespace Services
             return await _Camp.Gets(IdOrden);
         }
 
+        public async Task<List<OrdenCamp>> Get(String Id)
+        {
+            return await _Camp.Get(Id);
+        }
+
         public Mensaje Create(OrdenCamp value)
         {
             Guid uid = Guid.NewGuid();

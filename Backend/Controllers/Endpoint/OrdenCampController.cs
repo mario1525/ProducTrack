@@ -20,9 +20,16 @@ namespace Controllers.Endpoint
         // GET api/<OrdenCampController>/5
         [HttpGet("{idOrden}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public async Task<List<OrdenCamp>> Get(string idOrden)
+        public async Task<List<OrdenCamp>> Gets(string idOrden)
         {
             return await _Logical.Gets(idOrden);
+        }
+
+        [HttpGet("Campo/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<OrdenCamp>> Get(string id)
+        {
+            return await _Logical.Get(id);
         }
 
         // POST api/<OrdenCampController>

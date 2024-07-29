@@ -27,3 +27,13 @@ export type Usuario =  {
   estado: boolean;
   fecha_log: string;
 }
+
+export type Credential =  {
+  id: string;  
+  usuario: string;
+  contrasenia: string;
+  correo: string;
+  idUsuario: string; 
+  estado: boolean;
+  fecha_log: string;
+}

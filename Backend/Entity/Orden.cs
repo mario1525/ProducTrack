@@ -1,4 +1,4 @@
-﻿namespace Entity
+﻿ namespace Entity
 {
     public class Orden
     {

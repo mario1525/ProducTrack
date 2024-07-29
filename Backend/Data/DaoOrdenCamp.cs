@@ -20,7 +20,7 @@ namespace Data
                 new SqlParameter("@IdOrdenCamp", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", 1),
+                new SqlParameter("@Obligatorio", ""),
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -36,7 +36,7 @@ namespace Data
                 new SqlParameter("@IdOrdenCamp", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", 1),
+                new SqlParameter("@Obligatorio", ""),
                 new SqlParameter("@IdOrden", IdOrden),
                 new SqlParameter("@Estado", 1)
             };
@@ -102,7 +102,7 @@ namespace Data
                     Obligatorio = Convert.ToBoolean(row["Obligatorio"]),
                     IdOrden = row["IdOrden"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 ordenCampList.Add(ordenCamp);
             }

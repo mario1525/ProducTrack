@@ -89,6 +89,10 @@ export class UsuarioComponent implements OnInit {
     }
   }
 
+  create_Credencial() {
+    this.route.navigate([`/App/Compania/${this.idCompania}/Usuario/${this.idUsuario}/Credential`]);
+  }
+
   onDelete(): void {
     this.UsuaioService.delete_usuario(this.idUsuario).subscribe({
       next: () => {

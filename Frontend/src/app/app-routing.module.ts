@@ -12,6 +12,8 @@ import { OrdenesComponent } from './module/ordenes/ordenes.component';
 import { LaboratoriosComponent } from './module/laboratorios/laboratorios.component';
 import { DetallecompaniaComponent } from './module/compania/detallecompania/detallecompania.component';
 import { ProcesoComponent } from './module/procesos/proceso/proceso.component';
+import { CredentialComponent } from './module/usuarios/credential/credential.component';
+import { OrdenComponent } from './module/ordenes/orden/orden.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +26,8 @@ const routes: Routes = [
 
     { path: 'App/Compania/:id/Usuarios', component: UsuariosComponent},
     { path: 'App/Compania/:id/Usuario/:id', component: UsuarioComponent},
+    { path: 'App/Compania/:id/Usuario/:id/Credential', component: CredentialComponent},
+    { path: 'App/Compania/:id/Usuario/:id/Credential/:id', component: CredentialComponent},
     { path: 'App/Compania/:id/Usuario', component: UsuarioComponent},
 
     { path: 'App/Compania/:id/Procesos', component: ProcesosComponent},
@@ -33,6 +37,8 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Productos', component: ProductosComponent},   
     
     { path: 'App/Compania/:id/Ordenes', component: OrdenesComponent},
+    { path: 'App/Compania/:id/Orden/:id', component: OrdenComponent},
+    { path: 'App/Compania/:id/Orden', component: OrdenComponent},
 
     { path: 'App/Compania/:id/Laboratorios', component: LaboratoriosComponent}      
   
