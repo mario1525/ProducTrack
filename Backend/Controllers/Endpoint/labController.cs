@@ -18,13 +18,21 @@ namespace Controllers.Endpoint
             _Logical = logical;
         }
 
+        // GET: api/<labController>/5
+        [HttpGet("Compania/{idCompania}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<Lab>> Gets(string idCompania)
+        {
+            return await _Logical.Gets(idCompania);
+        }
+
 
         // GET: api/<labController>/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Lab>> Get(string id)
         {
-            return await _Logical.Gets(id);
+            return await _Logical.Get(id);
         }
 
         // POST api/<labController>

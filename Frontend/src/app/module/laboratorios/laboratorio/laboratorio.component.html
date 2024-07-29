@@ -1,0 +1,73 @@
+<div>
+    <div class="form">    
+    <div class="header">
+        <h2>Orden</h2>        
+        <div class="btns">
+        <button *ngIf="idLab" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idLab ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idLab? 'Actualizar' : 'agregar' }}</button>
+    </div>
+      </div>
+    <form [formGroup]="Form" >
+    <div class="general-info">
+      <div>
+        <label>Nombre</label>
+        <input formControlName="nombre" />
+      </div>      
+    </div>       
+    </form>
+</div>
+
+<div class="sections">
+    <div class="section">
+      <h3>Productos</h3>
+      <button (click)="createCamp()" class="btn agregar">Agregar</button>
+      <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>                 
+                <th>Tipo de dato</th>
+                <th>unidad de medida</th>          
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+              </tr>
+        </thead> 
+        <tbody *ngIf="campos.length">
+            <tr *ngFor="let campo of campos; let indice = index;">
+                <td>{{ campo.id }}</td>
+                <td>{{ campo.nombre }}</td>                
+                <td>{{ campo.tipoDato }}</td>
+                <td>{{ campo.unidadMedida }}</td>
+                <td>{{ campo.fecha_log }}</td>
+              <td>
+                <button *ngIf="idLab" (click)="redirecCamp(indice)" class="btn editar">✏️</button>
+                <button (click)="onDeleteCamp(indice)" class="btn eliminar">🗑️</button>                                
+              </td>
+            </tr>
+        </tbody>       
+      </table>
+    </div>
+    <div class="popup" *ngIf="mostrar">
+      <div class="popup-header">
+          <h2 style="margin: 0; padding: 0;"><span style="color: #FFFFFF;">Product</span><span style="color: #52B4FA;">Track</span></h2>      
+      </div>
+      <form [formGroup]="CampoForm" (ngSubmit)="agregar_Camp()">
+        <div>
+          <label>Nombre</label>
+          <input formControlName="nombre" />
+        </div>
+        <div>
+          <label>tipoDato</label>
+          <input type="string" formControlName="tipoDato" />
+        </div>
+        <div>
+            <label>Unidad de medida</label>
+            <input type="string" formControlName="unidadMedida" />
+          </div>
+        
+            <button type="submit" class="{{ idCampo ? 'btn actualizar' : 'btn agregar' }}" >{{ idCampo? 'Actualizar' : 'agregar' }}</button>
+        
+      </form>
+    </div>  
+  </div>
+

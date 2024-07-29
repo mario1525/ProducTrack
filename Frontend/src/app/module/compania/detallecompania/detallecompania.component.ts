@@ -100,7 +100,7 @@ export class DetallecompaniaComponent implements OnInit {
         }
       })
   
-      this.labService.obtener_Procesos(this.IdCompania).subscribe({
+      this.labService.obtener_labs(this.IdCompania).subscribe({
         next: (laboratorios) => {
           this.laboratorios = laboratorios
           return; 

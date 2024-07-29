@@ -21,7 +21,7 @@ namespace Data
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
                 new SqlParameter("@UnidadMedida", ""),
-                new SqlParameter("@Obligatorio", 0),
+                //new SqlParameter("@Obligatorio", ""),
                 new SqlParameter("@IdLab", ""),
                 new SqlParameter("@Estado", 1),
                
@@ -39,7 +39,7 @@ namespace Data
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),
                 new SqlParameter("@UnidadMedida", ""),
-                new SqlParameter("@Obligatorio", 0),
+                //new SqlParameter("@Obligatorio", 0),
                 new SqlParameter("@IdLab", IdLab),
                 new SqlParameter("@Estado", 1),                
             };
@@ -102,8 +102,7 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
                     TipoDato = row["TipoDato"].ToString(),
-                    UnidadMedida = row["UnidadMedida"].ToString(),
-                    Obligatorio = Convert.ToBoolean(row["Obligatorio"]),
+                    UnidadMedida = row["UnidadMedida"].ToString(),                    
                     IdLab = row["IdLab"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = row["Fecha_log"].ToString()

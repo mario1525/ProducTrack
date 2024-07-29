@@ -30,6 +30,7 @@ namespace Services
             Guid uid = Guid.NewGuid();
             Value.Lab.Id = uid.ToString();
             _lab.Set("I", Value.Lab);
+            Task.Delay(1000);
             foreach (LabCamp campo in Value.Campos)
             {
                 Guid uidCamp = Guid.NewGuid();

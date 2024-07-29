@@ -19,6 +19,11 @@ namespace Services
             return await _Camp.Gets(IdOrden);
         }
 
+        public async Task<List<LabCamp>> Get(String IdOrden)
+        {
+            return await _Camp.Get(IdOrden);
+        }
+
         public Mensaje Create(LabCamp value)
         {
             Guid uid = Guid.NewGuid();

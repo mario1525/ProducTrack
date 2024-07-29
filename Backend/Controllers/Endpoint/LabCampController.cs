@@ -18,11 +18,18 @@ namespace Controllers.Endpoint
         }
 
         // GET api/<labCampController>/5
-        [HttpGet("{idOrden}")]
+        [HttpGet("{idLab}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public async Task<List<LabCamp>> Get(string idOrden)
+        public async Task<List<LabCamp>> Gets(string idLab)
         {
-            return await _Logical.Gets(idOrden);
+            return await _Logical.Gets(idLab);
+        }
+
+        [HttpGet("Campo/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<LabCamp>> Get(string id)
+        {
+            return await _Logical.Get(id);
         }
 
         // POST api/<labCampController>
