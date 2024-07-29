@@ -155,6 +155,38 @@ public IActionResult Create([FromBody] Compania compania)
 }
 ```
 
+## Pruebas
+
+Para ejecutar las pruebas del backend, utiliza el siguiente comando:
+
+```sh
+
+dotnet test
+```
+
+Para ejecutar las pruebas del frontend, utiliza:
+
+
+```sh
+
+ng test
+```
+
+## Despliegue
+
+Para desplegar la aplicación en producción, sigue los pasos específicos para tu entorno de despliegue (Azure, AWS, Heroku, etc.). Aquí hay un ejemplo básico de despliegue en Azure:
+
+1. Publica el proyecto:
+
+```sh
+
+dotnet publish -c Release -o ./publish
+```
+
+2. Sube los archivos publicados a tu servicio de Azure.
+
+3. Configura las variables de entorno necesarias para la base de datos y otros servicios.
+
 ## Contribuir
 
 Si deseas contribuir a este proyecto, por favor sigue estos pasos:
