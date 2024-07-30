@@ -15,6 +15,7 @@ import { ProcesoComponent } from './module/procesos/proceso/proceso.component';
 import { CredentialComponent } from './module/usuarios/credential/credential.component';
 import { OrdenComponent } from './module/ordenes/orden/orden.component';
 import { LaboratorioComponent } from './module/laboratorios/laboratorio/laboratorio.component';
+import { ProductoComponent } from './module/productos/producto/producto.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,7 +37,9 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Proceso/:id', component: ProcesoComponent},
 
     { path: 'App/Compania/:id/Productos', component: ProductosComponent},   
-    
+    { path: 'App/Compania/:id/Producto', component: ProductoComponent},
+    { path: 'App/Compania/:id/Producto/:id', component: ProductoComponent}, 
+
     { path: 'App/Compania/:id/Ordenes', component: OrdenesComponent},
     { path: 'App/Compania/:id/Orden/:id', component: OrdenComponent},
     { path: 'App/Compania/:id/Orden', component: OrdenComponent},

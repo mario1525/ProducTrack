@@ -27,7 +27,7 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<ProductCamp>> Gets(string IdOrden)
+        public async Task<List<ProductCamp>> Gets(string IdProducto)
         {
             const string procedureName = "dbo.dbSpProductCampGet";
             var parameters = new[]
@@ -35,7 +35,7 @@ namespace Data
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@TipoDato", ""),          
-                new SqlParameter("@IdProducto", ""),
+                new SqlParameter("@IdProducto", IdProducto),
                 new SqlParameter("@Estado", 1)              
             };
             return await GetList(procedureName, parameters);

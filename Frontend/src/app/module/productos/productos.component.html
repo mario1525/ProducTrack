@@ -1,6 +1,6 @@
-<main>    
-    <div class="product-table">
+
         <div class="header">
+          <h2>Productos</h2>
           <div class="header-item">
             <label for="identification">Identificación</label>
             <input id="identification" type="text" placeholder="Identificación">
@@ -20,12 +20,13 @@
         </div>
         <div class="buttons">
           <button class="btn filtrar">Filtrar</button>
-          <button class="btn agregar">Agregar</button>
+          <button class="btn agregar" (click)="create()">Agregar</button>
         </div>
         <div class="table-container">
           <table>
             <thead>
               <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Proceso</th>
@@ -33,8 +34,9 @@
                 <th>Fecha Creación</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let product of datos_Productos">
+            <tbody *ngIf="datos_Productos.length">
+              <tr *ngFor="let product of datos_Productos; let indice = index;">
+                <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="rediretdetalle(indice)" /></td>
                 <td>{{ product.id }}</td>
                 <td>{{ product.nombre }}</td>
                 <td>{{ product.idProceso }}</td>
@@ -44,6 +46,4 @@
             </tbody>
           </table>
         </div>
-      </div>
       
-</main>

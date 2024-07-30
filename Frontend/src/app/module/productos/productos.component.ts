@@ -9,18 +9,9 @@ import { productoService } from 'src/app/shared/services/Producto.service';
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.less']
 })
-export class ProductosComponent implements OnInit {
-  opciones = false
+export class ProductosComponent implements OnInit {  
   IdCompania: string = ""
-  datos_Productos: producto[] = [];
-  navRoutes = [
-    //{ path: '/App/Companias', label: 'Compania' },
-    { path: '/App/Usuarios', label: 'Usuarios' },
-    //{ path: '/App/Productos', label: 'Productos' },
-    { path: '/App/Procesos', label: 'Procesos' },
-    { path: '/App/Ordenes', label: 'Ordenes' },
-    { path: '/App/Laboratorios', label: 'Laboratorios' }
-  ];
+  datos_Productos: producto[] = [];  
   constructor(private route: Router, private productoservices : productoService, private auth: TokenserviceService) {
   }
 
@@ -35,6 +26,23 @@ export class ProductosComponent implements OnInit {
         console.log(error)
       }
     })
+  }
+
+  rediretdetalle(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.datos_Productos[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.IdCompania}/Producto/${datosSeleccionados.id}`]);
+  }
+
+   homeback() {
+    this.route.navigate(['App/Compania', this.IdCompania]);
+    return
+  }
+  
+   create() {
+    this.route.navigate([`App/Compania/${this.IdCompania}/Producto`]);
   }
 
 

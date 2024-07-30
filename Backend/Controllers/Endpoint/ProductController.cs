@@ -24,6 +24,14 @@ namespace Controllers.Endpoint
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Producto>> Get(string id)
         {
+            return await _Logical.Get(id);
+        }
+
+        // GET: api/<ProductController>/5
+        [HttpGet("Compania/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<Producto>> Gets(string id)
+        {
             return await _Logical.Gets(id);
         }
 

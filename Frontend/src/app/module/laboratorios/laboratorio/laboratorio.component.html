@@ -1,7 +1,7 @@
 <div>
     <div class="form">    
     <div class="header">
-        <h2>Orden</h2>        
+        <h2>Laboratorio</h2>        
         <div class="btns">
         <button *ngIf="idLab" (click)="onDelete()" class="btn eliminar">Eliminar</button>
         <button class="{{ idLab ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idLab? 'Actualizar' : 'agregar' }}</button>
@@ -19,7 +19,7 @@
 
 <div class="sections">
     <div class="section">
-      <h3>Productos</h3>
+      <h3>Campos</h3>
       <button (click)="createCamp()" class="btn agregar">Agregar</button>
       <table>
         <thead>

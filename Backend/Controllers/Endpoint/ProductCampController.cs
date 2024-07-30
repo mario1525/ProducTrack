@@ -20,9 +20,17 @@ namespace Controllers.Endpoint
         // GET api/<ProductCampController>/5
         [HttpGet("{idProduct}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public async Task<List<ProductCamp>> Get(string idProduct)
+        public async Task<List<ProductCamp>> Gets(string idProduct)
         {
             return await _Logical.Gets(idProduct);
+        }
+
+        // GET api/<ProductCampController>/5
+        [HttpGet("Campo/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<List<ProductCamp>> Get(string id)
+        {
+            return await _Logical.Get(id);
         }
 
         // POST api/<ProductCampController>

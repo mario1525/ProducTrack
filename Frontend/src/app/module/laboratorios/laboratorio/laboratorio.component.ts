@@ -83,7 +83,7 @@ export class LaboratorioComponent implements OnInit {
         Value.idCompania = this.idCompania;
         this.Service.update(this.idLab,Value).subscribe({
           next: () => {
-            alert("Orden Actualizada")
+            alert("laboratorio Actualizado")
             this.location.back();
           },
           error: (error) =>{
@@ -97,10 +97,10 @@ export class LaboratorioComponent implements OnInit {
           lab: Value,
           campos: this.campos
         }  
-        console.log(this.create_Lab)               
+        //console.log(this.create_Lab)               
         this.Service.create(this.create_Lab).subscribe({          
           next: () => {
-            alert("orden creada")
+            alert("Laboratorio creado")
             this.location.back();
           },
           error: (error) =>{
@@ -186,7 +186,7 @@ export class LaboratorioComponent implements OnInit {
             },
             error: (error) =>{
               console.log(error)
-              alert('Error al crear la etapa');
+              alert('Error al crear el campo');
             }
           })
         }
@@ -207,7 +207,7 @@ export class LaboratorioComponent implements OnInit {
   onDelete(): void {
     this.Service.delete(this.idLab).subscribe({
       next: () => {
-        alert("orden eliminada")
+        alert("producto eliminado")
         this.location.back();
       },
       error: (error) =>{

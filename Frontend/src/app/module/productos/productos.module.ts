@@ -4,6 +4,7 @@ import { ProductosComponent } from '../productos/productos.component';
 
 import { SharedModule } from './../../shared/shared.module';
 import { ProductoComponent } from './producto/producto.component'
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { ProductoComponent } from './producto/producto.component'
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductosModule { }
