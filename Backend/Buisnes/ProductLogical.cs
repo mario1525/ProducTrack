@@ -31,6 +31,7 @@ namespace Services
             Guid uid = Guid.NewGuid();
             Value.producto.Id = uid.ToString();
             _Dao.Set("I", Value.producto);
+            Task.Delay(1000);
             foreach (ProductCamp campo in Value.campos)
             {
                 Guid uidCamp = Guid.NewGuid();

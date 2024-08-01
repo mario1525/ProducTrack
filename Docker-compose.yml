@@ -8,7 +8,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "4200:80"
+      - "3002:3002"
     depends_on:
       - backend 
 
@@ -19,18 +19,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
-    depends_on:
-      - sqlserver 
-
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
-      - SA_PASSWORD=pas232sdbeu
-      - ACCEPT_EULA=Y
-    ports:
-      - "1433:1433"
-    volumes:
-      - sqlserverdata:/var/opt/mssql
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True  
+    
 
-volumes:
-  sqlserverdata:

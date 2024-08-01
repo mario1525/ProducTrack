@@ -1,3 +1,3 @@
-const url = 'https://localhost:7022/'
+const url = 'http://localhost:8080/'
 
 export default url

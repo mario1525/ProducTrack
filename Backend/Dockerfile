@@ -24,4 +24,7 @@ RUN dotnet publish "Controllers.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY ["Controllers/appsettings.json", "/app/appsettings.json"]
+
 ENTRYPOINT ["dotnet", "Controllers.dll"]
