@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
@@ -27,22 +27,22 @@ export class UsuarioService {
         return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
       }
     
-      create_usuario(usuario: Usuario): Observable<any> {
+      create_usuario(usuario: Usuario): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}api/Usuario`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
 
-      create_Credential(usuario: Credential): Observable<any> {
+      create_Credential(usuario: Credential): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}api/Credential`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
     
-      update_usuario(id: string, usuario: Usuario): Observable<any> {
+      update_usuario(id: string, usuario: Usuario): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}api/Usuario/${id}`;
         return this.http.put<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
     
-      delete_usuario(id: string): Observable<any> {
+      delete_usuario(id: string): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}api/Usuario/${id}`;
         return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }

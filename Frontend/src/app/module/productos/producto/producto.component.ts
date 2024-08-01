@@ -90,7 +90,7 @@ export class ProductoComponent implements OnInit{
 
   onSubmit(): void {
     if (this.Form.valid) {        
-      let Value = this.Form.value      
+      const Value = this.Form.value      
       if(this.idProduct){
         Value.idCompania = this.idCompania;
         this.Service.update(this.idProduct,Value).subscribe({
@@ -168,7 +168,7 @@ export class ProductoComponent implements OnInit{
   agregar_Camp() {
     if (this.CampoForm.valid) {
       if(this.idProduct){
-        let Value = this.CampoForm.value        
+        const Value = this.CampoForm.value        
         if(this.idCampo){
           console.log(Value)
           this.Service.update_c(this.idCampo,Value).subscribe({
@@ -190,7 +190,7 @@ export class ProductoComponent implements OnInit{
           this.Service.create_c(Value).subscribe({
             next: () => {
               alert("campo creado")
-              this.limpiar
+              this.limpiar()
               this.ngOnInit()
               this.mostrar = false
               

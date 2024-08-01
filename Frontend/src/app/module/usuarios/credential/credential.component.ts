@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario, Credential } from 'src/types/usuarios';
 import {UsuarioService} from 'src/app/shared/services/usuarios.service'
-import { TokenserviceService } from '../../../shared/services/Token.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -38,7 +36,7 @@ export class CredentialComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
       if (this.form.value.contrasenia == this.form.value.confirmarContrasena ){
-        let credential = this.form.value
+        const credential = this.form.value
       credential.idUsuario = this.idUsuario;
       console.log(credential)                  
         this.UsuaioService.create_Credential(credential).subscribe({          

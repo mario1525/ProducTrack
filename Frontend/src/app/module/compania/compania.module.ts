@@ -5,7 +5,7 @@ import { DetallecompaniaComponent } from './detallecompania/detallecompania.comp
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from './../../shared/shared.module'
-import { share } from 'rxjs';
+
 
 @NgModule({
   declarations: [

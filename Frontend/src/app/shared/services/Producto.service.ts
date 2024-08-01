@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
@@ -23,17 +23,17 @@ import { producto, Camp, create_Product } from 'src/types/Producto'
     return this.http.get<producto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  create(Value: create_Product): Observable<any> {
+  create(Value: create_Product): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  update(id: string, Value: producto): Observable<any> {
+  update(id: string, Value: producto): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto/${id}`;
     return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
@@ -50,17 +50,17 @@ import { producto, Camp, create_Product } from 'src/types/Producto'
     return this.http.get<Camp[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  create_c(Value: Camp): Observable<any> {
+  create_c(Value: Camp): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto/Campo`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  update_c(id: string, Value: Camp): Observable<any> {
+  update_c(id: string, Value: Camp): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto/Campo/${id}`;
     return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  delete_c(id: string): Observable<any> {
+  delete_c(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Producto/Campo/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }

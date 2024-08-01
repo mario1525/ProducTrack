@@ -59,7 +59,7 @@ export class UsuarioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.userForm.valid) {        
-      let usuario = this.userForm.value      
+      const usuario = this.userForm.value      
       if(this.idUsuario){
         this.UsuaioService.update_usuario(this.idUsuario,usuario).subscribe({
           next: () => {

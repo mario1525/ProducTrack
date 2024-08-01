@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthtenticationService } from 'src/app/shared/services/Auth.service';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
 import { TokenserviceService } from 'src/app/shared/services/Token.service';
 
 @Component({

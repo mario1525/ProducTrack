@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ordenService } from 'src/app/shared/services/Orden.service';
-import { oCamp, create_orden, orden } from 'src/types/ordenes';
+import { oCamp, create_orden} from 'src/types/ordenes';
 
 @Component({
   selector: 'app-orden',
@@ -78,7 +78,7 @@ ngOnInit(): void {
 
 onSubmit(): void {
   if (this.Form.valid) {        
-    let Value = this.Form.value      
+    const Value = this.Form.value      
     if(this.idOrden){
       Value.idCompania = this.idCompania;
       this.OrdenService.update(this.idOrden,Value).subscribe({
@@ -156,7 +156,7 @@ limpiar() {
 agregar_Camp() {
   if (this.CampoForm.valid) {
     if(this.idOrden){
-      let Value = this.CampoForm.value
+      const Value = this.CampoForm.value
       if(this.idCampo){
         this.OrdenService.update_c(this.idCampo,Value).subscribe({
           next: () => {
@@ -177,7 +177,7 @@ agregar_Camp() {
         this.OrdenService.create_c(Value).subscribe({
           next: () => {
             alert("campo creado")
-            this.limpiar
+            this.limpiar()
             this.ngOnInit()
             this.mostrar = false
             

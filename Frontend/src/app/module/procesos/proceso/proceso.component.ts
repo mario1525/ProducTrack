@@ -78,7 +78,7 @@ export class ProcesoComponent implements OnInit {
 
   onSubmit(): void {
     if (this.ProcesForm.valid) {        
-      let Value = this.ProcesForm.value      
+      const Value = this.ProcesForm.value      
       if(this.idProceso){
         this.procesoService.update(this.idProceso,Value).subscribe({
           next: () => {

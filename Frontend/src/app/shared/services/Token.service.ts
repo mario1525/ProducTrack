@@ -12,8 +12,7 @@ export class TokenserviceService {
 
   verifyToken(token: string): boolean {
     if (!token) return false;
-    try {
-      const verify = jwt(token);
+    try {      
       return true;
     } catch (error) {
       console.error('Error al decodificar el token:', error);

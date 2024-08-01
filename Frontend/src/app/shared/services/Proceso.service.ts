@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
@@ -23,17 +23,17 @@ import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
     return this.http.get<Proceso[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  create(Proceso: create_Proces): Observable<any> {
+  create(Proceso: create_Proces): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Proceso`;
     return this.http.post<{mensaje: string}>(url, Proceso, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  update(id: string, Proceso: Proceso): Observable<any> {
+  update(id: string, Proceso: Proceso): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Proceso/${id}`;
     return this.http.put<{mensaje: string}>(url, Proceso, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Proceso/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
@@ -51,17 +51,17 @@ import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
     return this.http.get<Etapa[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  create_etapa(Value: Etapa): Observable<any> {
+  create_etapa(Value: Etapa): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Etapa`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  update_etapa(id: string, Value: Etapa): Observable<any> {
+  update_etapa(id: string, Value: Etapa): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Etapa/${id}`;
     return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  delete_etapa(id: string): Observable<any> {
+  delete_etapa(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Etapa/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }

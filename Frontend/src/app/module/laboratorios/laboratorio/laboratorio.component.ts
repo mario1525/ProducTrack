@@ -78,7 +78,7 @@ export class LaboratorioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.Form.valid) {        
-      let Value = this.Form.value      
+      const Value = this.Form.value      
       if(this.idLab){
         Value.idCompania = this.idCompania;
         this.Service.update(this.idLab,Value).subscribe({
@@ -156,7 +156,7 @@ export class LaboratorioComponent implements OnInit {
   agregar_Camp() {
     if (this.CampoForm.valid) {
       if(this.idLab){
-        let Value = this.CampoForm.value        
+        const Value = this.CampoForm.value        
         if(this.idCampo){
           console.log(Value)
           this.Service.update_c(this.idCampo,Value).subscribe({
@@ -178,7 +178,7 @@ export class LaboratorioComponent implements OnInit {
           this.Service.create_c(Value).subscribe({
             next: () => {
               alert("campo creado")
-              this.limpiar
+              this.limpiar()
               this.ngOnInit()
               this.mostrar = false
               

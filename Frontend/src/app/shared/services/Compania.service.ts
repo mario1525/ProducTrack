@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
@@ -23,19 +23,19 @@ import { VistaCompania, Compania } from 'src/types/compania';
     return this.http.get<Compania[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  create_compania(compania: Compania): Observable<any> {
+  create_compania(compania: Compania): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Compania`;
     return this.http.post<{mensaje: string}>(url, compania, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  update_compania(id: string, compania : Compania): Observable<any> {
+  update_compania(id: string, compania : Compania): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Compania/${id}`;
-    return this.http.put<Compania>(url, compania, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    return this.http.put<{mensaje: string}>(url, compania, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  delete_compania(id: string): Observable<any> {
+  delete_compania(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}api/Compania/${id}`;
-    return this.http.delete<Compania>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 }
 

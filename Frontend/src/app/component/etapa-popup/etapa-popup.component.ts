@@ -44,7 +44,7 @@ export class EtapaPopupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.etapaForm.valid) {
-      let Value = this.etapaForm.value
+      const Value = this.etapaForm.value
       //console.log(Value)
       if(this.IdEtapa){
         this.procesoService.update_etapa(this.IdEtapa,Value).subscribe({
