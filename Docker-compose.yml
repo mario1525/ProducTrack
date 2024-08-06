@@ -21,6 +21,16 @@ services:
       - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True  
+      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True
+    depends_on:
+      - api-gateway  
+
+  api-gateway:
+    image: api-gateway:latest 
+    build: 
+      context: ./api-gateway
+      dockerfile: dockerfile
+    ports: 
+    - "3204:3204"  
     
 
