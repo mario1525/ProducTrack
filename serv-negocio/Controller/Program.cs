@@ -1,7 +1,81 @@
+using Data;
+using Data.SQLClient;
+using Entity;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+// Configuración de las variables de entorno 
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .Build();
+
+string connectionString = configuration["Configuracion:connectionString"];
+string SecretKey = configuration["Jwt:SecretKey"];
+string Issuer = configuration["Jwt:Issuer"];
+string Audience = configuration["Jwt:Audience"]; 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
+
+//Data
+builder.Services.AddSingleton<DaoRegisOrden>();
+builder.Services.AddSingleton<DaoArchivo>();
+builder.Services.AddSingleton<DaoArchivoVal>();
+builder.Services.AddSingleton<DaoLabCampVal>();
+builder.Services.AddSingleton<DaoOrdenCampVal>();
+builder.Services.AddSingleton<DaoProductCampVal>();
+builder.Services.AddSingleton<DaoRegisLabProcesEtap>();
+builder.Services.AddSingleton<DaoRegisProduct>();
+builder.Services.AddSingleton<DaoRegisProductProcesEtap>();
+
+//Entity
+builder.Services.AddSingleton<RegisOrden>();
+builder.Services.AddSingleton<Archivo>();
+builder.Services.AddSingleton<ArchivoVal>();
+builder.Services.AddSingleton<LabCampVal>();
+builder.Services.AddSingleton<OrdenCampVal>();
+builder.Services.AddSingleton<ProductCampVal>();
+builder.Services.AddSingleton<RegisLabProcesEtap>();
+builder.Services.AddSingleton<RegisProduct>();
+builder.Services.AddSingleton<RegisProductProcesEtap>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+
+// Add Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                 .AllowAnyHeader()
+                 .AllowAnyMethod();
+        });
+});
+
+// swagger 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = Issuer,
+            ValidAudience = Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey))
+        };
+    });
 
 var app = builder.Build();
 
@@ -18,6 +92,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("MyPolicy");
+
+// Middleware de autenticación y autorización
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

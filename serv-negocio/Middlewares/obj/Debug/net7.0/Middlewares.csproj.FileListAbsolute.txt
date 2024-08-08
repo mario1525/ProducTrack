@@ -1,0 +1,11 @@
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\bin\Debug\net7.0\Middlewares.deps.json
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\bin\Debug\net7.0\Middlewares.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\bin\Debug\net7.0\Middlewares.pdb
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.AssemblyInfoInputs.cache
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.AssemblyInfo.cs
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.csproj.CoreCompileInputs.cache
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\refint\Middlewares.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\Middlewares.pdb
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Middlewares\obj\Debug\net7.0\ref\Middlewares.dll
