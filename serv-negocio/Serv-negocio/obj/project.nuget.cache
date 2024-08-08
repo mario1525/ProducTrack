@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "N2o3CxW6BnXLk55AK8rnbfVTXD8D9VBM4siehV5GdhQabF7KAHKAeV1vmjPAm/0Z5N5FYdj/bZ1Eqs45E0j0xg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ANA ROSA\\Desktop\\almacen\\dev\\cSharp\\ProducTrack\\Serv-negocio\\Serv-negocio\\Serv-negocio.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ANA ROSA\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512"
+  ],
+  "logs": []
+}
