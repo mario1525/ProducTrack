@@ -9,3 +9,9 @@ C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\o
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\obj\Debug\net7.0\refint\Services.dll
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\obj\Debug\net7.0\Services.pdb
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\obj\Debug\net7.0\ref\Services.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\bin\Debug\net7.0\Data.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\bin\Debug\net7.0\Entity.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\bin\Debug\net7.0\Data.pdb
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\bin\Debug\net7.0\Entity.pdb
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\obj\Debug\net7.0\Services.csproj.AssemblyReference.cache
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Services\obj\Debug\net7.0\Services.csproj.CopyComplete

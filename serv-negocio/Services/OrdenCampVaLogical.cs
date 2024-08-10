@@ -1,55 +1,39 @@
-﻿using Entity;
-using Data;
+﻿using Data;
+using Entity;
 
 namespace Services
 {
-    public class RegisOrdenLogical
+    public class OrdenCampVaLogical
     {
-        private readonly DaoRegisOrden _orden;
-        private readonly DaoOrdenCampVal _camp;
+        private readonly DaoOrdenCampVal _orden;
 
-
-        public RegisOrdenLogical(DaoRegisOrden orden, DaoOrdenCampVal camp)
+        public OrdenCampVaLogical(DaoOrdenCampVal orden)
         {
             _orden = orden;
-            _camp = camp;
         }
 
-        public async Task<List<RegisOrden>> Gets(string IdCompania)
+        public async Task<List<OrdenCampVal>> Gets(string IdCompania)
         {
             return await _orden.Gets(IdCompania);
         }
-
-        public async Task<List<RegisOrden>> GetsUser(string IdUsuario)
-        {
-            return await _orden.GetsUser(IdUsuario);
-        }
-
-        public async Task<List<RegisOrden>> Get(string Id)
+        
+        public async Task<List<OrdenCampVal>> Get(string Id)
         {
             return await _orden.Get(Id);
         }
 
-        public Mensaje Create(CreateRegisOrden value)
+        public Mensaje Create(OrdenCampVal value)
         {
             Guid uid = Guid.NewGuid();
-            value.Orden.Id = uid.ToString();
-            _orden.Set("I", value.Orden);
-            foreach (OrdenCampVal campo in value.Campos)
-            {
-                Guid uidCamp = Guid.NewGuid();
-                campo.Id = uidCamp.ToString();
-                campo.IdRegisOrden = uid.ToString();
-                _camp.Set("I", campo);
-            }
-
+            value.Id = uid.ToString();
+            _orden.Set("I", value);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = uid.ToString();
             return mensaje;
 
         }
 
-        public Mensaje Update(RegisOrden value)
+        public Mensaje Update(OrdenCampVal value)
         {
             _orden.Set("A", value);
             Mensaje mensaje = new Mensaje();
@@ -73,6 +57,5 @@ namespace Services
             mensaje.mensaje = "estado actualizado";
             return mensaje;
         }
-
     }
 }

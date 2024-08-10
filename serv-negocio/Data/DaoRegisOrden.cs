@@ -26,7 +26,21 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<RegisOrden>> Gets()
+        public async Task<List<RegisOrden>> GetsUser(string IdUsuario)
+        {
+            const string procedureName = "dbo.dbSpRegisOrdenGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdOrden", ""),
+                new SqlParameter("@IdUsuario", IdUsuario),
+                new SqlParameter("@Estado", 1)
+            };
+            return await GetList(procedureName, parameters);
+        }
+
+        // Metodo Gets
+        public async Task<List<RegisOrden>> Gets(string IdCompania)
         {
             const string procedureName = "dbo.dbSpRegisOrdenGet";
             var parameters = new[]

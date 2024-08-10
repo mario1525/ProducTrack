@@ -93,3 +93,4 @@ C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Controller
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Controller\obj\Debug\net7.0\Controller.pdb
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Controller\obj\Debug\net7.0\Controller.genruntimeconfig.cache
 C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Controller\obj\Debug\net7.0\ref\Controller.dll
+C:\Users\ANA ROSA\Desktop\almacen\dev\cSharp\ProducTrack\Serv-negocio\Controller\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
