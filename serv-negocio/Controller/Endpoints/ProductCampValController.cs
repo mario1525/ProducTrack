@@ -7,13 +7,13 @@ using Services;
 
 namespace Controller.Endpoints
 {
-    [Route("api/RegisOrden/Val")]
+    [Route("api/Registro/Producto/Val")]
     [ApiController]
-    public class OrdenCampValController : ControllerBase
+    public class ProductCampValController : ControllerBase
     {
-        private readonly OrdenCampVaLogical _Logical;
+        private readonly RegisProductCampValLogical _Logical;
 
-        public OrdenCampValController(OrdenCampVaLogical logical)
+        public ProductCampValController(RegisProductCampValLogical logical)
         {
             _Logical = logical;
         }
@@ -21,15 +21,15 @@ namespace Controller.Endpoints
         // GET: api/<Orden>/5
         [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public async Task<List<OrdenCampVal>> Gets(string idCompania)
+        public async Task<List<ProductCampVal>> Gets(string idCompania)
         {
             return await _Logical.Gets(idCompania);
         }
-        
+
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public async Task<List<OrdenCampVal>> Get(string id)
+        public async Task<List<ProductCampVal>> Get(string id)
         {
             return await _Logical.Get(id);
         }
@@ -37,7 +37,7 @@ namespace Controller.Endpoints
         // POST api/<Orden>
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public Mensaje Post([FromBody] OrdenCampVal value)
+        public Mensaje Post([FromBody] ProductCampVal value)
         {
             return _Logical.Create(value);
         }
@@ -45,7 +45,7 @@ namespace Controller.Endpoints
         // PUT api/<Orden>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public Mensaje Put(string id, [FromBody] OrdenCampVal value)
+        public Mensaje Put(string id, [FromBody] ProductCampVal value)
         {
             value.Id = id;
             return _Logical.Update(value);

@@ -28,7 +28,7 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<RegisProduct>> Gets()
+        public async Task<List<RegisProduct>> Gets(string IdCompania)
         {
             const string procedureName = "dbo.dbSpRegisProductGet";
             var parameters = new[]
@@ -37,6 +37,21 @@ namespace Data
                 new SqlParameter("@IdProduct", ""),
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdUsuario", ""),
+                new SqlParameter("@Estado", 1),
+                new SqlParameter("@Eliminado", 0)
+            };
+            return await GetList(procedureName, parameters);
+        }
+
+        public async Task<List<RegisProduct>> GetsUser(string IdUsuario)
+        {
+            const string procedureName = "dbo.dbSpRegisProductGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProduct", ""),
+                new SqlParameter("@IdRegisOrden", ""),
+                new SqlParameter("@IdUsuario", IdUsuario),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Eliminado", 0)
             };

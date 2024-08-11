@@ -1,6 +1,7 @@
 using Data;
 using Data.SQLClient;
 using Entity;
+using Services;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,6 +42,12 @@ builder.Services.AddSingleton<ProductCampVal>();
 builder.Services.AddSingleton<RegisLabProcesEtap>();
 builder.Services.AddSingleton<RegisProduct>();
 builder.Services.AddSingleton<RegisProductProcesEtap>();
+
+//Logical
+builder.Services.AddSingleton<RegisOrdenLogical>();
+builder.Services.AddSingleton<OrdenCampVaLogical>();
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -99,5 +106,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

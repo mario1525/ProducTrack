@@ -1,46 +1,51 @@
-﻿using Entity;
-using Data;
+﻿using Data;
+using Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Services
 {
-    public class RegisOrdenLogical
+    public class RegisProductLogical
     {
-        private readonly DaoRegisOrden _orden;
-        private readonly DaoOrdenCampVal _camp;
+        private readonly DaoRegisProduct _orden;
+        private readonly DaoProductCampVal _camp;
 
 
-        public RegisOrdenLogical(DaoRegisOrden orden, DaoOrdenCampVal camp)
+        public RegisProductLogical(DaoRegisProduct value, DaoProductCampVal camp)
         {
-            _orden = orden;
+            _orden = value;
             _camp = camp;
         }
 
-        public async Task<List<RegisOrden>> Gets(string IdCompania)
+        public async Task<List<RegisProduct>> Gets(string IdCompania)
         {
-            Console.WriteLine("2");
+            
             return await _orden.Gets(IdCompania);
         }
 
-        public async Task<List<RegisOrden>> GetsUser(string IdUsuario)
+        public async Task<List<RegisProduct>> GetsUser(string IdUsuario)
         {
             return await _orden.GetsUser(IdUsuario);
         }
 
-        public async Task<List<RegisOrden>> Get(string Id)
+        public async Task<List<RegisProduct>> Get(string Id)
         {
             return await _orden.Get(Id);
         }
 
-        public Mensaje Create(CreateRegisOrden value)
+        public Mensaje Create(CreateRegisProduct value)
         {
             Guid uid = Guid.NewGuid();
-            value.Orden.Id = uid.ToString();
-            _orden.Set("I", value.Orden);
-            foreach (OrdenCampVal campo in value.Campos)
+            value.Producto.Id = uid.ToString();
+            _orden.Set("I", value.Producto);
+            foreach (ProductCampVal campo in value.Campos)
             {
                 Guid uidCamp = Guid.NewGuid();
                 campo.Id = uidCamp.ToString();
-                campo.IdRegisOrden = uid.ToString();
+                campo.IdRegisProduct = uid.ToString();
                 _camp.Set("I", campo);
             }
 
@@ -50,7 +55,7 @@ namespace Services
 
         }
 
-        public Mensaje Update(RegisOrden value)
+        public Mensaje Update(RegisProduct value)
         {
             _orden.Set("A", value);
             Mensaje mensaje = new Mensaje();
@@ -74,6 +79,5 @@ namespace Services
             mensaje.mensaje = "estado actualizado";
             return mensaje;
         }
-
     }
 }

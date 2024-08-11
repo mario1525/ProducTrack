@@ -23,6 +23,7 @@ namespace Controller.Endpoints
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
         public async Task<List<RegisOrden>> Gets(string idCompania)
         {
+            
             return await _Logical.Gets(idCompania);
         }
 

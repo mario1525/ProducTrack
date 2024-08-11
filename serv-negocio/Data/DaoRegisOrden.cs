@@ -17,7 +17,7 @@ namespace Data
             const string procedureName = "dbo.dbSpRegisOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdRegisOrden", Id),
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@IdUsuario", ""),
                 new SqlParameter("@Estado", 1)
@@ -31,7 +31,7 @@ namespace Data
             const string procedureName = "dbo.dbSpRegisOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@IdUsuario", IdUsuario),
                 new SqlParameter("@Estado", 1)
@@ -41,11 +41,11 @@ namespace Data
 
         // Metodo Gets
         public async Task<List<RegisOrden>> Gets(string IdCompania)
-        {
+        {            
             const string procedureName = "dbo.dbSpRegisOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@IdUsuario", ""),
                 new SqlParameter("@Estado", 1)

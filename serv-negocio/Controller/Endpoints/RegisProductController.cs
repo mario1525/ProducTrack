@@ -7,51 +7,56 @@ using Services;
 
 namespace Controller.Endpoints
 {
-    [Route("api/RegisOrden/Val")]
+    [Route("api/Registro/Producto")]
     [ApiController]
-    public class OrdenCampValController : ControllerBase
+    public class RegisProductController : ControllerBase
     {
-        private readonly OrdenCampVaLogical _Logical;
+        private readonly RegisProductLogical _Logical;
 
-        public OrdenCampValController(OrdenCampVaLogical logical)
+        public RegisProductController(RegisProductLogical logical)
         {
             _Logical = logical;
         }
-
-        // GET: api/<Orden>/5
         [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public async Task<List<OrdenCampVal>> Gets(string idCompania)
+        public async Task<List<RegisProduct>> Gets(string idCompania)
         {
+
             return await _Logical.Gets(idCompania);
         }
-        
+
+        [HttpGet("Usuario/{idUsuario}")]
+        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        public async Task<List<RegisProduct>> GetUsuario(string idUsuario)
+        {
+            return await _Logical.GetsUser(idUsuario);
+        }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public async Task<List<OrdenCampVal>> Get(string id)
+        public async Task<List<RegisProduct>> Get(string id)
         {
             return await _Logical.Get(id);
         }
 
-        // POST api/<Orden>
+        // POST api/<OrdenController>
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public Mensaje Post([FromBody] OrdenCampVal value)
+        public Mensaje Post([FromBody] CreateRegisProduct value)
         {
             return _Logical.Create(value);
         }
 
-        // PUT api/<Orden>/5
+        // PUT api/<OrdenController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
-        public Mensaje Put(string id, [FromBody] OrdenCampVal value)
+        public Mensaje Put(string id, [FromBody] RegisProduct value)
         {
             value.Id = id;
             return _Logical.Update(value);
         }
 
-        // DELETE api/<Orden>/5
+        // DELETE api/<OrdenController>/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
         public Mensaje Delete(string id)
