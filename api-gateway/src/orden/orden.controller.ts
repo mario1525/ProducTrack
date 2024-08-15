@@ -12,41 +12,19 @@ import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
 
-@Controller('usuario')
-export class UsuarioController {
+@Controller('orden')
+export class OrdenController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}
 
-  @Post()
-  create(@Body() body, @Headers('authorization') authHeader: string) {
-    const headers = {
-      Authorization: authHeader, // Reenvía el token de autenticación
-    };
-    // Redirigir la solicitud de registro al servicio de autenticación
-    return this.httpService
-      .post(`${this.apiUrl}api/Usuario`, body, { headers })
-      .pipe(map((response) => response.data));
-  }
-
-  @Get()
-  Gets(@Headers('authorization') authHeader: string) {
-    const headers = {
-      Authorization: authHeader, // Reenvía el token de autenticación
-    };
-    // Redirigir la solicitud de registro al servicio de autenticación
-    return this.httpService
-      .get(`${this.apiUrl}api/Usuario`, { headers })
-      .pipe(map((response) => response.data));
-  }
-
   @Get('compania/:id')
-  GetsC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+  Gets(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Usuario/Compania/${id}`, { headers })
+      .get(`${this.apiUrl}api/Orden/Compania/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -57,18 +35,18 @@ export class UsuarioController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Usuario/${id}`, { headers })
+      .get(`${this.apiUrl}api/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
   @Post()
-  Credential(@Body() body, @Headers('authorization') authHeader: string) {
+  create(@Body() body, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .post(`${this.apiUrl}api/Credential`, body, { headers })
+      .post(`${this.apiUrl}api/Orden`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -80,7 +58,7 @@ export class UsuarioController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .put(`${this.apiUrl}api/Usuario/${id}`, body, { headers })
+      .put(`${this.apiUrl}api/Orden/${id}`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -91,7 +69,65 @@ export class UsuarioController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .delete(`${this.apiUrl}api/Usuario/${id}`, { headers })
+      .delete(`${this.apiUrl}api/Orden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  // Campos
+
+  @Get('campos:id')
+  GetsC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Orden/Campo/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('campo:id')
+  GetC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Orden/campo/Campo/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Post('campo')
+  createC(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrl}api/Orden/campo`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Put('campo:id')
+  updateC(
+    @Param('id') id: string,
+    @Body() body,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .put(`${this.apiUrl}api/Orden/campo/${id}`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Delete('campo:id')
+  removeC(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .delete(`${this.apiUrl}api/Orden/campo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 }

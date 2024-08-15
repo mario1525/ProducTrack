@@ -28,7 +28,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 
 # Expone el puerto en el que la aplicación estará escuchando
-EXPOSE 3204
+EXPOSE 3000
 
 # Define el comando por defecto para ejecutar la aplicación
 CMD ["node", "dist/main.js"]

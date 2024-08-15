@@ -31,6 +31,6 @@ services:
       context: ./api-gateway
       dockerfile: dockerfile
     ports: 
-    - "3204:3204"  
+    - "3000:3000"  
     
 
