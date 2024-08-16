@@ -14,27 +14,27 @@ import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
   constructor(private http: HttpClient, private auth:TokenserviceService ) { }
 
   obtener_Procesos(id: string): Observable<Proceso[] | []> {    
-    const url = `${this.apiUrl}api/Proceso/Compania/${id}`;
+    const url = `${this.apiUrl}proceso/compania/${id}`;
     return this.http.get<Proceso[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
   obtener(id: string): Observable<Proceso[] | []> {    
-    const url = `${this.apiUrl}api/Proceso/${id}`;
+    const url = `${this.apiUrl}proceso/${id}`;
     return this.http.get<Proceso[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
   create(Proceso: create_Proces): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Proceso`;
+    const url = `${this.apiUrl}proceso`;
     return this.http.post<{mensaje: string}>(url, Proceso, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
   update(id: string, Proceso: Proceso): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Proceso/${id}`;
+    const url = `${this.apiUrl}proceso/${id}`;
     return this.http.put<{mensaje: string}>(url, Proceso, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
   delete(id: string): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Proceso/${id}`;
+    const url = `${this.apiUrl}proceso/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
@@ -42,27 +42,27 @@ import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
   // etapas
 
   obtener_etapas_Procesos(id: string): Observable<Etapa[] | []> {    
-    const url = `${this.apiUrl}api/Etapa/Proceso/${id}`;
+    const url = `${this.apiUrl}proceso/${id}`;
     return this.http.get<Etapa[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
   obtener_etapa(id: string): Observable<Etapa[] | []> {    
-    const url = `${this.apiUrl}api/Etapa/${id}`;
+    const url = `${this.apiUrl}proceso/Etapas/${id}`;
     return this.http.get<Etapa[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
   create_etapa(Value: Etapa): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Etapa`;
+    const url = `${this.apiUrl}proceso/Etapa`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
   update_etapa(id: string, Value: Etapa): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Etapa/${id}`;
+    const url = `${this.apiUrl}proceso/Etapa/${id}`;
     return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
   delete_etapa(id: string): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Etapa/${id}`;
+    const url = `${this.apiUrl}proceso/Etapa/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 

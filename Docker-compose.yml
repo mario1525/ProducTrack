@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   frontend:
     image: myapp-frontend:latest
     build:
@@ -29,7 +28,7 @@ services:
     image: api-gateway:latest 
     build: 
       context: ./api-gateway
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports: 
     - "3000:3000"  
     

@@ -13,37 +13,37 @@ export class UsuarioService {
     constructor(private http: HttpClient, private auth:TokenserviceService ) { }
 
     obtener_usuarios(): Observable<Usuario[] | []> {    
-        const url = `${this.apiUrl}api/Usuario`;
+        const url = `${this.apiUrl}usuario`;
         return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
       }
     
       obtener_usuariosCompania(idCompania: string ): Observable<Usuario[] | []> {    
-        const url = `${this.apiUrl}api/Usuario/Compania/${idCompania}`;
+        const url = `${this.apiUrl}usuario/compania/${idCompania}`;
         return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
       }
 
       obtener_usuario(idUsuario: string ): Observable<Usuario[] | []> {    
-        const url = `${this.apiUrl}api/Usuario/${idUsuario}`;
+        const url = `${this.apiUrl}usuario/${idUsuario}`;
         return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
       }
     
       create_usuario(usuario: Usuario): Observable<{mensaje: string}> {
-        const url = `${this.apiUrl}api/Usuario`;
+        const url = `${this.apiUrl}usuario`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
 
       create_Credential(usuario: Credential): Observable<{mensaje: string}> {
-        const url = `${this.apiUrl}api/Credential`;
+        const url = `${this.apiUrl}usuario/credential`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
     
       update_usuario(id: string, usuario: Usuario): Observable<{mensaje: string}> {
-        const url = `${this.apiUrl}api/Usuario/${id}`;
+        const url = `${this.apiUrl}usuario/${id}`;
         return this.http.put<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
     
       delete_usuario(id: string): Observable<{mensaje: string}> {
-        const url = `${this.apiUrl}api/Usuario/${id}`;
+        const url = `${this.apiUrl}usuario/${id}`;
         return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
 }

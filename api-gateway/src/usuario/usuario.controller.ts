@@ -61,7 +61,7 @@ export class UsuarioController {
       .pipe(map((response) => response.data));
   }
 
-  @Post()
+  @Post('credential')
   Credential(@Body() body, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación

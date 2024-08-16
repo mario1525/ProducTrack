@@ -1,3 +1,3 @@
-const UrlServAdmin = 'http://localhost:80/';
+const UrlServAdmin = 'http://localhost:5121/';
 
 export default UrlServAdmin;

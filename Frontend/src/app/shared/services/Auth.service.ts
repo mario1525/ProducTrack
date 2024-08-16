@@ -12,7 +12,7 @@ export class AuthtenticationService {
   constructor(private http: HttpClient) { }
 
   autenticar(data: object): Observable<any> {
-    const url = `${this.apiUrl}api/Auth`;
+    const url = `${this.apiUrl}auth/login`;
     // Define el objeto con usuario y contraseña
     const datosAutenticacion = data;
     const respuesta = this.http.post(url, datosAutenticacion);
