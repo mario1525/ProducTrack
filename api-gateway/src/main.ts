@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const corsOptions: CorsOptions = {
     origin: 'http://localhost:4200', // Reemplaza con el origen permitido
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true, // Si necesitas permitir las cookies
   };
 

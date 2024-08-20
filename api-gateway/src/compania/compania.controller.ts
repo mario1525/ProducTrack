@@ -21,14 +21,12 @@ export class CompaniaController {
   @Get()
   Gets(@Headers('authorization') authHeader: string) {
     if (!authHeader) {
-      console.log('no se encuentr');
       throw new UnauthorizedException('Authorization header missing');
     }
 
     const headers = {
       Authorization: authHeader,
     };
-    // console.log(authHeader);
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
       .get(`${this.apiUrl}api/Compania`, { headers })
