@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}

@@ -13,7 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
 
-@Controller('compania')
+@Controller('api/compania')
 export class CompaniaController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}

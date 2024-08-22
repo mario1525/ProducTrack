@@ -11,10 +11,12 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
+import UrlServNegocio from 'src/helpers/servNegocioUrl';
 
-@Controller('orden')
+@Controller('api/orden')
 export class OrdenController {
   private apiUrl = UrlServAdmin;
+  private apiUrlNeg = UrlServNegocio;
   constructor(private readonly httpService: HttpService) {}
 
   @Get('compania/:id')
@@ -75,7 +77,7 @@ export class OrdenController {
 
   // Campos
 
-  @Get('campos:id')
+  @Get('campos/:id')
   GetsC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
@@ -86,7 +88,7 @@ export class OrdenController {
       .pipe(map((response) => response.data));
   }
 
-  @Get('campo:id')
+  @Get('campo/:id')
   GetC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
@@ -108,7 +110,7 @@ export class OrdenController {
       .pipe(map((response) => response.data));
   }
 
-  @Put('campo:id')
+  @Put('campo/:id')
   updateC(
     @Param('id') id: string,
     @Body() body,
@@ -120,7 +122,7 @@ export class OrdenController {
       .pipe(map((response) => response.data));
   }
 
-  @Delete('campo:id')
+  @Delete('campo/:id')
   removeC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,
@@ -128,6 +130,139 @@ export class OrdenController {
     const headers = { Authorization: authHeader };
     return this.httpService
       .delete(`${this.apiUrl}api/Orden/campo/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  // Registro Orden
+
+  @Get('registro/compania/:id')
+  GetsR(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Registro/Orden/Compania/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('registro/usuario/:id')
+  GetsRU(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Registro/Orden/Usuario/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('registro/:id')
+  GetR(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Registro/Orden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Post('registro')
+  createR(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrlNeg}api/Registro/Orden`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Put('registro/:id')
+  updateR(
+    @Param('id') id: string,
+    @Body() body,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .put(`${this.apiUrlNeg}api/Registro/Orden/${id}`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Delete('registro/:id')
+  removeR(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .delete(`${this.apiUrlNeg}api/Registro/Orden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  // Registro Orden Camp
+
+  @Get('registro/val/:id')
+  GetsRC(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Orden/Val/RegisOrden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('registro/val/:id')
+  GetRC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Orden/Val/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Post('registro/val')
+  createRC(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrlNeg}api/Orden/Val`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Put('registro/val/:id')
+  updateRC(
+    @Param('id') id: string,
+    @Body() body,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .put(`${this.apiUrlNeg}api/Orden/Val/${id}`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Delete('registro/val/:id')
+  removeRC(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .delete(`${this.apiUrlNeg}api/Orden/Val/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 }

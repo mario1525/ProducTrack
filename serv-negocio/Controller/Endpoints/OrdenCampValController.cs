@@ -7,7 +7,7 @@ using Services;
 
 namespace Controller.Endpoints
 {
-    [Route("api/RegisOrden/Val")]
+    [Route("api/Orden/Val")]
     [ApiController]
     public class OrdenCampValController : ControllerBase
     {
