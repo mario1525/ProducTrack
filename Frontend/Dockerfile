@@ -25,7 +25,7 @@ COPY --from=build /app/dist/frontend /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Exponer el puerto en el que el servidor estará corriendo
-EXPOSE 3002
+EXPOSE 4200
 
 # Comando para correr nginx
 CMD ["nginx", "-g", "daemon off;"]

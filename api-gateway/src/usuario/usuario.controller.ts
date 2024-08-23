@@ -12,7 +12,7 @@ import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
 
-@Controller('usuario')
+@Controller('api/usuario')
 export class UsuarioController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}

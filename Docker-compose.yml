@@ -7,9 +7,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3002:3002"
+      - "4200:4200"
     depends_on:
-      - backend 
+      - api-gateway  
 
   backend:
     image: backend:latest
@@ -17,12 +17,21 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "7022:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True
-    depends_on:
-      - api-gateway  
+
+  serv-negocio:
+    image: serv-negocio:latest
+    build:
+      context: ./Serv-negocio
+      dockerfile: Dockerfile
+    ports:
+      - "7020:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True  
 
   api-gateway:
     image: api-gateway:latest 
@@ -30,6 +39,11 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     ports: 
-    - "3000:3000"  
-    
+    - "3000:3000" 
+    depends_on:
+      - backend
+      - serv-negocio
+    #environment:
+    #-NODE_TLS_REJECT_UNAUTHORIZED=0 
+
 

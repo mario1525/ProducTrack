@@ -1,7 +1,7 @@
 # Utilizar una imagen base oficial de .NET para el runtime
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 7020
+EXPOSE 80
 
 # Utilizar una imagen base oficial de .NET SDK para la compilación
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -27,4 +27,4 @@ COPY --from=publish /app/publish .
 
 COPY ["Controller/appsettings.json", "/app/appsettings.json"]
 
-ENTRYPOINT ["dotnet", "Controllers.dll"]
+ENTRYPOINT ["dotnet", "Controller.dll"]

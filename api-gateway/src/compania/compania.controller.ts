@@ -13,7 +13,7 @@ import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
 
-@Controller('compania')
+@Controller('api/compania')
 export class CompaniaController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}
@@ -21,14 +21,12 @@ export class CompaniaController {
   @Get()
   Gets(@Headers('authorization') authHeader: string) {
     if (!authHeader) {
-      console.log('no se encuentr');
       throw new UnauthorizedException('Authorization header missing');
     }
 
     const headers = {
       Authorization: authHeader,
     };
-    // console.log(authHeader);
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
       .get(`${this.apiUrl}api/Compania`, { headers })
