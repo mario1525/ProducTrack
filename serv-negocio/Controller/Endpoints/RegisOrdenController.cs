@@ -20,7 +20,7 @@ namespace Controller.Endpoints
 
         // GET: api/<OrdenController>/5
         [HttpGet("Compania/{idCompania}")]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> Gets(string idCompania)
         {
             
@@ -35,7 +35,7 @@ namespace Controller.Endpoints
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> Get(string id)
         {
             return await _Logical.Get(id);
@@ -43,7 +43,7 @@ namespace Controller.Endpoints
 
         // POST api/<OrdenController>
         [HttpPost]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Post([FromBody] CreateRegisOrden value)
         {
             return _Logical.Create(value);
@@ -51,7 +51,7 @@ namespace Controller.Endpoints
 
         // PUT api/<OrdenController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Put(string id, [FromBody] RegisOrden value)
         {
             value.Id = id;
@@ -60,7 +60,7 @@ namespace Controller.Endpoints
 
         // DELETE api/<OrdenController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Delete(string id)
         {
             return _Logical.Delete(id);

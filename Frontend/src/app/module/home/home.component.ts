@@ -8,21 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent {
-  opciones = true
-  navRoutes = [
-    { path: '/App/Companias', label: 'Compania' },
-    { path: '/App/Usuarios', label: 'Usuarios' },
-    { path: '/App/Productos', label: 'Productos' },
-    { path: '/App/Procesos', label: 'Procesos' },
-    { path: '/App/Ordenes', label: 'Ordenes' },
-    { path: '/App/Laboratorios', label: 'Laboratorios' }
-  ];
+  
+  
   constructor(private route: Router,  private auth: TokenserviceService) {
 
   }
-   public opcionesclick() {
-    this.opciones = !this.opciones
-  }
+   
 
   public cerrarsession() {
 

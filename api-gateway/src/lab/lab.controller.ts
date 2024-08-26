@@ -11,10 +11,12 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
 import UrlServAdmin from 'src/helpers/indexUrl';
+import UrlServNegocio from 'src/helpers/servNegocioUrl';
 
 @Controller('api/lab')
 export class LabController {
   private apiUrl = UrlServAdmin;
+  private apiUrlNeg = UrlServNegocio;
   constructor(private readonly httpService: HttpService) {}
 
   @Get('compania/:id')

@@ -55,8 +55,7 @@ namespace Data
                 new SqlParameter("@Id", ordenCampVal.Id),
                 new SqlParameter("@Valor", ordenCampVal.Valor),
                 new SqlParameter("@IdOrdenCamp", ordenCampVal.IdOrdenCamp),
-                new SqlParameter("@IdRegisOrden", ordenCampVal.IdRegisOrden),
-                new SqlParameter("@Eliminado", ordenCampVal.Eliminado),
+                new SqlParameter("@IdRegisOrden", ordenCampVal.IdRegisOrden),              
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -96,9 +95,8 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Valor = row["Valor"].ToString(),
                     IdOrdenCamp = row["IdOrdenCamp"].ToString(),
-                    IdRegisOrden = row["IdRegisOrden"].ToString(),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    IdRegisOrden = row["IdRegisOrden"].ToString(),                    
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 ordenCampValList.Add(ordenCampVal);
             }

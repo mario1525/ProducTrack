@@ -19,8 +19,7 @@ namespace Data
             {
                 new SqlParameter("@IdOrdenCamp", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", ""),
+                new SqlParameter("@TipoDato", ""),                
                 new SqlParameter("@IdOrden", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -35,8 +34,7 @@ namespace Data
             {
                 new SqlParameter("@IdOrdenCamp", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@TipoDato", ""),
-                new SqlParameter("@Obligatorio", ""),
+                new SqlParameter("@TipoDato", ""),                
                 new SqlParameter("@IdOrden", IdOrden),
                 new SqlParameter("@Estado", 1)
             };

@@ -19,8 +19,7 @@ import { OrdenesModule } from './module/ordenes/ordenes.module';
 @NgModule({
   declarations: [
     AppComponent,    
-    HeaderComponent,  
-
+    HeaderComponent
   ],
   imports: [
     HttpClientModule,

@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { orden, create_orden, oCamp } from 'src/types/ordenes'
+import { orden, create_orden, oCamp, regisOrden } from 'src/types/ordenes'
 
 
 @Injectable({
@@ -65,4 +65,35 @@ import { orden, create_orden, oCamp } from 'src/types/ordenes'
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
+  // Refistro Orden 
+
+  obtener_ROrdenC(id: string): Observable<regisOrden[] | []> {    
+    const url = `${this.apiUrl}orden/registro/compania/${id}`;
+    return this.http.get<regisOrden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  obtenerRU(id: string): Observable<regisOrden[] | []> {    
+    const url = `${this.apiUrl}orden/registro/usuario/${id}`;
+    return this.http.get<regisOrden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  obtenerR(id: string): Observable<regisOrden[] | []> {    
+    const url = `${this.apiUrl}orden/registro/${id}`;
+    return this.http.get<regisOrden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  createR(Value: create_orden): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/registro`;
+    return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  updateR(id: string, Value: orden): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/registro/${id}`;
+    return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  deleteR(id: string): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/registro/${id}`;
+    return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
 }
