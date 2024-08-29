@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { NavMenuComponent } from './../component/nav-menu/nav-menu.component';
 import { EtapaPopupComponent } from './../component/etapa-popup/etapa-popup.component'
+import { InputComponent } from './../component/input/input.component'
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -11,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NavMenuComponent,
+    InputComponent,
     EtapaPopupComponent
   ],
   imports: [
@@ -20,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     NavMenuComponent,
+    InputComponent,
     EtapaPopupComponent
   ]
 })

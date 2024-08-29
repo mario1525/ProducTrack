@@ -17,7 +17,7 @@ namespace Services
 
         public async Task<List<RegisOrden>> Gets(string IdCompania)
         {
-            Console.WriteLine("2");
+            
             return await _orden.Gets(IdCompania);
         }
 

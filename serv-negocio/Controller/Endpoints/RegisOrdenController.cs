@@ -28,7 +28,7 @@ namespace Controller.Endpoints
         }
 
         [HttpGet("Usuario/{idUsuario}")]
-        [Authorize(Roles = "Admin,Admin-Compania,Usuario")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> GetUsuario(string idUsuario)
         {
             return await _Logical.GetsUser(idUsuario);

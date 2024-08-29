@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { orden, create_orden, oCamp, regisOrden } from 'src/types/ordenes'
+import { orden, create_orden, oCamp, regisOrden, oCampV } from 'src/types/ordenes'
 
 
 @Injectable({
@@ -96,4 +96,36 @@ import { orden, create_orden, oCamp, regisOrden } from 'src/types/ordenes'
     const url = `${this.apiUrl}orden/registro/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
+
+    // Refistro Orden val
+
+    obtener_ROrdenCV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}orden/registro/orden/val/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    obtenerRUV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}orden/registro/usuario/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    obtenerRV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}orden/registro/val/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    createRV(Value: create_orden): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}orden/registro/val`;
+      return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
+  
+    updateRV(id: string, Value: orden): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}orden/registro/val/${id}`;
+      return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
+  
+    deleteRV(id: string): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}orden/registro/val/${id}`;
+      return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
 }

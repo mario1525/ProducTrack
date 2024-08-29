@@ -15,6 +15,7 @@ import { ProductosModule } from './module/productos/productos.module';
 import { LaboratoriosModule } from './module/laboratorios/laboratorios.module';
 import { ProcesosModule } from './module/procesos/procesos.module';
 import { OrdenesModule } from './module/ordenes/ordenes.module';
+//import { InputComponent } from './component/input/input.component';
 
 @NgModule({
   declarations: [

@@ -95,7 +95,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Orden/campo/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Orden/Campo/Campo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -207,7 +207,7 @@ export class OrdenController {
 
   // Registro Orden Camp
 
-  @Get('registro/val/:id')
+  @Get('registro/orden/val/:id')
   GetsRC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,

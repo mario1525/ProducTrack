@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ordenService } from 'src/app/shared/services/Orden.service';
-import { resgiOrden } from 'src/types/ordenes'
+import { regisOrden } from 'src/types/ordenes'
 
 @Component({
   selector: 'app-registros',
@@ -10,7 +10,7 @@ import { resgiOrden } from 'src/types/ordenes'
 })
 export class RegistrosComponent implements OnInit {
   IdCompania: string = "";
-  Ordenes: resgiOrden[] = [];
+  Ordenes: regisOrden[] = [];
 
   constructor(private route: Router, 
     private ordenService : ordenService){

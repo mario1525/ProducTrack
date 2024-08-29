@@ -48,28 +48,37 @@ export class RegistrarComponent implements OnInit {
 
   ngOnInit(): void {
     this.idCompania = this.route.url.split('/')[3] 
-      this.idROrden = this.route.url.split('/')[5] 
+      this.idROrden = this.route.url.split('/')[6] 
       if(this.idROrden){
         this.OrdenService.obtenerR(this.idROrden).subscribe({
           next: (value) => {
             this.Form.patchValue(value[0])  
-             this.idOrden = value[0].idOrden;                        
-            return; 
+             this.idOrden = value[0].idOrden;
+             this.OrdenService.obtener_c_orden(this.idOrden).subscribe({
+              next: (Camp) => {
+                this.campos = Camp                                     
+                return; 
+              },
+              error: (error) => {
+                console.log(error)
+              }
+            })                                  
+            return;             
           },
           error: (error) => {
             console.log(error)
           }
         })
-
-        this.OrdenService.obtener_c_orden(this.idOrden).subscribe({
-          next: (Camp) => {
-            this.campos = Camp                                     
+        
+        this.OrdenService.obtener_ROrdenCV(this.idROrden).subscribe({
+          next: (oCampV) => {
+            this.valores = oCampV                                     
             return; 
           },
           error: (error) => {
             console.log(error)
           }
-        })
+        })   
   
       }    
   }
