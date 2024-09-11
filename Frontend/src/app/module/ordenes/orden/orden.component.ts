@@ -96,8 +96,7 @@ onSubmit(): void {
       this.create_orden =  {
         orden: Value,
         campos: this.campos
-      }  
-      console.log(this.create_orden)               
+      }                     
       this.OrdenService.create(this.create_orden).subscribe({          
         next: () => {
           alert("orden creada")

@@ -50,6 +50,20 @@ export class UsuarioController {
       .pipe(map((response) => response.data));
   }
 
+  @Get('supervisor/:id')
+  GetsSv(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Usuario/Supervisor/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
   @Get(':id')
   Get(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {

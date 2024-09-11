@@ -1,10 +1,11 @@
-<div *ngFor="let value of values">
-  <label [for]="value.id">{{ value.nombre }}</label>
-  <input 
-    [id]="value.id" 
-    [type]="getInputType(value.tipoDato)" 
-    [required]="value.obligatorio"     
-    [name]="value.nombre" 
-  />
-</div>
+
+<label>{{ camp?.nombre }}</label>
+<input  
+  [formControl]="control"
+  [id]="camp?.id" 
+  [type]="getInputType(camp?.tipoDato)"    
+  [name]="camp?.nombre" 
+/>
+
+
   

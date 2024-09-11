@@ -17,11 +17,11 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenCampValGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdOrdenCampVal", Id),
                 new SqlParameter("@Valor", ""),
                 new SqlParameter("@IdOrdenCamp", ""),
                 new SqlParameter("@IdRegisOrden", ""),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Eliminado", "")
             };
             return await GetList(procedureName, parameters);
         }
@@ -32,11 +32,11 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenCampValGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdOrdenCampVal", ""),
                 new SqlParameter("@Valor", ""),
                 new SqlParameter("@IdOrdenCamp", ""),
                 new SqlParameter("@IdRegisOrden", IdRegisOrden),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Eliminado", "")
             };
             return await GetList(procedureName, parameters);
         }

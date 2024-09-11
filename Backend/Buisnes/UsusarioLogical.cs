@@ -22,6 +22,10 @@ namespace Services
         {
             return await _daoUsuario.GetUsersComp(IdCompania);
         }
+        public async Task<List<Usuario>> GetUsuariosSuperv(String IdCompania)
+        {
+            return await _daoUsuario.GetUsersSuperv(IdCompania);
+        }
 
         public async Task<List<Usuario>> GetUsuarios()
         {

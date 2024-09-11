@@ -21,7 +21,7 @@ namespace Controllers.Endpoint
 
         // GET: api/<OrdenController>/5
         [HttpGet("Compania/{idCompania}")]
-        [Authorize(Roles = "Admin,Admin-Compania")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<Orden>> Gets(string idCompania)
         {
             return await _Logical.Gets(idCompania);

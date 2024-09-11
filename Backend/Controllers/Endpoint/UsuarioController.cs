@@ -33,6 +33,14 @@ namespace Controllers.Endpoint
             return await _UserLogical.GetUsuariosComp(id);
         }
 
+        // GET api/<UsuarioController>/Compania
+        [HttpGet("supervisor/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
+        public async Task<List<Usuario>> GetSupervisor(string id)
+        {
+            return await _UserLogical.GetUsuariosSuperv(id);
+        }
+
         // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]

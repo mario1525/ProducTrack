@@ -29,7 +29,7 @@ namespace Services
         public async Task<List<RegisProduct>> GetsUser(string IdUsuario)
         {
             return await _orden.GetsUser(IdUsuario);
-        }
+        }        
 
         public async Task<List<RegisProduct>> Get(string Id)
         {

@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { producto, Camp, create_Product } from 'src/types/Producto'
+import { producto, Camp, create_Product, Regisproducto } from 'src/types/Producto'
 
 
 @Injectable({
@@ -63,5 +63,11 @@ import { producto, Camp, create_Product } from 'src/types/Producto'
   delete_c(id: string): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}producto/campo/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  // Refistro Producto
+  obtener_RProductC(id: string): Observable<Regisproducto[] | []> {    
+    const url = `${this.apiUrl}producto/registro/orden/${id}`;
+    return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 }

@@ -73,8 +73,7 @@ namespace Data
                 new SqlParameter("@IdProduct", regisProduct.IdProduct),
                 new SqlParameter("@IdRegisOrden", regisProduct.IdRegisOrden),
                 new SqlParameter("@IdUsuario", regisProduct.IdUsuario),
-                new SqlParameter("@Estado", regisProduct.Estado),
-                new SqlParameter("@Eliminado", regisProduct.Eliminado),
+                new SqlParameter("@Estado", regisProduct.Estado),                
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -115,9 +114,8 @@ namespace Data
                     IdProduct = row["IdProduct"].ToString(),
                     IdRegisOrden = row["IdRegisOrden"].ToString(),
                     IdUsuario = row["IdUsuario"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 regisProductList.Add(regisProduct);
             }

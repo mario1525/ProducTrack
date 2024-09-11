@@ -4,7 +4,16 @@ export type producto = {
     idCompania: string;
     idProceso: string;
     estado: boolean;    
-    fecha_log: Date;
+    fecha_log: string;
+  }
+
+  export type Regisproducto = {
+    id: string;
+    idProduct: string;
+    IdRegisOrden: string;
+    IdUsuario: string;
+    estado: boolean;    
+    fecha_log: string;
   }
 
   export type Camp = {

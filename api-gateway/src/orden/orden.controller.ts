@@ -207,7 +207,7 @@ export class OrdenController {
 
   // Registro Orden Camp
 
-  @Get('registro/orden/val/:id')
+  @Get('registro/valores/:id')
   GetsRC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,

@@ -1,2 +1,36 @@
-<app-input [values]="campos"> </app-input>
+<div>
+  <div class="form">    
+    <div class="header">
+      <h2>Orden</h2>        
+      <div class="btns">
+        <button *ngIf="idROrden" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idROrden ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idROrden ? 'Actualizar' : 'Agregar' }}</button>
+      </div>
+    </div>
 
+    <form [formGroup]="Form">
+      <div class="general-info">
+        <div>
+          <label>Responsable</label>
+          <select formControlName="idUsuario" id="Responsable" name="Responsable">
+            <option *ngFor="let supervisor of supervisores" [value]="supervisor.id">{{ supervisor.nombre }}</option>
+          </select>
+        </div> 
+        <div>
+          <label>Tipo de orden</label>
+          <select formControlName="idOrden" id="Orden" name="Orden">
+            <option *ngFor="let orden of ordenes" [value]="orden.id">{{ orden.nombre }}</option>
+          </select>
+        </div>
+      </div>       
+    </form>
+
+    <button *ngIf="!idROrden" (click)="updateCamp()" class="btn agregar">Pre-cargar</button>
+  </div>
+  <form [formGroup]="CampoForm" *ngIf="formReady">
+    <div *ngFor="let campo of campos">
+      <label>{{ campo.nombre }}</label>
+      <input [formControlName]="campo.id" />
+    </div>
+  </form>  
+</div>

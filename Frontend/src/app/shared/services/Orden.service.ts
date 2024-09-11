@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { orden, create_orden, oCamp, regisOrden, oCampV } from 'src/types/ordenes'
+import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'src/types/ordenes'
 
 
 @Injectable({
@@ -82,12 +82,12 @@ import { orden, create_orden, oCamp, regisOrden, oCampV } from 'src/types/ordene
     return this.http.get<regisOrden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
-  createR(Value: create_orden): Observable<{mensaje: string}> {
+  createR(Value: create_Regis): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}orden/registro`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-  updateR(id: string, Value: orden): Observable<{mensaje: string}> {
+  updateR(id: string, Value: create_Regis): Observable<{mensaje: string}> {
     const url = `${this.apiUrl}orden/registro/${id}`;
     return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
@@ -100,7 +100,7 @@ import { orden, create_orden, oCamp, regisOrden, oCampV } from 'src/types/ordene
     // Refistro Orden val
 
     obtener_ROrdenCV(id: string): Observable<oCampV[] | []> {    
-      const url = `${this.apiUrl}orden/registro/orden/val/${id}`;
+      const url = `${this.apiUrl}orden/registro/valores/${id}`;
       return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
     }
   

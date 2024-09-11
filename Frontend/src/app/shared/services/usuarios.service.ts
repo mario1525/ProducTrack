@@ -26,6 +26,11 @@ export class UsuarioService {
         const url = `${this.apiUrl}usuario/${idUsuario}`;
         return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
       }
+
+      obtener_Supervisores(idCompania: string ): Observable<Usuario[] | []> {    
+        const url = `${this.apiUrl}usuario/supervisor/${idCompania}`;
+        return this.http.get<Usuario[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+      }
     
       create_usuario(usuario: Usuario): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}usuario`;

@@ -50,11 +50,16 @@ namespace Services
 
         }
 
-        public Mensaje Update(RegisOrden value)
-        {
-            _orden.Set("A", value);
+        public Mensaje Update(CreateRegisOrden value)
+        {           
+            _orden.Set("A", value.Orden);
+            foreach (OrdenCampVal campo in value.Campos)
+            {               
+                _camp.Set("A", campo);
+            }
+
             Mensaje mensaje = new Mensaje();
-            mensaje.mensaje = "actualizado";
+            mensaje.mensaje = "Actualizado";
             return mensaje;
 
         }

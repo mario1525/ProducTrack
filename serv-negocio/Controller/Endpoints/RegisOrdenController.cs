@@ -52,9 +52,9 @@ namespace Controller.Endpoints
         // PUT api/<OrdenController>/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
-        public Mensaje Put(string id, [FromBody] RegisOrden value)
+        public Mensaje Put(string id, [FromBody] CreateRegisOrden value)
         {
-            value.Id = id;
+            value.Orden.Id = id;
             return _Logical.Update(value);
         }
 

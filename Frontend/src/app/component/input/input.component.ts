@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { oCamp } from 'src/types/ordenes';
+import { FormControl } from '@angular/forms';
+import { oCamp} from 'src/types/ordenes';
 
 @Component({
   selector: 'app-input',
@@ -8,9 +9,10 @@ import { oCamp } from 'src/types/ordenes';
 })
 export class InputComponent {
 
-  @Input() values: oCamp[] = [];  
+  @Input() camp: oCamp | undefined; 
+  @Input() control: FormControl = new FormControl(); 
 
-  getInputType(tipoDato: string): string {
+  getInputType(tipoDato: string | undefined): string {
     switch (tipoDato) {
       case 'int':
         return 'number';
@@ -19,7 +21,5 @@ export class InputComponent {
       default:
         return 'text';
     }
-  }
-  
-
+  } 
 }
