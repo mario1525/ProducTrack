@@ -15,6 +15,27 @@ ProducTrack es una aplicación de gestión de productos diseñada para controlar
 - **Responsables de Órdenes**: Asignación de responsables para la ejecución de cada orden.
 - **Roles y Permisos**: Configuración de roles específicos para usuarios en cada flujo o empresa.
 
+## Arquitectura de la Aplicación
+
+- **Frontend**: Cliente desarrollado en Angular 16.
+- **API Gateway**: Implementado con Nest.js para gestionar las solicitudes y distribuirlas a los microservicios.
+- **Microservicios**:
+  - **ServNegocio**: Gestiona las operaciones relacionadas con los productos, órdenes y clientes, implementado en .NET Core.
+  - **ServAdmin**: Gestiona las operaciones administracion y configuracion del sortware, implementado en .NET Core.
+  - **Autenticación y Usuarios**: Microservicio encargado de la autenticación de usuarios y la gestión de roles, implementado en .NET Core.
+- **Base de Datos**: SQL Server (base de datos `negocio`).
+- **Contenedores**: Toda la arquitectura corre en contenedores Docker orquestados con Docker Compose.
+
+## Estructura de Carpetas
+
+- `/api-gateway`: Contiene el API Gateway implementado en Nest.js.
+- `/backend`: Microservicio administrativo en .NET Core.
+- `/servNegocio`: Microservicio de negocio en .NET Core.
+- `/frontend`: Cliente de la aplicación en Angular 16.
+- `/scripts`: Scripts SQL para la creación y administración de la base de datos.
+
+
+
 ## Requisitos Previos
 
 Para ejecutar este proyecto, necesitas tener instalados los siguientes componentes:
