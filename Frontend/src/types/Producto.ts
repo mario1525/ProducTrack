@@ -26,6 +26,20 @@ export type producto = {
     fecha_log: string; // Usar string si la fecha se maneja como cadena de texto
   }
 
+  export type oCampV = {
+    id: string;
+    valor: string;
+    IdProductCamp: string;
+    IdRegisProduct: string; 
+    
+    fecha_log: string; // Usar string si la fecha se maneja como cadena de texto
+  }
+
+  export type create_Regis = {
+    producto: Regisproducto;
+    campos: oCampV[];
+  }
+
   export type create_Product = {
     producto: producto;
     campos: Camp[];

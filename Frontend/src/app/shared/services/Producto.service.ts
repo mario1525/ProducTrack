@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { producto, Camp, create_Product, Regisproducto } from 'src/types/Producto'
+import { producto, Camp, create_Product, Regisproducto, create_Regis, oCampV } from 'src/types/Producto'
 
 
 @Injectable({
@@ -70,4 +70,61 @@ import { producto, Camp, create_Product, Regisproducto } from 'src/types/Product
     const url = `${this.apiUrl}producto/registro/orden/${id}`;
     return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
+
+  obtenerRU(id: string): Observable<Regisproducto[] | []> {    
+    const url = `${this.apiUrl}producto/registro/usuario/${id}`;
+    return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  obtenerR(id: string): Observable<Regisproducto[] | []> {    
+    const url = `${this.apiUrl}producto/registro/${id}`;
+    return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  createR(Value: create_Regis): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}producto/registro`;
+    return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  updateR(id: string, Value: create_Regis): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}producto/registro/${id}`;
+    return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  deleteR(id: string): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}producto/registro/${id}`;
+    return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+    // Refistro Orden val
+
+    obtener_ROrdenCV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}producto/registro/valores/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    obtenerRUV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}producto/registro/usuario/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    obtenerRV(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}producto/registro/val/${id}`;
+      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+    }
+  
+    createRV(Value: oCampV): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}producto/registro/val`;
+      return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
+  
+    updateRV(id: string, Value: oCampV): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}producto/registro/val/${id}`;
+      return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
+  
+    deleteRV(id: string): Observable<{mensaje: string}> {
+      const url = `${this.apiUrl}producto/registro/val/${id}`;
+      return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+    }
 }

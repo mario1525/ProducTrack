@@ -114,7 +114,7 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'sr
       return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
     }
   
-    createRV(Value: create_orden): Observable<{mensaje: string}> {
+    createRV(Value: oCampV): Observable<{mensaje: string}> {
       const url = `${this.apiUrl}orden/registro/val`;
       return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
     }

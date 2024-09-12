@@ -31,8 +31,10 @@ export class DetallecompaniaComponent implements OnInit {
     { path: 'App/Compania/:id/Usuarios', label: 'Usuarios' },
     { path: 'App/Compania/:id/Productos', label: 'Productos' },
     { path: 'App/Compania/:id/Procesos', label: 'Procesos' },
-    { path: 'App/Compania/:id/Ordenes', label: 'Ordenes' },
-    { path: 'App/Compania/:id/Laboratorios', label: 'Laboratorios' }
+    { path: 'App/Compania/:id/Ordenes', label: 'Ordenes' },    
+    { path: 'App/Compania/:id/Laboratorios', label: 'Laboratorios' },
+    { path: 'App/Compania/:id/Registros/Productos', label: 'Registros Productos' },
+    { path: 'App/Compania/:id/Registros/Ordenes', label: 'Registros Ordenes' },
   ];
   constructor(
      private route: Router,

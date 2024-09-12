@@ -17,12 +17,11 @@ namespace Data
             const string procedureName = "dbo.dbSpProductCampValGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
+                new SqlParameter("@IdProductCampVal", Id),
                 new SqlParameter("@Valor", ""),
                 new SqlParameter("@IdProductCamp", ""),
                 new SqlParameter("@IdRegisProduct", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),                
             };
             return await GetList(procedureName, parameters);
         }
@@ -33,12 +32,11 @@ namespace Data
             const string procedureName = "dbo.dbSpProductCampValGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProductCampVal", ""),
                 new SqlParameter("@Valor", ""),
                 new SqlParameter("@IdProductCamp", ""),
                 new SqlParameter("@IdRegisProduct", IdProduct),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1),                
             };
             return await GetList(procedureName, parameters);
         }
@@ -58,8 +56,7 @@ namespace Data
                 new SqlParameter("@Valor", productCampVal.Valor),
                 new SqlParameter("@IdProductCamp", productCampVal.IdProductCamp),
                 new SqlParameter("@IdRegisProduct", productCampVal.IdRegisProduct),
-                new SqlParameter("@Estado", productCampVal.Estado),
-                new SqlParameter("@Eliminado", productCampVal.Eliminado),
+                new SqlParameter("@Estado", productCampVal.Estado),                
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -100,9 +97,8 @@ namespace Data
                     Valor = row["Valor"].ToString(),
                     IdProductCamp = row["IdProductCamp"].ToString(),
                     IdRegisProduct = row["IdRegisProduct"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),
-                    Eliminado = Convert.ToBoolean(row["Eliminado"]),
-                    Fecha_log = Convert.ToDateTime(row["Fecha_log"])
+                    Estado = Convert.ToBoolean(row["Estado"]),                    
+                    Fecha_log = row["Fecha_log"].ToString()
                 };
                 productCampValList.Add(productCampVal);
             }

@@ -24,13 +24,49 @@
         </div>
       </div>       
     </form>
-
     <button *ngIf="!idROrden" (click)="updateCamp()" class="btn agregar">Pre-cargar</button>
   </div>
-  <form [formGroup]="CampoForm" *ngIf="formReady">
-    <div *ngFor="let campo of campos">
-      <label>{{ campo.nombre }}</label>
-      <input [formControlName]="campo.id" />
-    </div>
-  </form>  
+
+  <div id="inputs-variable">
+    <form [formGroup]="CampoForm" *ngIf="formReady">
+      <div class="form-grid">
+        <div *ngFor="let campo of campos" class="input-group">
+          <label class="input-label">{{ campo.nombre }}</label>
+          <input class="input-field" [formControlName]="campo.id" />
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+
+<div class="h-table">
+  <h2>Etapa</h2>
+</div>
+
+<div class="h-table">
+  <h2>Productos</h2>
+<button class="btn agregar" (click)="create()">Agregar</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Responsable</th>                
+        <th>Id Orden</th>
+        <th>Fecha Creación</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="productos.length">
+      <tr *ngFor="let value of productos; let indice = index;">
+        <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="rediretdetalle(indice)" /></td>
+        <td>{{ value.id }}</td>
+        <td>{{ value.IdUsuario }}</td>               
+        <td>{{ value.IdRegisOrden }}</td>
+        <td>{{ value.fecha_log }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> 

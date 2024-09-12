@@ -1,0 +1,39 @@
+<div class="header">
+    <h2>Productos</h2>
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="identificacion">Id</label>
+            <input id="identificacion" type="text" placeholder="Identificación">
+          </div>     
+          <div class="filter-group">
+            <label for="nombre">Responsable</label>
+            <input id="nombre" type="text" placeholder="Nombre">
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="btn filtrar">Filtrar</button>
+          <button class="btn agregar" (click)="create()">Agregar</button>
+        </div>
+    </div>    
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>Responsable</th>                
+          <th>ID orden</th>
+          <th>Fecha Creación</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="Productos.length">
+        <tr *ngFor="let value of Productos; let indice = index;">
+          <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="rediretdetalle(indice)" /></td>
+          <td>{{ value.id }}</td>
+          <td>{{ value.IdUsuario }}</td>               
+          <td>{{ value.IdRegisOrden }}</td>
+          <td>{{ value.fecha_log }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 

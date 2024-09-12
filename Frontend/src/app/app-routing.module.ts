@@ -18,6 +18,8 @@ import { LaboratorioComponent } from './module/laboratorios/laboratorio/laborato
 import { ProductoComponent } from './module/productos/producto/producto.component';
 import { RegistrosComponent } from './module/ordenes/registros/registros.component'
 import { RegistrarComponent } from './module/ordenes/registrar/registrar.component'
+import { RegistrarProductoComponent } from './module/productos/registrar-producto/registrar-producto.component';
+import { RegistrosProductoComponent } from './module/productos/registros-producto/registros-producto.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,6 +43,9 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Productos', component: ProductosComponent},   
     { path: 'App/Compania/:id/Producto', component: ProductoComponent},
     { path: 'App/Compania/:id/Producto/:id', component: ProductoComponent}, 
+    { path: 'App/Compania/:id/Registros/Productos', component: RegistrosProductoComponent},   
+    { path: 'App/Compania/:id/Registro/Producto', component: RegistrarProductoComponent},
+    { path: 'App/Compania/:id/Registro/Producto/:id', component: RegistrarProductoComponent},
 
     { path: 'App/Compania/:id/Ordenes', component: OrdenesComponent},
     { path: 'App/Compania/:id/Orden/:id', component: OrdenComponent},

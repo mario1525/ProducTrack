@@ -1,0 +1,50 @@
+<div>
+    <div class="form">    
+      <div class="header">
+        <h2>Orden</h2>        
+        <div class="btns">
+          <button *ngIf="idRProducto" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+          <button class="{{ idRProducto ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idRProducto ? 'Actualizar' : 'Agregar' }}</button>
+        </div>
+      </div>
+  
+      <form [formGroup]="Form">
+        <div class="general-info">
+          <div>
+            <label>Responsable</label>
+            <select formControlName="IdUsuario" id="Responsable" name="Responsable">
+              <option *ngFor="let Responsable of Responsables" [value]="Responsable.id">{{ Responsable.nombre }}</option>
+            </select>
+          </div> 
+          <div>
+            <label>Tipo de Producto</label>
+            <select formControlName="idProduct" id="producto" name="producto">
+              <option *ngFor="let producto of productos" [value]="producto.id">{{ producto.nombre }}</option>
+            </select>
+          </div>
+          <div>
+            <label>Orden asociada</label>
+            <select formControlName="IdRegisOrden" id="Orden" name="Orden">
+              <option *ngFor="let orden of Ordenes" [value]="orden.id">{{ orden.id }}</option>
+            </select>
+          </div>
+        </div>       
+      </form>
+      <button *ngIf="!idRProducto" (click)="updateCamp()" class="btn agregar">Pre-cargar</button>
+    </div>
+  
+    <div id="inputs-variable">
+      <form [formGroup]="CampoForm" *ngIf="formReady">
+        <div class="form-grid">
+          <div *ngFor="let campo of campos" class="input-group">
+            <label class="input-label">{{ campo.nombre }}</label>
+            <input class="input-field" [formControlName]="campo.id" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="h-table">
+    <h2>Etapa</h2>
+  </div>
