@@ -34,7 +34,7 @@ namespace Data
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@TipoDato", ""),          
+                new SqlParameter("@TipoDato", ""),                
                 new SqlParameter("@IdProducto", IdProducto),
                 new SqlParameter("@Estado", 1)              
             };

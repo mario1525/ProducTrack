@@ -17,7 +17,7 @@ namespace Controllers.Endpoint
         {
             _UserLogical = usuariological;
         }
-        // GET: api/<UsuarioController>
+        // GET: api/Usuario
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<List<Usuario>> Get()
@@ -25,23 +25,31 @@ namespace Controllers.Endpoint
             return await _UserLogical.GetUsuarios();
         }
 
-        // GET api/<UsuarioController>/Compania
-        [HttpGet("compania/{id}")]
+        // GET api/Usuario/Compania/5
+        [HttpGet("Compania/{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Usuario>> GetComp(string id)
         {
             return await _UserLogical.GetUsuariosComp(id);
         }
 
-        // GET api/<UsuarioController>/Compania
-        [HttpGet("supervisor/{id}")]
+        // GET api/Usuario/Compania/Supervisor/5
+        [HttpGet("Compania/Supervisor/{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<Usuario>> GetSupervisor(string id)
         {
             return await _UserLogical.GetUsuariosSuperv(id);
         }
 
-        // GET api/<UsuarioController>/5
+        // GET api/Usuario/Compania/Operativo/5
+        [HttpGet("Compania/Operativo/{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
+        public async Task<List<Usuario>> GetOperativo(string id)
+        {
+            return await _UserLogical.GetUsuariosOperativo(id);
+        }
+
+        // GET api/Usuario/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Usuario>> Get(string id)
@@ -49,7 +57,7 @@ namespace Controllers.Endpoint
             return await _UserLogical.GetUsuario(id) ;
         }
 
-        // POST api/<UsuarioController>
+        // POST api/Usuario
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] Usuario value)
@@ -57,7 +65,7 @@ namespace Controllers.Endpoint
             return _UserLogical.CreateUsuario(value);
         }
 
-        // PUT api/<UsuarioController>/5
+        // PUT api/Usuario/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public  Mensaje Put(string id, [FromBody] Usuario value)
@@ -66,7 +74,7 @@ namespace Controllers.Endpoint
             return  _UserLogical.UpdateUsuario(value);
         }
 
-        // DELETE api/<UsuarioController>/5
+        // DELETE api/Usuario/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

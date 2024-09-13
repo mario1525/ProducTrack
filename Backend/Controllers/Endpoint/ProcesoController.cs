@@ -18,7 +18,7 @@ namespace Controllers.Endpoint
             _Logical = procesoLogical;
         }
 
-        // GET: api/<ProcesoController>/5
+        // GET: api/Proceso/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Proceso>> Get(string id)
@@ -26,7 +26,7 @@ namespace Controllers.Endpoint
             return await _Logical.Get(id);
         }
 
-        // GET: api/<ProcesoController>/5
+        // GET: api/Proceso/Compania/5
         [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Proceso>> Gets(string idCompania)
@@ -34,7 +34,7 @@ namespace Controllers.Endpoint
             return await _Logical.Gets(idCompania);
         }
 
-        // POST api/<ProcesoController>
+        // POST api/Proceso
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] CreateProces value)
@@ -42,7 +42,7 @@ namespace Controllers.Endpoint
             return _Logical.Create(value);
         }
 
-        // PUT api/<ProcesoController>/5
+        // PUT api/Proceso/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] Proceso value)
@@ -51,7 +51,7 @@ namespace Controllers.Endpoint
             return _Logical.Update(value);
         }
 
-        // DELETE api/<ProcesoController>/5
+        // DELETE api/Proceso/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

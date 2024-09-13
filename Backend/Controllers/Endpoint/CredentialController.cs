@@ -19,7 +19,7 @@ namespace Controllers.Endpoint
         }
 
 
-        // POST api/<CredentialController>
+        // POST api/Credential
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] UsuarioCredential value)
@@ -27,7 +27,7 @@ namespace Controllers.Endpoint
            return _UserLogical.CreateUsuario(value);
         }
 
-        // PUT api/<CredentialController>/5
+        // PUT api/Credential/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] UsuarioCredential value)
@@ -36,7 +36,7 @@ namespace Controllers.Endpoint
             return _UserLogical.UpdateUsuario(value);
         }
 
-        // DELETE api/<CredentialController>/5
+        // DELETE api/Credential/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

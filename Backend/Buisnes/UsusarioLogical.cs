@@ -27,6 +27,11 @@ namespace Services
             return await _daoUsuario.GetUsersSuperv(IdCompania);
         }
 
+        public async Task<List<Usuario>> GetUsuariosOperativo(String IdCompania)
+        {
+            return await _daoUsuario.GetUsersOperativo(IdCompania);
+        }
+
         public async Task<List<Usuario>> GetUsuarios()
         {
             return await _daoUsuario.GetUsers();

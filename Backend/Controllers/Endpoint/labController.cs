@@ -18,7 +18,7 @@ namespace Controllers.Endpoint
             _Logical = logical;
         }
 
-        // GET: api/<labController>/5
+        // GET: api/Lab/Compania/5
         [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Lab>> Gets(string idCompania)
@@ -27,7 +27,7 @@ namespace Controllers.Endpoint
         }
 
 
-        // GET: api/<labController>/5
+        // GET: api/Lab/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<Lab>> Get(string id)
@@ -35,7 +35,7 @@ namespace Controllers.Endpoint
             return await _Logical.Get(id);
         }
 
-        // POST api/<labController>
+        // POST api/Lab
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] CreateLab value)
@@ -43,7 +43,7 @@ namespace Controllers.Endpoint
             return _Logical.Create(value);
         }
 
-        // PUT api/<labController>/5
+        // PUT api/Lab/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] Lab value)
@@ -52,7 +52,7 @@ namespace Controllers.Endpoint
             return _Logical.Update(value);
         }
 
-        // DELETE api/<labController>/5
+        // DELETE api/Lab/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
