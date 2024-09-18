@@ -42,11 +42,6 @@ export class UsuarioService {
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
 
-      create_Credential(usuario: Credential): Observable<{mensaje: string}> {
-        const url = `${this.apiUrl}usuario/credential`;
-        return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
-      }
-    
       update_usuario(id: string, usuario: Usuario): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}usuario/${id}`;
         return this.http.put<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
@@ -54,6 +49,23 @@ export class UsuarioService {
     
       delete_usuario(id: string): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}usuario/${id}`;
+        return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+      }
+
+      // credential
+
+      create_Credential(usuario: Credential): Observable<{mensaje: string}> {
+        const url = `${this.apiUrl}usuario/credential`;
+        return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+      }
+    
+      update_Credential(id: string, usuario: Usuario): Observable<{mensaje: string}> {
+        const url = `${this.apiUrl}usuario/credential/${id}`;
+        return this.http.put<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+      }
+    
+      delete_Credential(id: string): Observable<{mensaje: string}> {
+        const url = `${this.apiUrl}usuario/Credential/${id}`;
         return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
       }
 }

@@ -63,7 +63,7 @@ export class ProcesoComponent implements OnInit {
           console.log(error)
         }
       })
-      this.procesoService.obtener_etapas_Procesos(this.idProceso).subscribe({
+      this.procesoService.obtener_etapas_Proceso(this.idProceso).subscribe({
         next: (etapas) => {
           this.etapas = etapas                                     
           return; 

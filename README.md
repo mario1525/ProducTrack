@@ -108,21 +108,9 @@ Para ejecutar este proyecto, necesitas tener instalados los siguientes component
 
 El backend proporciona varios endpoints para gestionar compañías, órdenes y usuarios. A continuación se describen algunos de los endpoints principales:
 
-- **GET /api/compania**: Obtiene la lista de compañías.
-- **GET /api/compania/{id}**: Obtiene los detalles de una compañía específica.
-- **POST /api/compania**: Crea una nueva compañía.
-- **PUT /api/compania/{id}**: Actualiza una compañía existente.
-- **DELETE /api/compania/{id}**: Elimina una compañía.
-- **GET /api/orden**: Obtiene la lista de órdenes.
-- **GET /api/orden/{id}**: Obtiene los detalles de una orden específica.
-- **POST /api/orden**: Crea una nueva orden.
-- **PUT /api/orden/{id}**: Actualiza una orden existente.
-- **DELETE /api/orden/{id}**: Elimina una orden.
-- **GET /api/usuario**: Obtiene la lista de usuarios.
-- **GET /api/usuario/{id}**: Obtiene los detalles de un usuario específico.
-- **POST /api/usuario**: Crea un nuevo usuario.
-- **PUT /api/usuario/{id}**: Actualiza un usuario existente.
-- **DELETE /api/usuario/{id}**: Elimina un usuario.
+- /api/negocio: Rutas relacionadas con la gestión de productos, procesos y órdenes.
+- /api/admin: Rutas administrativas.
+- /api/auth: Rutas relacionadas con la autenticación y usuarios.
 
 ### Ejemplo de Ejecución de un Procedimiento Almacenado
 

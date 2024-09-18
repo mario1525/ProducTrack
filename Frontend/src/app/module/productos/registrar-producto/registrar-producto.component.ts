@@ -67,7 +67,7 @@ export class RegistrarProductoComponent implements OnInit {
               this.campos = Camp;
 
               // Obtener los valores de los campos
-              this.ProductoService.obtener_ROrdenCV(this.idRProducto).subscribe({
+              this.ProductoService.obtener_RproductoCampVal(this.idRProducto).subscribe({
                 next: (oCampV) => {
                   this.valores = oCampV;
                     // Después de agregar los controles en ngOnInit o en la suscripción

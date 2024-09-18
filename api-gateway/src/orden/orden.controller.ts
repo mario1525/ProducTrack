@@ -84,7 +84,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Orden/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Orden/Campo/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -95,7 +95,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Orden/Campo/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Orden/Campo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -134,7 +134,6 @@ export class OrdenController {
   }
 
   // Registro Orden
-
   @Get('registro/compania/:id')
   GetsR(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
@@ -142,7 +141,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Orden/Compania/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Orden/Compania/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -156,7 +155,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Orden/Usuario/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Orden/Usuario/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -167,7 +166,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Orden/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -178,7 +177,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .post(`${this.apiUrlNeg}api/Registro/Orden`, body, { headers })
+      .post(`${this.apiUrlNeg}api/Orden`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -190,7 +189,7 @@ export class OrdenController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .put(`${this.apiUrlNeg}api/Registro/Orden/${id}`, body, { headers })
+      .put(`${this.apiUrlNeg}api/Orden/${id}`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -201,13 +200,13 @@ export class OrdenController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .delete(`${this.apiUrlNeg}api/Registro/Orden/${id}`, { headers })
+      .delete(`${this.apiUrlNeg}api/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
   // Registro Orden Camp
 
-  @Get('registro/valores/:id')
+  @Get('registro/values/:id')
   GetsRC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,
@@ -217,7 +216,7 @@ export class OrdenController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Orden/Val/RegisOrden/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Orden/Val/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 

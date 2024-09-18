@@ -100,12 +100,7 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'sr
     // Refistro Orden val
 
     obtener_ROrdenCV(id: string): Observable<oCampV[] | []> {    
-      const url = `${this.apiUrl}orden/registro/valores/${id}`;
-      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
-    }
-  
-    obtenerRUV(id: string): Observable<oCampV[] | []> {    
-      const url = `${this.apiUrl}orden/registro/usuario/${id}`;
+      const url = `${this.apiUrl}orden/registro/values/${id}`;
       return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
     }
   

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Controller.Endpoints
 {
-    [Route("api/Registro/Orden")]
+    [Route("api/Orden")]
     [ApiController]
     public class RegisOrdenController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace Controller.Endpoints
             _Logical = logical;
         }
 
-        // GET: api/<OrdenController>/5
+        // GET: api/Orden/Compania/5
         [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> Gets(string idCompania)
@@ -27,6 +27,7 @@ namespace Controller.Endpoints
             return await _Logical.Gets(idCompania);
         }
 
+        // GET: api/Orden/Usuario/5
         [HttpGet("Usuario/{idUsuario}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> GetUsuario(string idUsuario)
@@ -34,6 +35,7 @@ namespace Controller.Endpoints
             return await _Logical.GetsUser(idUsuario);
         }
 
+        // GET: api/Orden/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<RegisOrden>> Get(string id)
@@ -41,7 +43,7 @@ namespace Controller.Endpoints
             return await _Logical.Get(id);
         }
 
-        // POST api/<OrdenController>
+        // POST api/Orden
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Post([FromBody] CreateRegisOrden value)
@@ -49,7 +51,7 @@ namespace Controller.Endpoints
             return _Logical.Create(value);
         }
 
-        // PUT api/<OrdenController>/5
+        // PUT api/Orden/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Put(string id, [FromBody] CreateRegisOrden value)
@@ -58,7 +60,7 @@ namespace Controller.Endpoints
             return _Logical.Update(value);
         }
 
-        // DELETE api/<OrdenController>/5
+        // DELETE api/Orden/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public Mensaje Delete(string id)

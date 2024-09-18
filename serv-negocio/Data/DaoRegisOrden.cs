@@ -19,6 +19,7 @@ namespace Data
             {
                 new SqlParameter("@IdRegisOrden", Id),
                 new SqlParameter("@IdOrden", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdUsuario", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -33,6 +34,7 @@ namespace Data
             {
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdOrden", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdUsuario", IdUsuario),
                 new SqlParameter("@Estado", 1)
             };
@@ -47,6 +49,7 @@ namespace Data
             {
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdOrden", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@IdUsuario", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -66,6 +69,7 @@ namespace Data
             {
                 new SqlParameter("@Id", regisOrden.Id),
                 new SqlParameter("@IdOrden", regisOrden.IdOrden),
+                new SqlParameter("@IdCompania", regisOrden.IdCompania),
                 new SqlParameter("@IdUsuario", regisOrden.IdUsuario),
                 new SqlParameter("@Estado", regisOrden.Estado),
                 new SqlParameter("@Operacion", operacion),
@@ -106,6 +110,7 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     IdOrden = row["IdOrden"].ToString(),
+                    IdCompania = row["IdCompania"].ToString(),
                     IdUsuario = row["IdUsuario"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = row["Fecha_log"].ToString()

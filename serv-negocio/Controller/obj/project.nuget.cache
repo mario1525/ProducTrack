@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+Lm3HoKNNwPhR1Rr5YZzabAGDptuH25IEjmM3+Yeh/rCdt65W0RyXrlIDPcoLFUnz853RfQL647uO4FI5ziu6Q==",
+  "dgSpecHash": "tb5zR6uZ4XhyxKT63JEgzQ7jiUxRXhdWHCqrzHltJqIb+Ogh7/q1rwAViSzc6k5YyGKH+8oUMeoXwz8nZqrmpw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ANA ROSA\\Desktop\\almacen\\dev\\cSharp\\ProducTrack\\Serv-negocio\\Controller\\Controller.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.7.0\\swashbuckle.aspnetcore.swagger.6.7.0.nupkg.sha512",
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.7.0\\swashbuckle.aspnetcore.swaggergen.6.7.0.nupkg.sha512",
+    "C:\\Users\\ANA ROSA\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.7.3\\swashbuckle.aspnetcore.swaggerui.6.7.3.nupkg.sha512",
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\ANA ROSA\\.nuget\\packages\\system.data.sqlclient\\4.8.6\\system.data.sqlclient.4.8.6.nupkg.sha512",

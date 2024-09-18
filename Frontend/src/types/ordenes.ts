@@ -24,6 +24,7 @@ export type orden = {
   export type regisOrden = {
     id: string;
     idUsuario: string;
+    idCompania: string;
     idOrden: string;
     estado: boolean;
     fecha_log: string;

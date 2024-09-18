@@ -5,8 +5,9 @@ using Services;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+//using Microsoft.AspNetCore.Builder;
 
-// Configuración de las variables de entorno 
+// Configuraciï¿½n de las variables de entorno 
 IConfiguration configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -46,6 +47,8 @@ builder.Services.AddSingleton<RegisProductProcesEtap>();
 //Logical
 builder.Services.AddSingleton<RegisOrdenLogical>();
 builder.Services.AddSingleton<OrdenCampVaLogical>();
+builder.Services.AddSingleton<RegisProductLogical>();
+builder.Services.AddSingleton<RegisProductCampValLogical>();
 
 
 
@@ -101,11 +104,17 @@ app.UseRouting();
 
 app.UseCors("MyPolicy");
 
-// Middleware de autenticación y autorización
+// Middleware de autenticaciï¿½n y autorizaciï¿½n
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+// swagger 
+app.UseSwagger();
+app.UseSwaggerUI();
+
+
 
 app.UseEndpoints(endpoints =>
 {

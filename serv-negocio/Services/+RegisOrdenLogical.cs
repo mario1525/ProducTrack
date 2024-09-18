@@ -33,19 +33,21 @@ namespace Services
 
         public Mensaje Create(CreateRegisOrden value)
         {
-            Guid uid = Guid.NewGuid();
-            value.Orden.Id = uid.ToString();
+            string uid = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            value.Orden.Id = uid;
             _orden.Set("I", value.Orden);
             foreach (OrdenCampVal campo in value.Campos)
             {
-                Guid uidCamp = Guid.NewGuid();
-                campo.Id = uidCamp.ToString();
-                campo.IdRegisOrden = uid.ToString();
+                string uidCamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                campo.Id = uidCamp;
+                campo.IdRegisOrden = uid;
                 _camp.Set("I", campo);
             }
 
+            
+
             Mensaje mensaje = new Mensaje();
-            mensaje.mensaje = uid.ToString();
+            mensaje.mensaje = uid;
             return mensaje;
 
         }

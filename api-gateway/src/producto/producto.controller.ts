@@ -76,7 +76,6 @@ export class ProductoController {
   }
 
   // Campos
-
   @Get('campos:id')
   GetsC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
@@ -84,7 +83,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Producto/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Producto/Campo/Producto/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -95,7 +94,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Producto/campo/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Producto/campo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -142,7 +141,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Producto/Orden/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Producto/Orden/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -156,7 +155,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Producto/Usuario/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Producto/Usuario/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -167,7 +166,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Registro/Producto/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Producto/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -178,7 +177,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .post(`${this.apiUrlNeg}api/Registro/Producto`, body, { headers })
+      .post(`${this.apiUrlNeg}api/Producto`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -207,7 +206,7 @@ export class ProductoController {
 
   // Registro Orden Camp
 
-  @Get('registro/valores/:id')
+  @Get('registro/values/:id')
   GetsRC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,
@@ -217,7 +216,7 @@ export class ProductoController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrlNeg}api/Producto/Val/RegisProduct/${id}`, { headers })
+      .get(`${this.apiUrlNeg}api/Producto/Val/Producto/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 

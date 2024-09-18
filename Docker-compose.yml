@@ -20,7 +20,9 @@ services:
       - "7022:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32
+    depends_on:
+      - sqlserver   
 
   serv-negocio:
     image: serv-negocio:latest
@@ -31,7 +33,9 @@ services:
       - "7020:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Data Source=ProductTrack.mssql.somee.com;Initial Catalog=ProductTrack;Persist Security Info=True;User ID=fleetRutePro_SQLLogin_1;Password=amlqpd88qw;TrustServerCertificate=True  
+      - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32 
+    depends_on:
+      - sqlserver   
 
   api-gateway:
     image: api-gateway:latest 
@@ -45,5 +49,22 @@ services:
       - serv-negocio
     #environment:
     #-NODE_TLS_REJECT_UNAUTHORIZED=0 
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=logPaSs#123$32
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql    
+    restart: always
+
+volumes:
+  sql_data:
+    driver: local
+
 
 

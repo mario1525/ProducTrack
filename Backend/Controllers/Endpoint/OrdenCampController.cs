@@ -18,7 +18,7 @@ namespace Controllers.Endpoint
             _Logical = logical;
         }
         // GET api/Orden/Campo/Orden/5
-        [HttpGet("Orden{idOrden}")]
+        [HttpGet("Orden/{idOrden}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<OrdenCamp>> Gets(string idOrden)
         {

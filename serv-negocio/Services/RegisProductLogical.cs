@@ -38,19 +38,19 @@ namespace Services
 
         public Mensaje Create(CreateRegisProduct value)
         {
-            Guid uid = Guid.NewGuid();
-            value.Producto.Id = uid.ToString();
+            string uid = DateTime.Now.ToString("yyyyMMddHHmmssffff"); ;
+            value.Producto.Id = uid;
             _orden.Set("I", value.Producto);
             foreach (ProductCampVal campo in value.Campos)
             {
-                Guid uidCamp = Guid.NewGuid();
-                campo.Id = uidCamp.ToString();
+                string uidCamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                campo.Id = uidCamp;
                 campo.IdRegisProduct = uid.ToString();
                 _camp.Set("I", campo);
             }
 
             Mensaje mensaje = new Mensaje();
-            mensaje.mensaje = uid.ToString();
+            mensaje.mensaje = uid;
             return mensaje;
 
         }

@@ -96,17 +96,12 @@ import { producto, Camp, create_Product, Regisproducto, create_Regis, oCampV } f
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 
-    // Refistro Orden val
+    // Refistro producto val
 
-    obtener_ROrdenCV(id: string): Observable<oCampV[] | []> {    
-      const url = `${this.apiUrl}producto/registro/valores/${id}`;
+    obtener_RproductoCampVal(id: string): Observable<oCampV[] | []> {    
+      const url = `${this.apiUrl}producto/registro/values/${id}`;
       return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
-    }
-  
-    obtenerRUV(id: string): Observable<oCampV[] | []> {    
-      const url = `${this.apiUrl}producto/registro/usuario/${id}`;
-      return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
-    }
+    }    
   
     obtenerRV(id: string): Observable<oCampV[] | []> {    
       const url = `${this.apiUrl}producto/registro/val/${id}`;
