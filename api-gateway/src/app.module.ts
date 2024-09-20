@@ -9,6 +9,8 @@ import { ProcesoModule } from './proceso/proceso.module';
 import { LabModule } from './lab/lab.module';
 import { ProductoModule } from './producto/producto.module';
 import { OrdenModule } from './orden/orden.module';
+import { EtapaController } from './etapa/etapa.controller';
+import { EtapaModule } from './etapa/etapa.module';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { OrdenModule } from './orden/orden.module';
     LabModule,
     ProductoModule,
     OrdenModule,
+    EtapaModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, EtapaController],
   providers: [AppService],
 })
 export class AppModule {}

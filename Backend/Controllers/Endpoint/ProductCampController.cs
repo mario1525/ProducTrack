@@ -17,23 +17,23 @@ namespace Controllers.Endpoint
             _Logical = camp;
         }
 
-        // GET api/<ProductCampController>/5
-        [HttpGet("{idProduct}")]
+        // GET api/Producto/Campo/Producto/5
+        [HttpGet("Producto/{idProduct}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<ProductCamp>> Gets(string idProduct)
         {
             return await _Logical.Gets(idProduct);
         }
 
-        // GET api/<ProductCampController>/5
-        [HttpGet("Campo/{id}")]
+        // GET api/Producto/Campo/5
+        [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<ProductCamp>> Get(string id)
         {
             return await _Logical.Get(id);
         }
 
-        // POST api/<ProductCampController>
+        // POST api/Producto/Campo
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] ProductCamp value)
@@ -42,7 +42,7 @@ namespace Controllers.Endpoint
         }
 
 
-        // PUT api/<ProductCampController>/5
+        // PUT api/Producto/Campo/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] ProductCamp value)
@@ -51,7 +51,7 @@ namespace Controllers.Endpoint
             return _Logical.Update(value);
         }
 
-        // DELETE api/<productCampController>/5
+        // DELETE api/Producto/Campo/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

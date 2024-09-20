@@ -36,7 +36,7 @@
     <div class="sections">
       <div class="section">
         <h3>Productos</h3>
-        <button class="btn agregar">Agregar</button>
+        <button class="btn agregar" (click)="createProduct()">Agregar</button>
         <table>
           <tr>
             <th>ID</th>
@@ -44,12 +44,12 @@
             <th>Fecha Creación</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let producto of productos">
+          <tr *ngFor="let producto of productos; let indice = index;">
             <td>{{ producto.id }}</td>
             <td>{{ producto.nombre }}</td>            
             <td>{{ producto.fecha_log }}</td>
             <td>
-              <button class="btn editar">✏️</button>              
+              <button class="btn editar" (click)="rediretProduct(indice)">✏️</button>              
             </td>
           </tr>
         </table>
@@ -57,18 +57,18 @@
   
       <div class="section">
         <h3>Laboratorios</h3>
-        <button class="btn agregar">Agregar</button>
+        <button class="btn agregar" (click)="createLab()">Agregar</button>
         <table>
           <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let laboratorio of laboratorios">
+          <tr *ngFor="let laboratorio of laboratorios; let indice = index;">
             <td>{{ laboratorio.id }}</td>
             <td>{{ laboratorio.nombre }}</td>
             <td>
-              <button class="btn editar">✏️</button>              
+              <button class="btn editar" (click)="rediretLab(indice)">✏️</button>              
             </td>
           </tr>
         </table>
@@ -76,7 +76,7 @@
   
       <div class="section">
         <h3>Procesos</h3>
-        <button class="btn agregar">Agregar</button>
+        <button class="btn agregar" (click)="createProceso()">Agregar</button>
         <table>
           <tr>
             <th>ID</th>
@@ -84,12 +84,12 @@
             <th>Fecha Creación</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let proceso of procesos">
+          <tr *ngFor="let proceso of procesos; let indice = index;">
             <td>{{ proceso.id }}</td>
             <td>{{ proceso.nombre }}</td>            
             <td>{{ proceso.fecha_log }}</td>
             <td>
-              <button class="btn editar">✏️</button>              
+              <button class="btn editar" (click)="rediretProceso(indice)">✏️</button>              
             </td>
           </tr>
         </table>
@@ -97,18 +97,18 @@
   
       <div class="section">
         <h3>Ordenes</h3>
-        <button class="btn agregar">Agregar</button>
+        <button class="btn agregar" (click)="createOrden()">Agregar</button>
         <table>
           <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let orden of ordenes">
+          <tr *ngFor="let orden of ordenes; let indice = index;">
             <td>{{ orden.id }}</td>
             <td>{{ orden.nombre }}</td>
             <td>
-              <button class="btn editar">✏️</button>              
+              <button class="btn editar" (click)="rediretOrden(indice)">✏️</button>              
             </td>
           </tr>
         </table>

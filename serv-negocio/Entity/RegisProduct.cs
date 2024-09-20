@@ -5,6 +5,7 @@ namespace Entity
     {
         public string Id { get; set; }
         public string IdProduct { get; set; }
+        public string IdCompania { get; set; }
         public string IdRegisOrden { get; set; }
         public string IdUsuario { get; set; }
         public bool Estado { get; set; }

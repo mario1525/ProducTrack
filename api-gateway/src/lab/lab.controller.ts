@@ -84,7 +84,7 @@ export class LabController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Lab/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Lab/Campo/Lab/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -95,7 +95,7 @@ export class LabController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Lab/campo/Campo/${id}`, { headers })
+      .get(`${this.apiUrl}api/Lab/campo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 

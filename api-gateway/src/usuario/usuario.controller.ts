@@ -60,7 +60,21 @@ export class UsuarioController {
     };
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
-      .get(`${this.apiUrl}api/Usuario/Supervisor/${id}`, { headers })
+      .get(`${this.apiUrl}api/Usuario/Compania/Supervisor/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('operativo/:id')
+  GetsOp(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Usuario/Compania/Operativo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -72,17 +86,6 @@ export class UsuarioController {
     // Redirigir la solicitud de registro al servicio de autenticación
     return this.httpService
       .get(`${this.apiUrl}api/Usuario/${id}`, { headers })
-      .pipe(map((response) => response.data));
-  }
-
-  @Post('credential')
-  Credential(@Body() body, @Headers('authorization') authHeader: string) {
-    const headers = {
-      Authorization: authHeader, // Reenvía el token de autenticación
-    };
-    // Redirigir la solicitud de registro al servicio de autenticación
-    return this.httpService
-      .post(`${this.apiUrl}api/Credential`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -106,6 +109,41 @@ export class UsuarioController {
     const headers = { Authorization: authHeader };
     return this.httpService
       .delete(`${this.apiUrl}api/Usuario/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  // credenciales
+  @Post('credential')
+  Credential(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrl}api/Credential`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Put('credential:id')
+  updatec(
+    @Param('id') id: string,
+    @Body() body,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .put(`${this.apiUrl}api/Credential/${id}`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Delete('credential:id')
+  removec(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .delete(`${this.apiUrl}api/Credential/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 }

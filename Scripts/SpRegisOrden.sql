@@ -21,14 +21,16 @@ GO
 CREATE PROCEDURE dbo.dbSpRegisOrdenGet
     @IdRegisOrden VARCHAR(36),
     @IdOrden VARCHAR(36),
+    @IdCompania VARCHAR(36),
     @IdUsuario VARCHAR(36),
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, IdOrden, IdUsuario, Estado, Fecha_log     
+    SELECT Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisOrden
     WHERE Id = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN Id ELSE @IdRegisOrden END
     AND IdOrden = CASE WHEN ISNULL(@IdOrden,'')='' THEN IdOrden ELSE @IdOrden END
+    AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
     AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
@@ -40,6 +42,7 @@ GO
 CREATE PROCEDURE dbo.dbSpRegisOrdenSet
     @Id VARCHAR(36),
     @IdOrden VARCHAR(36),
+    @IdCompania VARCHAR(36),
     @IdUsuario VARCHAR(36),
     @Estado BIT,
     @Operacion VARCHAR(1)
@@ -47,13 +50,13 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.RegisOrden(Id, IdOrden, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdOrden, @IdUsuario, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.RegisOrden(Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @IdOrden, @IdCompania, @IdUsuario, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.RegisOrden
-        SET IdOrden = @IdOrden, IdUsuario = @IdUsuario, Estado = @Estado
+        SET IdOrden = @IdOrden, IdCompania = @IdCompania, IdUsuario = @IdUsuario, Estado = @Estado
         WHERE Id = @Id
     END
 END

@@ -24,11 +24,11 @@ namespace Services
 
         public Mensaje Create(OrdenCampVal value)
         {
-            Guid uid = Guid.NewGuid();
-            value.Id = uid.ToString();
+            string uid = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            value.Id = uid;
             _orden.Set("I", value);
             Mensaje mensaje = new Mensaje();
-            mensaje.mensaje = uid.ToString();
+            mensaje.mensaje = uid;
             return mensaje;
 
         }

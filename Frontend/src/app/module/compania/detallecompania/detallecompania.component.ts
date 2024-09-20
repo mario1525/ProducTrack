@@ -163,12 +163,64 @@ export class DetallecompaniaComponent implements OnInit {
       alert("el usuario no tiene permisos necesarios para estra accion")
     }     
   } 
+   
+  // para laboratorios
+  createLab(){
+    this.route.navigate([`App/Compania/${this.IdCompania}/Laboratorio`]);
+    return
+  }
+  rediretLab(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.productos[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.IdCompania}/Laboratorio/${datosSeleccionados.id}`]);
+  }
+
+  // para ordenes 
+  createOrden(){
+    this.route.navigate([`App/Compania/${this.IdCompania}/Orden`]);
+    return
+  }
+  rediretOrden(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.productos[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.IdCompania}/Orden/${datosSeleccionados.id}`]);
+  }
+
+  // para procesos
+  createProceso(){
+    this.route.navigate([`App/Compania/${this.IdCompania}/Proceso`]);
+    return
+  }
+  rediretProceso(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.productos[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.IdCompania}/Proceso/${datosSeleccionados.id}`]);
+  }
+
+  // para Producto
+  createProduct(){
+    this.route.navigate([`App/Compania/${this.IdCompania}/Producto`]);
+    return
+  }
+  rediretProduct(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.productos[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.IdCompania}/Producto/${datosSeleccionados.id}`]);
+  }
 
   public homeback() {
     this.route.navigate(['App/Home']);
     return
   }
-
+  
   public cerrarsession() {
     //localStorage.removeItem('token')
     this.auth

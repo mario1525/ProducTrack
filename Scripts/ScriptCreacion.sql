@@ -169,8 +169,9 @@ PRINT 'creacion de la tabla RegisOrden'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisOrden')
 BEGIN
     CREATE TABLE dbo.RegisOrden(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Orden*/ 
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Orden*/ 
+        IdCompania 	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/ 
         IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Usuarios*/
         Estado			BIT NOT NULL DEFAULT 1,                  /*Estado del Usuario*/
 		Eliminado		BIT NOT NULL DEFAULT 0,                 /*Eliminado usuario*/
@@ -180,6 +181,8 @@ BEGIN
 		FKregisOrdenUsuario FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
     ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
 		FKOrdenRegisCamp FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)    
+    ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
+		FKOrdenRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)      
 END
 GO
 
@@ -227,9 +230,10 @@ PRINT 'creacion de la tabla RegisProduct '
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisProduct')
 BEGIN
     CREATE TABLE dbo.RegisProduct(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Producto*/
-        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla RegisOrden*/
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Producto*/
+        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla RegisOrden*/
+        IdCompania    VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/
         IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Usuarios*/
         Estado			BIT NOT NULL DEFAULT 1,                 /*Estado*/
 		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado*/
@@ -241,6 +245,8 @@ BEGIN
 		FKRegisPProduct FOREIGN KEY (IdProduct) REFERENCES dbo.Producto(Id)
     ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
 		FKRegisProductRegisOrden FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id)
+    ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
+		FKRegisProductRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)    
     
 END
 GO

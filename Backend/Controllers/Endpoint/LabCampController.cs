@@ -17,22 +17,23 @@ namespace Controllers.Endpoint
             _Logical = camp;
         }
 
-        // GET api/<labCampController>/5
-        [HttpGet("{idLab}")]
+        // GET api/Lab/Campo/Lab/5
+        [HttpGet("Lab/{idLab}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<LabCamp>> Gets(string idLab)
         {
             return await _Logical.Gets(idLab);
         }
 
-        [HttpGet("Campo/{id}")]
+        // GET api/Lab/Campo/5
+        [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<LabCamp>> Get(string id)
         {
             return await _Logical.Get(id);
         }
 
-        // POST api/<labCampController>
+        // POST api/Lab/Campo
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] LabCamp value)
@@ -41,7 +42,7 @@ namespace Controllers.Endpoint
         }
 
 
-        // PUT api/<labCampController>/5
+        // PUT api/Lab/Campo/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] LabCamp value)
@@ -50,7 +51,7 @@ namespace Controllers.Endpoint
             return _Logical.Update(value);
         }
 
-        // DELETE api/<labCampController>/5
+        // DELETE api/Lab/Campo/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

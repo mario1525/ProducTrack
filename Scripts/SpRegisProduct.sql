@@ -19,8 +19,9 @@ END
 PRINT 'Creacion procedimiento RegisProduct Get '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductGet
-    @IdRegisProduct VARCHAR(36),
+    @Id VARCHAR(36),
     @IdProducto VARCHAR(36),
+    @IdCompania VARCHAR(36),    
     @IdRegisOrden VARCHAR(36),
     @IdUsuario VARCHAR(36),
     @Estado INT
@@ -28,8 +29,9 @@ AS
 BEGIN
     SELECT Id, IdProduct, IdRegisOrden, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisProduct
-    WHERE Id = CASE WHEN ISNULL(@IdRegisProduct,'')='' THEN Id ELSE @IdRegisProduct END
+    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
+    AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
     AND IdRegisOrden = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN IdRegisOrden ELSE @IdRegisOrden END
     AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
@@ -42,6 +44,7 @@ GO
 CREATE PROCEDURE dbo.dbSpRegisProductSet
     @Id VARCHAR(36),
     @IdProducto VARCHAR(36),
+    @IdCompania VARCHAR(36),
     @IdRegisOrden VARCHAR(36),
     @IdUsuario VARCHAR(36),
     @Estado BIT,
@@ -50,13 +53,13 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.RegisProduct(Id, IdProduct, IdRegisOrden, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdProducto, @IdRegisOrden, @IdUsuario, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.RegisProduct(Id, IdProduct, IdCompania, IdRegisOrden, IdUsuario, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @IdProducto, @IdCompania, @IdRegisOrden, @IdUsuario, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.RegisProduct
-        SET IdProduct = @IdProducto, IdRegisOrden = @IdRegisOrden, IdUsuario = @IdUsuario, Estado = @Estado
+        SET IdProduct = @IdProducto, IdCompania = @IdCompania, IdRegisOrden = @IdRegisOrden, IdUsuario = @IdUsuario, Estado = @Estado
         WHERE Id = @Id
     END
 END

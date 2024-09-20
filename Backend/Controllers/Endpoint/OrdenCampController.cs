@@ -17,22 +17,23 @@ namespace Controllers.Endpoint
         {
             _Logical = logical;
         }
-        // GET api/<OrdenCampController>/5
-        [HttpGet("{idOrden}")]
+        // GET api/Orden/Campo/Orden/5
+        [HttpGet("Orden/{idOrden}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<OrdenCamp>> Gets(string idOrden)
         {
             return await _Logical.Gets(idOrden);
         }
 
-        [HttpGet("Campo/{id}")]
+        // GET api/Orden/Campo/5
+        [HttpGet("/{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
         public async Task<List<OrdenCamp>> Get(string id)
         {
             return await _Logical.Get(id);
         }
 
-        // POST api/<OrdenCampController>
+        // POST api/Orden/Campo
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] OrdenCamp value)
@@ -41,7 +42,7 @@ namespace Controllers.Endpoint
         }
 
 
-        // PUT api/<OrdenCampController>/5
+        // PUT api/Orden/Campo/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] OrdenCamp value)
@@ -50,7 +51,7 @@ namespace Controllers.Endpoint
             return _Logical.Update(value);
         }
 
-        // DELETE api/<OrdenCampController>/5
+        // DELETE api/Orden/Campo/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

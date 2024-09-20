@@ -1,7 +1,7 @@
 <div>
     <div class="form">    
       <div class="header">
-        <h2>Orden</h2>        
+        <h2>Producto</h2>        
         <div class="btns">
           <button *ngIf="idRProducto" (click)="onDelete()" class="btn eliminar">Eliminar</button>
           <button class="{{ idRProducto ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idRProducto ? 'Actualizar' : 'Agregar' }}</button>
@@ -12,7 +12,7 @@
         <div class="general-info">
           <div>
             <label>Responsable</label>
-            <select formControlName="IdUsuario" id="Responsable" name="Responsable">
+            <select formControlName="idUsuario" id="Responsable" name="Responsable">
               <option *ngFor="let Responsable of Responsables" [value]="Responsable.id">{{ Responsable.nombre }}</option>
             </select>
           </div> 
@@ -24,7 +24,7 @@
           </div>
           <div>
             <label>Orden asociada</label>
-            <select formControlName="IdRegisOrden" id="Orden" name="Orden">
+            <select formControlName="idRegisOrden" id="Orden" name="Orden">
               <option *ngFor="let orden of Ordenes" [value]="orden.id">{{ orden.id }}</option>
             </select>
           </div>

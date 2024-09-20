@@ -22,8 +22,7 @@ GO
 CREATE PROCEDURE dbo.dbSpOrdenCampGet
     @IdOrdenCamp VARCHAR(36),
     @Nombre VARCHAR(255),
-    @TipoDato VARCHAR(60),
-    @Obligatorio INT,
+    @TipoDato VARCHAR(60),   
     @IdOrden VARCHAR(36),
     @Estado INT
 AS 
@@ -32,8 +31,7 @@ BEGIN
     FROM dbo.OrdenCamp
     WHERE Id = CASE WHEN ISNULL(@IdOrdenCamp,'')='' THEN Id ELSE @IdOrdenCamp END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
-    AND TipoDato = CASE WHEN ISNULL(@TipoDato,'')='' THEN TipoDato ELSE @TipoDato END
-    AND Obligatorio = CASE WHEN ISNULL(@Obligatorio,0) = 1 THEN 1 ELSE 0 END
+    AND TipoDato = CASE WHEN ISNULL(@TipoDato,'')='' THEN TipoDato ELSE @TipoDato END   
     AND IdOrden = CASE WHEN ISNULL(@IdOrden,'')='' THEN IdOrden ELSE @IdOrden END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0

@@ -37,8 +37,7 @@ export class CredentialComponent implements OnInit {
     if (this.form.valid) {
       if (this.form.value.contrasenia == this.form.value.confirmarContrasena ){
         const credential = this.form.value
-      credential.idUsuario = this.idUsuario;
-      console.log(credential)                  
+      credential.idUsuario = this.idUsuario;                        
         this.UsuaioService.create_Credential(credential).subscribe({          
           next: () => {
             alert("Credenciales asignadas correctamente")

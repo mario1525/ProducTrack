@@ -39,7 +39,8 @@ export class RegistrarComponent implements OnInit {
   ) {
     this.Form = this.fb.group({
       id: [''],
-      idUsuario: ['', Validators.required],      
+      idUsuario: ['', Validators.required],
+      idCompania: [''],      
       idOrden: ['', Validators.required],      
       estado: [true],      
       fecha_log: ['']
@@ -102,7 +103,7 @@ export class RegistrarComponent implements OnInit {
     });
 
     // Obtener los Producto asociados a esa orden
-    this.ProductoService.obtener_RProductC(this.idROrden).subscribe({
+    this.ProductoService.obtener_RProductOrden(this.idROrden).subscribe({
       next: (value) => {
         this.productos = value;
       },
@@ -132,7 +133,7 @@ export class RegistrarComponent implements OnInit {
     if (this.Form.valid) {            
       if(this.idROrden){  
         // Llamar al servicio para crear la orden
-        const formValue = this.Form.value;       
+        const formValue = this.Form.value;                     
         // Actualizar los valores con los datos del CampoForm
         this.valores.forEach(valor => {
           const campoFormControl = this.CampoForm.get(valor.idOrdenCamp); // Busca el FormControl por el id del campo
@@ -158,7 +159,8 @@ export class RegistrarComponent implements OnInit {
         })             
       }else{
       // Llamar al servicio para crear la orden
-      const formValue = this.Form.value;  
+      const formValue = this.Form.value; 
+       formValue.idCompania = this.idCompania; 
       // Construir el objeto con los campos y sus valores
       const camposConValores: oCampV[] = this.campos.map(campo => {
         const valorCampo = this.CampoForm.get(campo.id)?.value || '';  // Obtener el valor de cada campo desde el formulario
@@ -175,7 +177,9 @@ export class RegistrarComponent implements OnInit {
         orden: formValue,
         campos: camposConValores  // Pasar los campos con valores
       }; 
-      // hacer la llamda al api 
+      // hacer la llamda al api
+      //  POST
+      // crear el registro  
       this.OrdenService.createR(this.create_orden).subscribe({
         next: () => {
           alert("Orden creada");
@@ -236,12 +240,12 @@ export class RegistrarComponent implements OnInit {
     const datosSeleccionados = this.productos[indice];
   
     // Realiza la redirección con los datos específicos
-    this.route.navigate([`App/Compania/${this}/Registro/Orden/${datosSeleccionados.id}`]);
+    this.route.navigate([`App/Compania/${this.idCompania}/Registro/Producto/${datosSeleccionados.id}`]);
   }  
    
    // Registrar un nuevo producto 
    create() {
-    this.route.navigate([`App/Compania/${this}/Registro/Orden`]);
+    this.route.navigate([`App/Compania/${this.idCompania}/Registro/Producto`]);
   }
   
 }
