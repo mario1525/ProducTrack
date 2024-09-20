@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ordenService } from 'src/app/shared/services/Orden.service';
+import { procesoService } from 'src/app/shared/services/Proceso.service';
 import { oCamp, create_orden} from 'src/types/ordenes';
+import { Proceso } from 'src/types/procesos';
 
 @Component({
   selector: 'app-orden',
@@ -14,6 +16,7 @@ export class OrdenComponent implements OnInit {
 Form: FormGroup;
 CampoForm: FormGroup;
 campos: oCamp[] = [];
+procesos: Proceso[] = [];
 create_orden: create_orden | undefined;
 //pop_Campo = false;
 idOrden: string = "";
@@ -27,13 +30,15 @@ constructor(
   private fb: FormBuilder,
   private location: Location,   
   private route: Router,
+  private procesoService: procesoService,
   private OrdenService: ordenService
 ) {
 
   this.Form = this.fb.group({
     id: [''],
     nombre: ['', Validators.required],      
-    idCompania: [''],      
+    idCompania: [''], 
+    idProceso: [''],      
     estado: [true],      
     fecha_log: ['']
   });
@@ -65,6 +70,16 @@ ngOnInit(): void {
       this.OrdenService.obtener_c_orden(this.idOrden).subscribe({
         next: (etapas) => {
           this.campos = etapas                                     
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+
+      this.procesoService.obtener_Procesos(this.idCompania).subscribe({
+        next: (etapas) => {
+          this.procesos = etapas                                     
           return; 
         },
         error: (error) => {
