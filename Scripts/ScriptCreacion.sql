@@ -135,13 +135,16 @@ BEGIN
     CREATE TABLE dbo.Orden(
         Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
         Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre de la etapa*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/       
+        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/ 
+        IdProceso 	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Proceso*/       
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]    
     ALTER TABLE dbo.Orden ADD CONSTRAINT
 		FKOrdencompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+    ALTER TABLE dbo.Orden ADD CONSTRAINT
+		FKOrdenProces FOREIGN KEY (IdProceso) REFERENCES dbo.Proceso(Id)     
 END
 GO
 
@@ -169,9 +172,9 @@ PRINT 'creacion de la tabla RegisOrden'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisOrden')
 BEGIN
     CREATE TABLE dbo.RegisOrden(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
-        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Orden*/ 
-        IdCompania 	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/ 
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/
+        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',               /*FK de la tabla Orden*/ 
+        IdCompania 	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Compania*/        
         IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Usuarios*/
         Estado			BIT NOT NULL DEFAULT 1,                  /*Estado del Usuario*/
 		Eliminado		BIT NOT NULL DEFAULT 0,                 /*Eliminado usuario*/
@@ -182,7 +185,7 @@ BEGIN
     ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
 		FKOrdenRegisCamp FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)    
     ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
-		FKOrdenRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)      
+		FKOrdenRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)        
 END
 GO
 
@@ -202,6 +205,28 @@ BEGIN
 		FKOrdenCCamp FOREIGN KEY (IdOrdenCamp) REFERENCES dbo.OrdenCamp(Id)
     ALTER TABLE dbo.OrdenCampVal ADD CONSTRAINT
 		FKRegisOrden FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id)
+END
+GO
+
+-- Tabla RegisOrdenProcesEtap
+PRINT 'creacion de la tabla RegisOrdenProcesEtap'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisProductProcesEtap')
+BEGIN
+    CREATE TABLE dbo.RegisOrdenProcesEtap(
+        Id                      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
+        IdRegisOrden            VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla regisOrden */  
+        IdProcesEtap            VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla ProcesEtap*/
+        IdUsuario               VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla usuario*/
+        Estado			        BIT NOT NULL DEFAULT 1,                   /*Estado*/
+		Eliminado		        BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
+        Fecha_log               SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.RegisOrdenProcesEtap ADD CONSTRAINT
+		FKRegisORdeno FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id) 
+    ALTER TABLE dbo.RegisOrdenProcesEtap ADD CONSTRAINT
+		FKROprocesEtap FOREIGN KEY (IdProcesEtap) REFERENCES dbo.ProcesEtap(Id) 
+    ALTER TABLE dbo.RegisOrdenProcesEtap ADD CONSTRAINT
+		FKReUsuarioORden FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id) 
 END
 GO
 

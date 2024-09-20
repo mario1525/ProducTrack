@@ -12,6 +12,12 @@
       <div>
         <label>Nombre</label>
         <input formControlName="nombre" />
+      </div>
+      <div>
+        <label>Tipo de orden</label>
+        <select formControlName="idProceso" id="Proceso" name="Proceso">
+          <option *ngFor="let proceso of procesos" [value]="proceso.id">{{ proceso.nombre }}</option>
+        </select>
       </div>      
     </div>       
     </form>
