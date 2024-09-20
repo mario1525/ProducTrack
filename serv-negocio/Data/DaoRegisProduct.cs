@@ -18,12 +18,11 @@ namespace Data
             var parameters = new[]
             {
                 new SqlParameter("@Id", Id),
-                new SqlParameter("@IdProduct", ""),
+                new SqlParameter("@IdProducto", ""),
                 new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdUsuario", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1)                
             };
             return await GetList(procedureName, parameters);
         }
@@ -35,12 +34,26 @@ namespace Data
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
-                new SqlParameter("@IdProduct", ""),
+                new SqlParameter("@IdProducto", ""),
                 new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdUsuario", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1)                
+            };
+            return await GetList(procedureName, parameters);
+        }
+
+        public async Task<List<RegisProduct>> GetsOrden(string IdOrden)
+        {
+            const string procedureName = "dbo.dbSpRegisProductGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdProducto", ""),
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdRegisOrden", IdOrden),
+                new SqlParameter("@IdUsuario", ""),
+                new SqlParameter("@Estado", 1)
             };
             return await GetList(procedureName, parameters);
         }
@@ -51,12 +64,11 @@ namespace Data
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
-                new SqlParameter("@IdProduct", ""),
+                new SqlParameter("@IdProducto", ""),
                 new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdUsuario", IdUsuario),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1)               
             };
             return await GetList(procedureName, parameters);
         }
@@ -73,7 +85,7 @@ namespace Data
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", regisProduct.Id),
-                new SqlParameter("@IdProduct", regisProduct.IdProduct),
+                new SqlParameter("@IdProducto", regisProduct.IdProduct),
                 new SqlParameter("@IdRegisOrden", regisProduct.IdRegisOrden),
                 new SqlParameter("@IdCompania", regisProduct.IdCompania),
                 new SqlParameter("@IdUsuario", regisProduct.IdUsuario),

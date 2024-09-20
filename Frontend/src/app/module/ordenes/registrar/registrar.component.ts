@@ -103,7 +103,7 @@ export class RegistrarComponent implements OnInit {
     });
 
     // Obtener los Producto asociados a esa orden
-    this.ProductoService.obtener_RProductC(this.idROrden).subscribe({
+    this.ProductoService.obtener_RProductOrden(this.idROrden).subscribe({
       next: (value) => {
         this.productos = value;
       },
@@ -240,12 +240,12 @@ export class RegistrarComponent implements OnInit {
     const datosSeleccionados = this.productos[indice];
   
     // Realiza la redirección con los datos específicos
-    this.route.navigate([`App/Compania/${this}/Registro/Orden/${datosSeleccionados.id}`]);
+    this.route.navigate([`App/Compania/${this.idCompania}/Registro/Producto/${datosSeleccionados.id}`]);
   }  
    
    // Registrar un nuevo producto 
    create() {
-    this.route.navigate([`App/Compania/${this}/Registro/Orden`]);
+    this.route.navigate([`App/Compania/${this.idCompania}/Registro/Producto`]);
   }
   
 }

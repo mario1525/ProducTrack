@@ -26,6 +26,12 @@ namespace Services
             return await _orden.Gets(IdCompania);
         }
 
+        public async Task<List<RegisProduct>> GetsOrden(string IdOrden)
+        {
+
+            return await _orden.GetsOrden(IdOrden);
+        }
+
         public async Task<List<RegisProduct>> GetsUser(string IdUsuario)
         {
             return await _orden.GetsUser(IdUsuario);
@@ -55,9 +61,13 @@ namespace Services
 
         }
 
-        public Mensaje Update(RegisProduct value)
+        public Mensaje Update(CreateRegisProduct value)
         {
-            _orden.Set("A", value);
+            _orden.Set("A", value.Producto);
+            foreach (ProductCampVal campo in value.Campos)
+            {               
+                _camp.Set("A", campo);
+            }
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;

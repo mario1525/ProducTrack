@@ -76,7 +76,7 @@ export class ProductoController {
   }
 
   // Campos
-  @Get('campos:id')
+  @Get('campos/:id')
   GetsC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
@@ -87,7 +87,7 @@ export class ProductoController {
       .pipe(map((response) => response.data));
   }
 
-  @Get('campo:id')
+  @Get('campo/:id')
   GetC(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
@@ -109,7 +109,7 @@ export class ProductoController {
       .pipe(map((response) => response.data));
   }
 
-  @Put('campo:id')
+  @Put('campo/:id')
   updateC(
     @Param('id') id: string,
     @Body() body,
@@ -121,7 +121,7 @@ export class ProductoController {
       .pipe(map((response) => response.data));
   }
 
-  @Delete('campo:id')
+  @Delete('campo/:id')
   removeC(
     @Param('id') id: string,
     @Headers('authorization') authHeader: string,
@@ -134,8 +134,22 @@ export class ProductoController {
 
   // Registro Producto
 
-  @Get('registro/Orden/:id')
+  @Get('registro/compania/:id')
   GetsR(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Producto/Compania/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('registro/Orden/:id')
+  GetsROrden(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string
+  ) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
     };
@@ -189,7 +203,7 @@ export class ProductoController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .put(`${this.apiUrlNeg}api/Registro/Producto/${id}`, body, { headers })
+      .put(`${this.apiUrlNeg}api/Producto/${id}`, body, { headers })
       .pipe(map((response) => response.data));
   }
 
@@ -200,11 +214,11 @@ export class ProductoController {
   ) {
     const headers = { Authorization: authHeader };
     return this.httpService
-      .delete(`${this.apiUrlNeg}api/Registro/Producto/${id}`, { headers })
+      .delete(`${this.apiUrlNeg}api/Producto/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 
-  // Registro Orden Camp
+  // Registro product Camp val
 
   @Get('registro/values/:id')
   GetsRC(

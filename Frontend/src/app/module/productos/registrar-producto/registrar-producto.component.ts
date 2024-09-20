@@ -40,9 +40,10 @@ export class RegistrarProductoComponent implements OnInit {
   ) {
     this.Form = this.fb.group({
       id: [''],
-      IdUsuario: ['', Validators.required],      
-      idProduct: ['', Validators.required], 
-      IdRegisOrden: ['', Validators.required],      
+      idUsuario: ['', Validators.required],      
+      idProduct: ['', Validators.required],
+      idCompania: [''], 
+      idRegisOrden: ['', Validators.required],      
       estado: [true],      
       fecha_log: ['']
     });
@@ -74,7 +75,7 @@ export class RegistrarProductoComponent implements OnInit {
                     this.campos.forEach(campo => {
                       const valorInicial = this.getValorPorCampo(campo.id)?.valor || '';                    
                       this.CampoForm.addControl(campo.id, new FormControl(valorInicial, Validators.required));
-                    });
+                      });
                     this.formReady = true; // Los controles están listos
                 },
                 error: (error) => {
@@ -103,8 +104,8 @@ export class RegistrarProductoComponent implements OnInit {
       }
     });
     
-    // Obtener registro de Productos
-    this.ordenService.obtenerR(this.idCompania).subscribe({
+    // Obtener registro ordenes
+    this.ordenService.obtener_ROrdenCompania(this.idCompania).subscribe({
       next: (Value) => {
         this.Ordenes = Value
         return; 
@@ -115,7 +116,7 @@ export class RegistrarProductoComponent implements OnInit {
     })
 
     // Obtener responsables
-    this.UsuarioService.obtener_Operativo(this.idCompania).subscribe({
+    this.UsuarioService.obtener_Supervisores(this.idCompania).subscribe({
       next: (value) => {
         this.Responsables = value;
       },
@@ -129,42 +130,45 @@ export class RegistrarProductoComponent implements OnInit {
    onSubmit(): void {
     if (this.Form.valid) {            
       if(this.idRProducto){  
-        // Llamar al servicio para crear la orden
+        // Llamar al servicio para acualizar el producto
         const formValue = this.Form.value;       
         // Actualizar los valores con los datos del CampoForm
         this.valores.forEach(valor => {
-          const campoFormControl = this.CampoForm.get(valor.IdProductCamp); // Busca el FormControl por el id del campo
+          const campoFormControl = this.CampoForm.get(valor.idProductCamp); // Busca el FormControl por el id del campo
           if (campoFormControl) {
             valor.valor = campoFormControl.value;  // Actualiza el valor de la lista de valores
           }
         });
-        // Crear el objeto de la orden con los campos y sus valores
+        // Crear el objeto del producto con los campos y sus valores
         this.create_product = {
           producto: formValue,
           campos: this.valores  // Pasar los campos con valores
-        };                 
+        };  
+        console.log(this.create_product);               
         // hacer la llamada a la api 
-        this.ProductoService.updateR(this.idROrden,this.create_product).subscribe({
+        this.ProductoService.updateR(this.idRProducto,this.create_product).subscribe({
           next: () => {
             alert("Orden Actualizada")
             this.location.back();
           },
           error: (error) =>{
             console.log(error)
-            alert('Error al actualizar la orden');
+            alert('Error al actualizar el producto');
           }
         })             
       }else{
-      // Llamar al servicio para crear la orden
-      const formValue = this.Form.value;  
+      // Llamar al servicio para crear el producto
+      const formValue = this.Form.value;
+      formValue.idCompania = this.idCompania;  
       // Construir el objeto con los campos y sus valores
       const camposConValores: oCampV[] = this.campos.map(campo => {
         const valorCampo = this.CampoForm.get(campo.id)?.value || '';  // Obtener el valor de cada campo desde el formulario
         return {
           id: '',  // Asignar un ID único o dejar en blanco si se genera en el backend
           valor: valorCampo,  // El valor ingresado en el formulario
-          IdProductCamp: campo.id,  // El ID del campo
-          IdRegisProduct: "",  // Asignar el ID de la orden actual
+          idProductCamp: campo.id,  // El ID del campo
+          idRegisProduct: "",  // Asignar el ID de la orden actual 
+          estado: true,         
           fecha_log: ""  // Usar la fecha actual o ajustarla según el caso
         };
       });       
@@ -230,7 +234,7 @@ export class RegistrarProductoComponent implements OnInit {
 
   // Relaciona los valores con los campos 
   getValorPorCampo(campoId: string): oCampV | undefined {    
-    return this.valores.find(val => val.IdProductCamp === campoId);
+    return this.valores.find(val => val.idProductCamp === campoId);
   }
 
     

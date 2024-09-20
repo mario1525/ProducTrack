@@ -67,7 +67,7 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'sr
 
   // Refistro Orden 
 
-  obtener_ROrdenC(id: string): Observable<regisOrden[] | []> {    
+  obtener_ROrdenCompania(id: string): Observable<regisOrden[] | []> {    
     const url = `${this.apiUrl}orden/registro/compania/${id}`;
     return this.http.get<regisOrden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }

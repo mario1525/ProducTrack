@@ -66,7 +66,12 @@ import { producto, Camp, create_Product, Regisproducto, create_Regis, oCampV } f
   }
 
   // Refistro Producto
-  obtener_RProductC(id: string): Observable<Regisproducto[] | []> {    
+  obtener_RProductCompania(id: string): Observable<Regisproducto[] | []> {    
+    const url = `${this.apiUrl}producto/registro/compania/${id}`;
+    return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  obtener_RProductOrden(id: string): Observable<Regisproducto[] | []> {    
     const url = `${this.apiUrl}producto/registro/orden/${id}`;
     return this.http.get<Regisproducto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }

@@ -18,7 +18,7 @@ export class RegistrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.IdCompania = this.route.url.split('/')[3]   
-    this.ordenService.obtener_ROrdenC(this.IdCompania).subscribe({
+    this.ordenService.obtener_ROrdenCompania(this.IdCompania).subscribe({
      next: (Value) => {
        this.Ordenes = Value
        return; 

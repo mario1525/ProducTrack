@@ -10,8 +10,9 @@ export type producto = {
   export type Regisproducto = {
     id: string;
     idProduct: string;
-    IdRegisOrden: string;
-    IdUsuario: string;
+    idRegisOrden: string;
+    idCompania: string;
+    idUsuario: string;
     estado: boolean;    
     fecha_log: string;
   }
@@ -29,9 +30,9 @@ export type producto = {
   export type oCampV = {
     id: string;
     valor: string;
-    IdProductCamp: string;
-    IdRegisProduct: string; 
-    
+    idProductCamp: string;
+    idRegisProduct: string;  
+    estado: boolean;  
     fecha_log: string; // Usar string si la fecha se maneja como cadena de texto
   }
 

@@ -19,13 +19,22 @@ namespace Controller.Endpoints
             _Logical = logical;
         }
 
-        // GET: api/Producto/Orden/5
-        [HttpGet("Orden/{idRorden}")]
+        // GET: api/Producto/Compania/5
+        [HttpGet("Compania/{idCompania}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
-        public async Task<List<RegisProduct>> Gets(string idRorden)
+        public async Task<List<RegisProduct>> Gets(string idCompania)
         {
 
-            return await _Logical.Gets(idRorden);
+            return await _Logical.Gets(idCompania);
+        }
+
+        // GET: api/Producto/Orden/5
+        [HttpGet("Orden/{idOrden}")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
+        public async Task<List<RegisProduct>> GetsOrden(string idOrden)
+        {
+
+            return await _Logical.GetsOrden(idOrden);
         }
 
         // GET: api/Producto/Usuario/5
@@ -55,9 +64,9 @@ namespace Controller.Endpoints
         // PUT api/Producto/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
-        public Mensaje Put(string id, [FromBody] RegisProduct value)
+        public Mensaje Put(string id, [FromBody] CreateRegisProduct value)
         {
-            value.Id = id;
+            value.Producto.Id = id;
             return _Logical.Update(value);
         }
 

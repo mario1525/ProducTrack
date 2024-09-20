@@ -19,7 +19,7 @@ END
 PRINT 'Creacion procedimiento RegisProduct Get '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductGet
-    @IdRegisProduct VARCHAR(36),
+    @Id VARCHAR(36),
     @IdProducto VARCHAR(36),
     @IdCompania VARCHAR(36),    
     @IdRegisOrden VARCHAR(36),
@@ -29,7 +29,7 @@ AS
 BEGIN
     SELECT Id, IdProduct, IdRegisOrden, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisProduct
-    WHERE Id = CASE WHEN ISNULL(@IdRegisProduct,'')='' THEN Id ELSE @IdRegisProduct END
+    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
     AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
     AND IdRegisOrden = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN IdRegisOrden ELSE @IdRegisOrden END
