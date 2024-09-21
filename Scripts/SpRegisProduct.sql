@@ -27,7 +27,7 @@ CREATE PROCEDURE dbo.dbSpRegisProductGet
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, IdProduct, IdRegisOrden, IdUsuario, Estado, Fecha_log     
+    SELECT Id, IdProduct, IdRegisOrden, IdCompania, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisProduct
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END

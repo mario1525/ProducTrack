@@ -51,7 +51,7 @@ import { producto, Camp, create_Product, Regisproducto, create_Regis, oCampV } f
   }
 
   create_c(Value: Camp): Observable<{mensaje: string}> {
-    const url = `${this.apiUrl}api/Producto/Campo`;
+    const url = `${this.apiUrl}Producto/Campo`;
     return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
 

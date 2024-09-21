@@ -76,18 +76,16 @@ ngOnInit(): void {
           console.log(error)
         }
       })
-
-      this.procesoService.obtener_Procesos(this.idCompania).subscribe({
-        next: (etapas) => {
-          this.procesos = etapas                                     
-          return; 
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
-
     }
+    this.procesoService.obtener_Procesos(this.idCompania).subscribe({
+      next: (etapas) => {
+        this.procesos = etapas                                     
+        return; 
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   
 }
 

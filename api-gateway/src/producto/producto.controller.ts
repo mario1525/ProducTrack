@@ -148,7 +148,7 @@ export class ProductoController {
   @Get('registro/Orden/:id')
   GetsROrden(
     @Param('id') id: string,
-    @Headers('authorization') authHeader: string
+    @Headers('authorization') authHeader: string,
   ) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
