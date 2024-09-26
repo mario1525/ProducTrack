@@ -17,6 +17,17 @@ export class EtapaController {
   private apiUrl = UrlServAdmin;
   constructor(private readonly httpService: HttpService) {}
 
+  @Get('orden/:id')
+  Gets(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Etapa/Orden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
   @Get('proceso/:id')
   GetsE(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {

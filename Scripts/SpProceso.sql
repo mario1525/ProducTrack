@@ -39,22 +39,50 @@ CREATE PROCEDURE dbo.dbSpProcesoSet
     @Id VARCHAR(36),
     @Nombre VARCHAR(255),
     @IdCompania VARCHAR(36),
-    @Estado BIT,
+    @Estado BIT,    
+    @Campos EtapaType READONLY,
     @Operacion VARCHAR(1)
 AS
 BEGIN
-    IF @Operacion = 'I'
-    BEGIN
-        INSERT INTO dbo.Proceso(Id, Nombre, IdCompania, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @IdCompania, @Estado, DEFAULT, 0)
-    END
-    ELSE IF @Operacion = 'A'
-    BEGIN
-        UPDATE dbo.Proceso
-        SET Nombre = @Nombre, IdCompania = @IdCompania, Estado = @Estado
-        WHERE Id = @Id
-    END
-END
+    BEGIN TRY
+        IF @Operacion = 'I'
+        BEGIN
+            BEGIN TRANSACTION;
+
+            -- Operación 1: Insertar en la tabla proceso
+            INSERT INTO dbo.Proceso(Id, Nombre, IdCompania, Estado, Fecha_log, Eliminado)
+        	VALUES(@Id, @Nombre, @IdCompania, @Estado, DEFAULT, 0)
+
+            -- Operación 2: Insertar en la tabla procesEtap
+            INSERT INTO dbo.ProcesEtap(Id, Nombre, NEtapa, IdProceso, Estado, Fecha_log, Eliminado)
+            SELECT id, nombre, netapa, @Id, @Estado, GETDATE(), 0
+            FROM @Campos;
+
+            COMMIT;
+            PRINT 'Transacción completada exitosamente.';
+        END
+        ELSE IF @Operacion = 'A'
+        BEGIN
+            -- Actualización en la tabla proceso
+            UPDATE dbo.Proceso
+        	SET Nombre = @Nombre,	
+        		IdCompania = @IdCompania,
+        		Estado = @Estado
+        	WHERE Id = @Id
+
+            PRINT 'Actualización completada exitosamente.';
+        END
+    END TRY
+    BEGIN CATCH
+        -- En caso de error, se hace rollback
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        -- Mostrar el error
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        PRINT 'Error en la transacción: ' + @ErrorMessage;
+    END CATCH;
+END;
 
 GO
 PRINT 'Creacion procedimiento Proceso Del '
@@ -87,3 +115,10 @@ BEGIN
     WHERE Id = @Id
 END
 GO
+
+CREATE TYPE EtapaType AS TABLE
+(
+    id NVARCHAR(50),
+    netapa  INT,
+    nombre NVARCHAR(50)           
+);

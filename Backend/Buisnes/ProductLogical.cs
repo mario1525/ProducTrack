@@ -29,16 +29,15 @@ namespace Services
         public Mensaje Create(CreateProduct Value)
         {
             Guid uid = Guid.NewGuid();
-            Value.producto.Id = uid.ToString();
-            _Dao.Set("I", Value.producto);
-            Task.Delay(1000);
+            Value.producto.Id = uid.ToString();            
+           
             foreach (ProductCamp campo in Value.campos)
             {
                 Guid uidCamp = Guid.NewGuid();
-                campo.Id = uidCamp.ToString();
-                campo.IdProduct = uid.ToString();
-                _camp.Set("I", campo);
+                campo.Id = uidCamp.ToString();                
             }
+
+            _Dao.Set("I", Value);
 
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = uid.ToString();
@@ -48,7 +47,10 @@ namespace Services
 
         public Mensaje Update(Producto value)
         {
-            _Dao.Set("A", value);
+            CreateProduct product = new CreateProduct();
+
+             product.producto = value;
+            _Dao.Set("A", product);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;

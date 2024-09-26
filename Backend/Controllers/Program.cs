@@ -58,8 +58,9 @@ builder.Services.AddSingleton<CreateLab>();
 builder.Services.AddSingleton<ProductCamp>();
 builder.Services.AddSingleton<OrdenCamp>();
 builder.Services.AddSingleton<Producto>();
+builder.Services.AddSingleton<etapas>();
 
- 
+
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
 builder.Services.AddSingleton<UsuarioLogical>();

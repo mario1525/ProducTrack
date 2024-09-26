@@ -35,16 +35,15 @@ namespace Services
         {
             string uid = DateTime.Now.ToString("yyyyMMddHHmmssffff");
             value.Orden.Id = uid;
-            _orden.Set("I", value.Orden);
+            string uidOrProEtap = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+            
             foreach (OrdenCampVal campo in value.Campos)
             {
                 string uidCamp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
-                campo.Id = uidCamp;
-                campo.IdRegisOrden = uid;
-                _camp.Set("I", campo);
+                campo.Id = uidCamp;                
             }
 
-            
+            _orden.Set("I", uidOrProEtap, value);
 
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = uid;
@@ -54,7 +53,7 @@ namespace Services
 
         public Mensaje Update(CreateRegisOrden value)
         {           
-            _orden.Set("A", value.Orden);
+            _orden.Set("A", null, value);
             foreach (OrdenCampVal campo in value.Campos)
             {               
                 _camp.Set("A", campo);

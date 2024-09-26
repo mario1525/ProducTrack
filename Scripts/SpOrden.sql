@@ -45,21 +45,52 @@ CREATE PROCEDURE dbo.dbSpOrdenSet
     @IdCompania VARCHAR(36),
     @IdProceso VARCHAR(36),
     @Estado BIT,
+    @Campos CampoOrdenType READONLY,
     @Operacion VARCHAR(1)
 AS
 BEGIN
-    IF @Operacion = 'I'
-    BEGIN
-        INSERT INTO dbo.Orden(Id, Nombre, IdCompania, IdProceso, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @IdCompania, @IdProceso, @Estado, DEFAULT, 0)
-    END
-    ELSE IF @Operacion = 'A'
-    BEGIN
-        UPDATE dbo.Orden
-        SET Nombre = @Nombre, IdCompania = @IdCompania, IdProceso = @IdProceso, Estado = @Estado
-        WHERE Id = @Id
-    END
-END
+    BEGIN TRY
+        IF @Operacion = 'I'
+        BEGIN
+            BEGIN TRANSACTION;
+
+            -- Operación 1: Insertar en la tabla Orden
+            INSERT INTO dbo.Orden(Id, Nombre, IdCompania, IdProceso, Estado, Fecha_log, Eliminado)
+            VALUES(@Id, @Nombre, @IdCompania, @IdProceso, @Estado, DEFAULT, 0);
+
+            -- Operación 2: Insertar en la tabla OrdenCamp
+            INSERT INTO dbo.OrdenCamp(Id, Nombre, TipoDato, Obligatorio, IdOrden, Estado, Fecha_log, Eliminado)
+            SELECT id, nombre, tipodato, obligatorio, @Id, @Estado, GETDATE(), 0
+            FROM @Campos;
+
+            COMMIT;
+            PRINT 'Transacción completada exitosamente.';
+        END
+        ELSE IF @Operacion = 'A'
+        BEGIN
+            -- Actualización en la tabla Orden
+            UPDATE dbo.Orden
+            SET Nombre = @Nombre, 
+                IdCompania = @IdCompania, 
+                IdProceso = @IdProceso, 
+                Estado = @Estado
+            WHERE Id = @Id;
+
+            PRINT 'Actualización completada exitosamente.';
+        END
+    END TRY
+    BEGIN CATCH
+        -- En caso de error, se hace rollback
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        -- Mostrar el error
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        PRINT 'Error en la transacción: ' + @ErrorMessage;
+    END CATCH;
+END;
+
+
 
 GO
 PRINT 'Creacion procedimiento Orden Del '
@@ -92,3 +123,11 @@ BEGIN
     WHERE Id = @Id
 END
 GO
+
+CREATE TYPE CampoOrdenType AS TABLE
+(
+    id NVARCHAR(50),
+    nombre NVARCHAR(50),
+    tipodato NVARCHAR(20),
+    Obligatorio BIT       
+);

@@ -57,21 +57,39 @@ namespace Data
         }
 
         // Metodo Set
-        public async void Set(string operacion, RegisOrden regisOrden)
+        public async void Set(string operacion,string idOrdenProcesEtap, CreateRegisOrden Orden)
         {
-            if (regisOrden == null)
+            if (Orden == null)
             {
-                throw new ArgumentNullException(nameof(regisOrden));
+                throw new ArgumentNullException(nameof(Orden));
             }
 
-            string procedureName = "dbo.dbSpRegisOrdenSet";
+            DataTable camposTable = new DataTable();
+            camposTable.Columns.Add("id", typeof(string));
+            camposTable.Columns.Add("valor", typeof(string));
+            camposTable.Columns.Add("idOrdenCamp", typeof(string));
+
+            // Recorrer el array de campos y agregar cada campo como una fila al DataTable
+            foreach (var campo in Orden.Campos)
+            {
+                camposTable.Rows.Add(campo.Id, campo.Valor, campo.IdOrdenCamp);
+            }
+
+            string procedureName = "dbo.dbSpRegisOrdenSetPrueba";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", regisOrden.Id),
-                new SqlParameter("@IdOrden", regisOrden.IdOrden),
-                new SqlParameter("@IdCompania", regisOrden.IdCompania),
-                new SqlParameter("@IdUsuario", regisOrden.IdUsuario),
-                new SqlParameter("@Estado", regisOrden.Estado),
+                new SqlParameter("@Id", Orden.Orden.Id),
+                new SqlParameter("@IdOrden", Orden.Orden.IdOrden),
+                new SqlParameter("@IdCompania", Orden.Orden.IdCompania),
+                new SqlParameter("@IdUsuario", Orden.Orden.IdUsuario),
+                new SqlParameter("@Estado", Orden.Orden.Estado),
+                new SqlParameter("@IdRegisOrdenEtap", idOrdenProcesEtap),
+                new SqlParameter
+                    {
+                        ParameterName = "@campos",
+                        SqlDbType = SqlDbType.Structured,
+                        Value = camposTable // Pasar el DataTable como parámetro
+                    },
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);

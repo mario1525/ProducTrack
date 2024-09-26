@@ -99,8 +99,9 @@ export class ProcesoComponent implements OnInit {
         //console.log(this.create_proces)               
         this.procesoService.create(this.create_proces).subscribe({          
           next: () => {
-            alert("Proceso creado")
+            alert("Proceso creado")            
             this.location.back();
+            
           },
           error: (error) =>{
             console.log(error)

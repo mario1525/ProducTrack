@@ -17,6 +17,11 @@ export type Etapa = {
   fecha_log: string;
 }
 
+export type Etapas = {
+  etapa: Etapa[];
+  uetapa: number;
+}
+
 export type create_Proces = {
   process: Proceso;
   procesEtaps: Etapa[];

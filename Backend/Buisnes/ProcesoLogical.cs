@@ -30,15 +30,15 @@ namespace Services
         {
             Guid uid = Guid.NewGuid();
             Process.Process.Id = uid.ToString();
-            _DataProces.Set("I", Process.Process);
-            Task.Delay(1000);
+            
+          
             foreach (ProcesEtap etapa in Process.procesEtaps)
             {
                 Guid uidEtap = Guid.NewGuid();
-                etapa.Id = uidEtap.ToString();
-                etapa.IdProceso = uid.ToString();
-                _Etap.Set("I", etapa);
+                etapa.Id = uidEtap.ToString();                
             }
+
+            _DataProces.Set("I", Process);
 
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = uid.ToString();
@@ -48,7 +48,10 @@ namespace Services
 
         public Mensaje Update(Proceso proceso)
         {
-            _DataProces.Set("A", proceso);
+            CreateProces proces = new CreateProces();
+
+            proces.Process = proceso;
+            _DataProces.Set("A", proces);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;

@@ -8,6 +8,8 @@ import { productoService } from 'src/app/shared/services/Producto.service';
 import { oCampV, oCamp, orden, create_Regis } from 'src/types/ordenes';
 import { Usuario } from 'src/types/usuarios';
 import { Regisproducto } from 'src/types/Producto';
+import { procesoService } from 'src/app/shared/services/Proceso.service';
+import { Etapa } from 'src/types/procesos';
 
 @Component({
   selector: 'app-registrar',
@@ -18,6 +20,7 @@ export class RegistrarComponent implements OnInit {
   formReady: boolean = false;
   Form: FormGroup;
   CampoForm: FormGroup;
+  Etapas: Etapa[] = [];
   valores: oCampV[] = [];
   productos: Regisproducto[] = [];
   campos: oCamp[] = [];
@@ -27,6 +30,7 @@ export class RegistrarComponent implements OnInit {
   idOrden: string = "";
   idROrden: string = "";
   idCompania: string = "";
+  etapaActual: number = 0;
 
 
   constructor(
@@ -35,7 +39,8 @@ export class RegistrarComponent implements OnInit {
     private route: Router,
     private OrdenService: ordenService,
     private ProductoService: productoService,
-    private UsuarioService: UsuarioService
+    private UsuarioService: UsuarioService,
+    private procesoService: procesoService
   ) {
     this.Form = this.fb.group({
       id: [''],
@@ -85,6 +90,18 @@ export class RegistrarComponent implements OnInit {
               console.log(error);
             }
           });
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+
+      // obtener Etapas de la orden 
+      this.procesoService.obtener_etapas_Orden(this.idROrden).subscribe({
+        next: (value) => {
+          this.Etapas = value.etapa;
+          this.etapaActual = value.uetapa;
+          console.log(this.Etapas)
         },
         error: (error) => {
           console.log(error);

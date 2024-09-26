@@ -13,7 +13,7 @@ BEGIN
     DROP PROCEDURE dbo.dbSpRegisOrdenGet
     DROP PROCEDURE dbo.dbSpRegisOrdenSet
     DROP PROCEDURE dbo.dbSpRegisOrdenDel
-    DROP PROCEDURE dbo.dbSpRegisOrdenActive
+    DROP PROCEDURE dbo.dbSpRegisOrdenActive    
 END
 
 PRINT 'Creacion procedimiento RegisOrden Get '
@@ -40,26 +40,73 @@ GO
 PRINT 'Creacion procedimiento RegisOrden Set '
 GO
 CREATE PROCEDURE dbo.dbSpRegisOrdenSet
-    @Id VARCHAR(36),
+    @Id VARCHAR(36),	
     @IdOrden VARCHAR(36),
     @IdCompania VARCHAR(36),
     @IdUsuario VARCHAR(36),
     @Estado BIT,
+    @IdRegisOrdenEtap VARCHAR(36), 
+    @campos CamposOrdenValType READONLY,
     @Operacion VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.RegisOrden(Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdOrden, @IdCompania, @IdUsuario, @Estado, DEFAULT, 0)
+        BEGIN TRY
+            BEGIN TRANSACTION;
+
+            -- Declaración de variable
+            DECLARE @IdProcesEtap VARCHAR(36);
+
+            -- Operación 1: Insertar en la tabla RegisOrden
+            INSERT INTO dbo.RegisOrden(Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log, Eliminado)
+            VALUES(@Id, @IdOrden, @IdCompania, @IdUsuario, @Estado, DEFAULT, 0);
+
+            -- Buscar el ID de la primera etapa
+            SELECT @IdProcesEtap = pe.Id  
+            FROM dbo.ProcesEtap pe	
+            INNER JOIN dbo.Orden o ON pe.IdProceso = o.IdProceso			
+            WHERE o.Id = @IdOrden AND pe.NEtapa = 1;
+
+            -- Operación 2: Insertar en la tabla OrdenCampVal 
+            INSERT INTO dbo.OrdenCampVal(Id, Valor, IdOrdenCamp, IdRegisOrden, Fecha_log, Eliminado)
+            SELECT id, valor, idOrdenCamp, @Id, GETDATE(), 0
+            FROM @campos;
+
+            -- Operación 3: Insertar en la tabla RegisOrdenProcesEtap
+            INSERT INTO dbo.RegisOrdenProcesEtap(Id, IdRegisOrden, IdProcesEtap, IdUsuario, Estado, Fecha_log, Eliminado)
+            VALUES(@IdRegisOrdenEtap, @Id, @IdProcesEtap, @IdUsuario, @Estado, DEFAULT, 0);
+
+            -- Si todo es exitoso, confirmar la transacción
+            COMMIT;
+            PRINT 'Transacción completada exitosamente.';
+
+        END TRY
+        BEGIN CATCH
+            -- Si ocurre un error, deshacer la transacción y mostrar un mensaje
+            ROLLBACK;
+            PRINT 'Ocurrió un error: ' + ERROR_MESSAGE();
+        END CATCH
     END
     ELSE IF @Operacion = 'A'
     BEGIN
-        UPDATE dbo.RegisOrden
-        SET IdOrden = @IdOrden, IdCompania = @IdCompania, IdUsuario = @IdUsuario, Estado = @Estado
-        WHERE Id = @Id
+        BEGIN TRY
+            -- Actualización en RegisOrden
+            UPDATE dbo.RegisOrden
+            SET IdOrden = @IdOrden, 
+                IdCompania = @IdCompania, 
+                IdUsuario = @IdUsuario, 
+                Estado = @Estado
+            WHERE Id = @Id;
+
+            PRINT 'Actualización completada exitosamente.';
+        END TRY
+        BEGIN CATCH
+            PRINT 'Error en la actualización de RegisOrden: ' + ERROR_MESSAGE();
+        END CATCH
     END
-END
+END;
+
 
 GO
 PRINT 'Creacion procedimiento RegisOrden Del '
@@ -91,5 +138,11 @@ BEGIN
     SET Estado = @Estado
     WHERE Id = @Id
 END
-GO
 
+PRINT 'type campos'
+CREATE TYPE CamposOrdenValType AS TABLE
+(
+    id NVARCHAR(50),
+    valor NVARCHAR(50),
+    idOrdenCamp NVARCHAR(50)   
+);

@@ -18,6 +18,15 @@ namespace Controllers.Endpoint
             _Logical = logical;
         }
 
+        // GET api/Etapa/Orden/5
+        [HttpGet("Orden/{idOrden}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<etapas> GetsOrden(string idOrden)
+        {
+            return await _Logical.GetsOrden(idOrden);
+        }
+
+
         // GET api/Etapa/Proceso/5
         [HttpGet("Proceso/{idProceso}")]
         [Authorize(Roles = "Admin,Admin-Compania")]

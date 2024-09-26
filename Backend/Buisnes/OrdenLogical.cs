@@ -31,14 +31,14 @@ namespace Services
         {
             Guid uid = Guid.NewGuid();
             Orden.Orden.Id = uid.ToString();
-            _orden.Set("I", Orden.Orden);
+            
             foreach (OrdenCamp campo in Orden.Campos)
             {
                 Guid uidCamp = Guid.NewGuid();
-                campo.Id = uidCamp.ToString();
-                campo.IdOrden = uid.ToString();
-                _camp.Set("I", campo);
+                campo.Id = uidCamp.ToString();                
             }
+
+            _orden.Set("I", Orden);
 
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = uid.ToString();
@@ -48,7 +48,11 @@ namespace Services
 
         public Mensaje Update(Orden value)
         {
-            _orden.Set("A", value);
+            CreateOrden orden = new CreateOrden();
+            
+            orden.Orden = value;
+            //orden.Campos = campo;
+            _orden.Set("A", orden);
             Mensaje mensaje = new Mensaje();
             mensaje.mensaje = "actualizado";
             return mensaje;

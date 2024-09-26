@@ -43,22 +43,45 @@ namespace Data
         }
 
         // Metodo Set
-        public async void Set(string operacion, Orden orden)
+        public async void Set(string operacion, CreateOrden orden)
         {
             if (orden == null)
             {
                 throw new ArgumentNullException(nameof(orden));
             }
 
+            DataTable camposTable = new DataTable();
+            camposTable.Columns.Add("id", typeof(string));
+            camposTable.Columns.Add("nombre", typeof(string));
+            camposTable.Columns.Add("tipodato", typeof(string));
+            camposTable.Columns.Add("obligatorio", typeof(bool));
+
+            // Recorrer el array de campos y agregar cada campo como una fila al DataTable
+            if(operacion == "I")
+            {
+                foreach (var campo in orden.Campos)
+                {
+                    camposTable.Rows.Add(campo.Id, campo.Nombre, campo.TipoDato, campo.Obligatorio);
+                }
+
+            }
+            
+
             string procedureName = "dbo.dbSpOrdenSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", orden.Id),
-                new SqlParameter("@Nombre", orden.Nombre),
-                new SqlParameter("@IdCompania", orden.IdCompania),
-                new SqlParameter("@IdProceso", orden.IdProceso),
-                new SqlParameter("@Estado", orden.Estado),
-                new SqlParameter("@Operacion", operacion),
+                new SqlParameter("@Id", orden.Orden.Id),
+                new SqlParameter("@Nombre", orden.Orden.Nombre),
+                new SqlParameter("@IdCompania", orden.Orden.IdCompania),
+                new SqlParameter("@IdProceso", orden.Orden.IdProceso),
+                new SqlParameter("@Estado", orden.Orden.Estado),
+                new SqlParameter
+                    {
+                        ParameterName = "@campos",
+                        SqlDbType = SqlDbType.Structured,
+                        Value = camposTable // Pasar el DataTable como parámetro
+                    },
+                new SqlParameter("@Operacion", operacion),               
             };
             await ExecuteProcedure(procedureName, parameters);
         }

@@ -158,10 +158,7 @@
   .input-field:focus {
     border-color: #4CAF50;
     outline: none;
-  }
-  
-  
-  
+  } 
 
   
   
@@ -177,5 +174,69 @@
   
   th {
     background-color: #f2f2f2;
+  }
+
+  .timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: 20px 0;
+    padding: 0;
+  }
+  
+  .timeline-stage {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+    
+  .circle-completed {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    background-color: #4CAF50; /* Etapas completadas */
+  }
+  
+  .circle-pending {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    background-color: #CCCCCC; /* Etapas pendientes */
+  }
+  
+  .stage-info {
+    margin-left: 10px;
+  }
+  
+  .stage-info h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .stage-info p {
+    margin: 0;
+    font-size: 12px;
+  }
+    
+  .line-completed {
+    width: 100px; /* Ajusta según el espacio que desees entre las etapas */
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 25px; /* Alinea con el círculo */
+    background-color: #4CAF50; /* Línea de etapas completadas */
+  }
+  
+  .line-pending {
+    width: 100px; /* Ajusta según el espacio que desees entre las etapas */
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 25px; /* Alinea con el círculo */
+    background-color: #CCCCCC; /* Línea de etapas pendientes */
   }
   

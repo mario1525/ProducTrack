@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
+import { Proceso, Etapa, create_Proces, Etapas } from 'src/types/procesos'
 
 
 @Injectable({
@@ -40,6 +40,11 @@ import { Proceso, Etapa, create_Proces } from 'src/types/procesos'
 
 
   // etapas
+
+  obtener_etapas_Orden(id: string): Observable<Etapas> {    
+    const url = `${this.apiUrl}etapa/orden/${id}`;
+    return this.http.get<Etapas>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
 
   obtener_etapas_Proceso(id: string): Observable<Etapa[] | []> {    
     const url = `${this.apiUrl}etapa/proceso/${id}`;

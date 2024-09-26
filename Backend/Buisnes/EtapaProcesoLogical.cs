@@ -18,6 +18,18 @@ namespace Services
             return await _Etap.Gets(IdProceso);
         }
 
+        public async Task<etapas> GetsOrden(String IdOrden)
+        {
+          int Netap =   await _Etap.GetUetapOr(IdOrden);
+          List<ProcesEtap> etapa =  await _Etap.GetsOrden(IdOrden);
+            etapas etapas = new etapas
+            {
+                etapa = etapa.ToArray(),
+                Uetapa = Netap
+            };
+            return etapas;
+        }
+
         public async Task<List<ProcesEtap>> Get(String IdProceso)
         {
             return await _Etap.Get(IdProceso);

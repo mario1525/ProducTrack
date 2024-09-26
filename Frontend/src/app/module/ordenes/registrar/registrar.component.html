@@ -39,9 +39,29 @@
   </div>
 </div>
 
-<div class="h-table">
-  <h2>Etapa</h2>
+<div class="etapas">
+  <div class="h-table">
+    <h2>Etapa</h2>
+  </div>
+
+  <div class="timeline">
+    <div *ngFor="let etapa of Etapas; let i = index" class="timeline-stage">
+      <!-- Círculo con color condicional -->
+      <div [ngClass]="{'circle-completed': etapa.nEtapa <= etapaActual, 'circle-pending': etapa.nEtapa > etapaActual}"></div>
+      
+      <!-- Información de la etapa -->
+      <div class="stage-info">
+        <h3>{{ etapa.nombre }}</h3>
+        <p>Etapa {{ etapa.nEtapa }}</p>        
+      </div>      
+      <!-- Línea entre etapas con color condicional -->
+      <div *ngIf="i < Etapas.length - 1", 
+        [ngClass]="{'line-completed': etapa.nEtapa <= etapaActual, 'line-pending': etapa.nEtapa > etapaActual}">
+      </div>
+    </div>
+  </div>  
 </div>
+
 
 <div class="h-table">
   <h2>Productos</h2>

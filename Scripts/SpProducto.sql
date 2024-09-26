@@ -44,21 +44,50 @@ CREATE PROCEDURE dbo.dbSpProductoSet
     @IdCompania VARCHAR(36),
     @IdProceso VARCHAR(36),
     @Estado BIT,
+    @Campos CampoProductType READONLY,
     @Operacion VARCHAR(1)
 AS
 BEGIN
-    IF @Operacion = 'I'
-    BEGIN
-        INSERT INTO dbo.Producto(Id, Nombre, IdCompania, IdProceso, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @IdCompania, @IdProceso, @Estado, DEFAULT, 0)
-    END
-    ELSE IF @Operacion = 'A'
-    BEGIN
-        UPDATE dbo.Producto
-        SET Nombre = @Nombre, IdCompania = @IdCompania, IdProceso = @IdProceso, Estado = @Estado
-        WHERE Id = @Id
-    END
-END
+    BEGIN TRY
+        IF @Operacion = 'I'
+        BEGIN
+            BEGIN TRANSACTION;
+
+            -- Operación 1: Insertar en la tabla producto
+            INSERT INTO dbo.Producto(Id, Nombre, IdCompania, IdProceso, Estado, Fecha_log, Eliminado)
+        	VALUES(@Id, @Nombre, @IdCompania, @IdProceso, @Estado, DEFAULT, 0)
+
+            -- Operación 2: Insertar en la tabla productCamp
+            INSERT INTO dbo.ProductCamp(Id, Nombre, TipoDato, Obligatorio, IdProduct, Estado, Fecha_log, Eliminado)
+            SELECT id, nombre, tipodato, obligatorio, @Id, @Estado, GETDATE(), 0
+            FROM @Campos;
+
+            COMMIT;
+            PRINT 'Transacción completada exitosamente.';
+        END
+        ELSE IF @Operacion = 'A'
+        BEGIN
+            -- Actualización en la tabla producto
+            UPDATE dbo.Producto
+        	SET Nombre = @Nombre, 	
+	        	IdCompania = @IdCompania,
+    	    	IdProceso = @IdProceso, 
+        		Estado = @Estado
+        	WHERE Id = @Id
+
+            PRINT 'Actualización completada exitosamente.';
+        END
+    END TRY
+    BEGIN CATCH
+        -- En caso de error, se hace rollback
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        -- Mostrar el error
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        PRINT 'Error en la transacción: ' + @ErrorMessage;
+    END CATCH;
+END;
 
 GO
 PRINT 'Creacion procedimiento Producto Del '
@@ -74,3 +103,11 @@ BEGIN
     
     -- No se retorna nada al eliminar un registro
 END
+
+CREATE TYPE CampoProductType AS TABLE
+(
+    id NVARCHAR(50),
+    nombre NVARCHAR(50),
+    tipodato NVARCHAR(20),
+    Obligatorio BIT       
+);

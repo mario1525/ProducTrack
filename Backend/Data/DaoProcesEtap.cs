@@ -27,6 +27,34 @@ namespace Data
             return await GetList(procedureName, parameters);
         }
 
+        public async Task<int> GetUetapOr(string Id)
+        {
+            
+            const string procedureName = "dbo.dbSpLastOrdenEtap";
+            var parameters = new[]
+            {
+                new SqlParameter("@IdOrden", Id),
+                
+            };
+            
+            int NEtapa = 0;
+            DataTable dataTable = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+            foreach (DataRow row in dataTable.Rows)
+            {               
+               NEtapa = Convert.ToInt16(row["NEtapa"]);
+            };            
+            return NEtapa;
+        }
+        public async Task<List<ProcesEtap>> GetsOrden(string Id)
+        {
+            const string procedureName = "dbo.dbSpEtapasOrdenGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@IdOrden", Id),                
+            };
+            return await GetList(procedureName, parameters);
+        }
+
         // Metodo Get
         public async Task<List<ProcesEtap>> Get(string Id)
         {

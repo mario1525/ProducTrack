@@ -12,6 +12,7 @@ BEGIN
     DROP PROCEDURE dbo.dbSpProcesEtapSet
     DROP PROCEDURE dbo.dbSpProcesEtapDel
     DROP PROCEDURE dbo.dbSpProcesEtapActive
+    DROP PROCEDURE dbo.dbSpEtapasOrdenGet
 END
 
 PRINT 'Creacion procedimiento ProcesEtap Get '
@@ -95,3 +96,16 @@ BEGIN
 END
 GO
 
+PRINT 'Creacion de sp dbSpEtapasOrdenGet'
+GO
+CREATE PROCEDURE dbo.dbSpEtapasOrdenGet
+	@IdOrden VARCHAR(36)
+AS
+BEGIN	
+	SELECT pe.Id, pe.Nombre, pe.NEtapa, pe.IdProceso, pe.Estado, pe.Fecha_log  
+	FROM dbo.ProcesEtap pe	
+	INNER JOIN dbo.Orden o ON pe.IdProceso = o.IdProceso
+	INNER JOIN dbo.RegisOrden ro ON o.Id = ro.IdOrden
+	WHERE ro.Id = @IdOrden;
+END
+GO
