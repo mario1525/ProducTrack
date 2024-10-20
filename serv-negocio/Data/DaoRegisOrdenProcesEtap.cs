@@ -5,36 +5,35 @@ using System.Data;
 
 namespace Data
 {
-    public class DaoRegisProductProcesEtap : BaseDao<RegisProductProcesEtap>
+    public class DaoRegisOrdenProcesEtap : BaseDao<RegisOrdenProcesEtap>
     {
-        public DaoRegisProductProcesEtap(SqlClient dbContext) : base(dbContext)
+        public DaoRegisOrdenProcesEtap(SqlClient dbContext) : base(dbContext)
         {
         }
 
         // Metodo Get
-        public async Task<List<RegisProductProcesEtap>> Get(string Id)
+        public async Task<List<RegisOrdenProcesEtap>> Get(string idOrden, string idProEtap)
         {
-            const string procedureName = "dbo.dbSpRegisProductProcesEtapGet";
+            const string procedureName = "dbo.dbSpRegisOrdenProcesEtapGet";
             var parameters = new[]
             {
-                new SqlParameter("@Id", Id),
-                new SqlParameter("@IdRegisProduct", ""),
-                new SqlParameter("@IdProcesEtap", ""),
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@IdRegisOrden", idOrden),
+                new SqlParameter("@IdProcesEtap", idProEtap),
                 new SqlParameter("@IdUsuario", ""),
-                new SqlParameter("@Estado", 1),
-                new SqlParameter("@Eliminado", 0)
+                new SqlParameter("@Estado", 1)                
             };
             return await GetList(procedureName, parameters);
         }
 
         // Metodo Gets
-        public async Task<List<RegisProductProcesEtap>> Gets()
+        public async Task<List<RegisOrdenProcesEtap>> Gets()
         {
-            const string procedureName = "dbo.dbSpRegisProductProcesEtapGet";
+            const string procedureName = "dbo.dbSpRegisOrdenProcesEtapGet";
             var parameters = new[]
             {
                 new SqlParameter("@Id", ""),
-                new SqlParameter("@IdRegisProduct", ""),
+                new SqlParameter("@IdRegisOrden", ""),
                 new SqlParameter("@IdProcesEtap", ""),
                 new SqlParameter("@IdUsuario", ""),
                 new SqlParameter("@Estado", 1),
@@ -44,21 +43,21 @@ namespace Data
         }
 
         // Metodo Set
-        public async void Set(string operacion, RegisProductProcesEtap regisProductProcesEtap)
+        public async void Set(string operacion, RegisOrdenProcesEtap regisOrdenProcesEtap)
         {
-            if (regisProductProcesEtap == null)
+            if (regisOrdenProcesEtap == null)
             {
-                throw new ArgumentNullException(nameof(regisProductProcesEtap));
+                throw new ArgumentNullException(nameof(regisOrdenProcesEtap));
             }
 
-            string procedureName = "dbo.dbSpRegisProductProcesEtapSet";
+            string procedureName = "dbo.dbSpRegisOrdenProcesEtapSet";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Id", regisProductProcesEtap.Id),
-                new SqlParameter("@IdRegisProduct", regisProductProcesEtap.IdRegisProduct),
-                new SqlParameter("@IdProcesEtap", regisProductProcesEtap.IdProcesEtap),
-                new SqlParameter("@IdUsuario", regisProductProcesEtap.IdUsuario),
-                new SqlParameter("@Estado", regisProductProcesEtap.Estado),              
+                new SqlParameter("@Id", regisOrdenProcesEtap.Id),
+                new SqlParameter("@IdRegisOrden", regisOrdenProcesEtap.IdRegisOrden),
+                new SqlParameter("@IdProcesEtap", regisOrdenProcesEtap.IdProcesEtap),
+                new SqlParameter("@IdUsuario", regisOrdenProcesEtap.IdUsuario),
+                new SqlParameter("@Estado", regisOrdenProcesEtap.Estado),                
                 new SqlParameter("@Operacion", operacion),
             };
             await ExecuteProcedure(procedureName, parameters);
@@ -67,7 +66,7 @@ namespace Data
         // Metodo Delete
         public async void Delete(string Id)
         {
-            string procedureName = "dbo.dbSpRegisProductProcesEtapDel";
+            string procedureName = "dbo.dbSpRegisOrdenProcesEtapDel";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id)
@@ -78,7 +77,7 @@ namespace Data
         // Metodo Active
         public async void Active(string Id, int estado)
         {
-            string procedureName = "dbo.dbSpRegisProductProcesEtapActive";
+            string procedureName = "dbo.dbSpRegisOrdenProcesEtapActive";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Id),
@@ -88,23 +87,23 @@ namespace Data
         }
 
         // Metodo para mapear DataTable a una lista de RegisProductProcesEtap
-        protected override List<RegisProductProcesEtap> MapDataTableToList(DataTable dataTable)
+        protected override List<RegisOrdenProcesEtap> MapDataTableToList(DataTable dataTable)
         {
-            List<RegisProductProcesEtap> regisProductProcesEtapList = new List<RegisProductProcesEtap>();
+            List<RegisOrdenProcesEtap> regisOrdenProcesEtapList = new List<RegisOrdenProcesEtap>();
             foreach (DataRow row in dataTable.Rows)
             {
-                RegisProductProcesEtap regisProductProcesEtap = new RegisProductProcesEtap
+                RegisOrdenProcesEtap regisOrdenProcesEtap = new RegisOrdenProcesEtap
                 {
                     Id = row["Id"].ToString(),
-                    IdRegisProduct = row["IdRegisProduct"].ToString(),
+                    IdRegisOrden = row["IdRegisOrden"].ToString(),
                     IdProcesEtap = row["IdProcesEtap"].ToString(),
                     IdUsuario = row["IdUsuario"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = row["Fecha_log"].ToString()
                 };
-                regisProductProcesEtapList.Add(regisProductProcesEtap);
+                regisOrdenProcesEtapList.Add(regisOrdenProcesEtap);
             }
-            return regisProductProcesEtapList;
+            return regisOrdenProcesEtapList;
         }
     }
 }

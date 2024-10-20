@@ -1,0 +1,24 @@
+<div>
+    <div class="form">    
+        <div class="header">
+          <h2>Detalle etapa</h2>  
+        </div> 
+
+        <form [formGroup]="Form">
+            <div class="general-info">
+              <div>
+                <label>N Orden</label>
+                <input formControlName="idRegisOrden" type="text" class="custom-input" />                
+              </div> 
+              <div>
+                <label>usuario</label>
+                <input formControlName="idUsuario" type="text" class="custom-input" />                
+              </div>  
+              <div>
+                <label>Fecha de creacion</label>
+                <input formControlName="fecha_log" type="text" class="custom-input" />                
+              </div>             
+            </div>       
+        </form>          
+    </div>
+</div>

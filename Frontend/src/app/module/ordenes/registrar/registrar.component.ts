@@ -5,11 +5,12 @@ import { Location } from '@angular/common';
 import { UsuarioService } from 'src/app/shared/services/usuarios.service';
 import { ordenService } from 'src/app/shared/services/Orden.service';
 import { productoService } from 'src/app/shared/services/Producto.service';
-import { oCampV, oCamp, orden, create_Regis } from 'src/types/ordenes';
+import { oCampV, oCamp, orden, create_Regis, regisOrdenEtap } from 'src/types/ordenes';
 import { Usuario } from 'src/types/usuarios';
 import { Regisproducto } from 'src/types/Producto';
 import { procesoService } from 'src/app/shared/services/Proceso.service';
 import { Etapa } from 'src/types/procesos';
+import { TokenserviceService } from 'src/app/shared/services/Token.service';
 
 @Component({
   selector: 'app-registrar',
@@ -26,7 +27,8 @@ export class RegistrarComponent implements OnInit {
   campos: oCamp[] = [];
   create_orden: create_Regis | undefined;
   supervisores: Usuario[] = []
-  ordenes: orden[] = [];  
+  ordenes: orden[] = [];
+  ROrdenEtap: regisOrdenEtap | undefined;  
   idOrden: string = "";
   idROrden: string = "";
   idCompania: string = "";
@@ -37,6 +39,7 @@ export class RegistrarComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,   
     private route: Router,
+    private Token: TokenserviceService,
     private OrdenService: ordenService,
     private ProductoService: productoService,
     private UsuarioService: UsuarioService,
@@ -252,7 +255,7 @@ export class RegistrarComponent implements OnInit {
   }  
   
   // redirigir a un registro de un producto
-  rediretdetalle(indice: number): void {
+  rediretdetalleP(indice: number): void {
     // Accede a los datos específicos de la fila actual
     const datosSeleccionados = this.productos[indice];
   
@@ -261,8 +264,39 @@ export class RegistrarComponent implements OnInit {
   }  
    
    // Registrar un nuevo producto 
-   create() {
+   createP() {
     this.route.navigate([`App/Compania/${this.idCompania}/Registro/Producto`]);
+  }
+
+  // Registrar una nueva etapa 
+  createEtapa() {
+   
+    // crear el registro  
+    this.ROrdenEtap = {
+      id: '',
+      idRegisOrden: this.idROrden,
+      idProcesEtap: '',
+      idUsuario: this.Token.decodetoken(this.Token.getTokenFromCookie()).Id,    
+      estado: true,
+      fecha_log: ''  
+
+    }    
+    this.OrdenService.createOrdEtap(this.ROrdenEtap).subscribe({
+      next: () => {
+        alert("Orden a avanzado a la siguiente etapa");
+        this.location.back();
+      },
+      error: (error) => {
+        console.log(error);
+        alert('Error al avanzar la orden');
+      }
+    });    
+  }
+
+  onEtapaClick(idEtapa: string): void {
+    // Aquí puedes manejar lo que ocurre al hacer clic en una etapa
+    console.log('Etapa seleccionada:');
+    this.route.navigate([`App/Compania/${this.idCompania}/Registro/Orden/${this.idROrden}/Etapa/${idEtapa}`]);
   }
   
 }

@@ -75,7 +75,7 @@ namespace Data
                 camposTable.Rows.Add(campo.Id, campo.Valor, campo.IdOrdenCamp);
             }
 
-            string procedureName = "dbo.dbSpRegisOrdenSetPrueba";
+            string procedureName = "dbo.dbSpRegisOrdenSet";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@Id", Orden.Orden.Id),

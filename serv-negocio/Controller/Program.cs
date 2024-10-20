@@ -32,6 +32,7 @@ builder.Services.AddSingleton<DaoProductCampVal>();
 builder.Services.AddSingleton<DaoRegisLabProcesEtap>();
 builder.Services.AddSingleton<DaoRegisProduct>();
 builder.Services.AddSingleton<DaoRegisProductProcesEtap>();
+builder.Services.AddSingleton<DaoRegisOrdenProcesEtap>();
 
 //Entity
 builder.Services.AddSingleton<RegisOrden>();
@@ -43,12 +44,14 @@ builder.Services.AddSingleton<ProductCampVal>();
 builder.Services.AddSingleton<RegisLabProcesEtap>();
 builder.Services.AddSingleton<RegisProduct>();
 builder.Services.AddSingleton<RegisProductProcesEtap>();
+builder.Services.AddSingleton<RegisOrdenProcesEtap>();
 
 //Logical
 builder.Services.AddSingleton<RegisOrdenLogical>();
 builder.Services.AddSingleton<OrdenCampVaLogical>();
 builder.Services.AddSingleton<RegisProductLogical>();
 builder.Services.AddSingleton<RegisProductCampValLogical>();
+builder.Services.AddSingleton<RegisOrdenEtapLogical>();
 
 
 

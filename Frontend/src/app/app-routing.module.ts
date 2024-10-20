@@ -20,6 +20,7 @@ import { RegistrosComponent } from './module/ordenes/registros/registros.compone
 import { RegistrarComponent } from './module/ordenes/registrar/registrar.component'
 import { RegistrarProductoComponent } from './module/productos/registrar-producto/registrar-producto.component';
 import { RegistrosProductoComponent } from './module/productos/registros-producto/registros-producto.component';
+import { EtapaOrdenComponent } from './module/etapa/etapa-orden/etapa-orden.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -53,11 +54,13 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Registro/Orden/:id', component: RegistrarComponent},
     { path: 'App/Compania/:id/Registro/Orden', component: RegistrarComponent},
     { path: 'App/Compania/:id/Registros/Ordenes', component: RegistrosComponent},
+    { path: 'App/Compania/:id/Registro/Orden/:id/Etapa/:id', component: EtapaOrdenComponent},
+    { path: 'App/Compania/:id/Registro/Orden/:id/Etapa', component: EtapaOrdenComponent},
     
     { path: 'App/Compania/:id/Laboratorios', component: LaboratoriosComponent}, 
     { path: 'App/Compania/:id/Laboratorio/:id', component: LaboratorioComponent},
-    { path: 'App/Compania/:id/Laboratorio', component: LaboratorioComponent},     
-  
+    { path: 'App/Compania/:id/Laboratorio', component: LaboratorioComponent},  
+          
   ];
   
   @NgModule({

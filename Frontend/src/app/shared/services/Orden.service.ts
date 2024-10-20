@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'src/types/ordenes'
+import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrdenEtap } from 'src/types/ordenes'
 
 
 @Injectable({
@@ -123,4 +123,17 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV } from 'sr
       const url = `${this.apiUrl}orden/registro/val/${id}`;
       return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
     }
+
+
+  // Orden Etapa
+
+  createOrdEtap(Value: regisOrdenEtap): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/etapa`;
+    return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  obtener_DetalleEtapa(idRorden: string, idRProces: string): Observable<oCampV[] | []> {    
+    const url = `${this.apiUrl}orden/registro/etapa/${idRorden}?${idRProces}`;
+    return this.http.get<oCampV[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
 }

@@ -43,19 +43,56 @@ CREATE PROCEDURE dbo.dbSpRegisOrdenProcesEtapSet
     @IdRegisOrden VARCHAR(36),
     @IdProcesEtap VARCHAR(36),
     @IdUsuario VARCHAR(36),
-    @Estado BIT,
+    @Estado BIT,	
     @Operacion VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
+	    
+	    -- declarar variable 
+		DECLARE @Netapa INT 
+		DECLARE @IdEtap VARCHAR(36)
+	    
+	    -- crea una tabla temporal
+		CREATE TABLE #TempResultado
+		(
+		    Id            VARCHAR(36), 
+		    Nombre        VARCHAR(255),
+		    NEtapa        INT,    
+		    IdProceso	  VARCHAR(36), 
+		    Estado	 	  BIT, 	
+		    Fecha_log     SMALLDATETIME
+		);
+	
+		-- inserta la informacion en la tabla temporal 
+		INSERT INTO #TempResultado
+		Exec dbSpEtapasOrdenGet @IdOrden = @IdRegisOrden
+		
+		-- asignar el valor de la siguiente etapa
+		SELECT @Netapa = (SELECT TOP 1 pe.NEtapa
+				from dbo.ProcesEtap pe 
+			    INNER JOIN dbo.RegisOrdenProcesEtap rope ON pe.Id = rope.IdProcesEtap 
+		    	WHERE rope.IdRegisOrden = @IdRegisOrden
+		  		ORDER BY pe.NEtapa DESC )+1;
+		  	
+		-- asignar el id de la etapa 	
+		SELECT @IdEtap = (SELECT Id From #TempResultado where NEtapa = @Netapa)  	
+		  	
+		-- eliminar tabla temporal
+		DROP TABLE #TempResultado
+	    
+	    -- insertar registro
         INSERT INTO dbo.RegisOrdenProcesEtap(Id, IdRegisOrden, IdProcesEtap, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdRegisOrden, @IdProcesEtap, @IdUsuario, @Estado, DEFAULT, 0)
+        VALUES(@Id, @IdRegisOrden, @IdEtap, @IdUsuario, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.RegisOrdenProcesEtap
-        SET IdRegisOrden = @IdRegisOrden, IdProcesEtap = @IdProcesEtap, IdUsuario = @IdUsuario, Estado = @Estado
+        SET IdRegisOrden = @IdRegisOrden,
+        	IdProcesEtap = @IdProcesEtap,
+        	IdUsuario = @IdUsuario,
+        	Estado = @Estado
         WHERE Id = @Id
     END
 END

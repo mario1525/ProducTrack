@@ -264,4 +264,30 @@ export class OrdenController {
       .delete(`${this.apiUrlNeg}api/Orden/Val/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
+
+  // etapa
+  @Get('etapa/:id')
+  GetEtap(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string
+    ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrlNeg}api/Orden/Etapa/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Post('etapa')
+  createEtap(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrlNeg}api/Orden/Etapa`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
 }

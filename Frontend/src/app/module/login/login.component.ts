@@ -43,48 +43,48 @@ export class LoginComponent implements OnInit {
           if (this.Token.decodetoken(data.token).Rol == 'Admin') {
             // Redirige al usuario a la página de inicio
             this.Token.setTokenInCookie(data)
-            console.log('R1')
+            //console.log('R1')
             this.route.navigate(['/App/Companias']); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Admin-Compania') {
-            console.log('R2')
+            //console.log('R2')
             this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Compania', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Cliente') {
-            console.log('R3')
+            //console.log('R3')
             this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Home', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Ventas') {
-            console.log('R4')
+            //console.log('R4')
             this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Home', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Cordinador') {
-            console.log('R5')             
+            //console.log('R5')             
             this.Token.setTokenInCookie(data) 
             this.route.navigate([`App/Compania/${this.Token.decodetoken(data.token).IdCompania}/Registros/Ordenes`]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Operativo') {
-            console.log('R6')
+            //console.log('R6')
             this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Home', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           if (this.Token.decodetoken(data.token).Rol == 'Directivo') {
-            console.log('R7')
+            //console.log('R7')
             this.Token.setTokenInCookie(data)
             this.route.navigate(['/App/Home', this.Token.decodetoken(data.token).IdCompania]); // Ajusta la ruta según tu estructura de la aplicación
             return;
           }
           this.Token.setTokenInCookie(data)
-          console.log('RD')
+          //console.log('RD')
           this.route.navigate(['/App/Home']); // Ajusta la ruta según tu estructura de la aplicación
           return;
         },

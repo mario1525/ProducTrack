@@ -43,3 +43,13 @@ export type orden = {
     orden: regisOrden;
     campos: oCampV[];
   }
+
+
+  export type regisOrdenEtap = {
+    id: string;
+    idRegisOrden: string;
+    idProcesEtap: string;
+    idUsuario: string;    
+    estado: boolean;
+    fecha_log: string;
+  }

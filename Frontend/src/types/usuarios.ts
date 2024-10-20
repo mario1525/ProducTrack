@@ -6,6 +6,7 @@ export interface UsuarioJwtPayload extends JwtPayload {
   IdCompania: string;
   'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'?: string;
   Id: string;
+  //IdUsuario: string;
 }
 
 export type UsuarioToken =  {
