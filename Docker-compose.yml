@@ -1,15 +1,15 @@
 version: "3.8"
 
 services:
-  #frontend:
-  #  image: myapp-frontend:latest
-  #  build:
-  #    context: ./frontend
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - "4200:4200"
-  #  depends_on:
-  #    - api-gateway  
+  # frontend:
+  #   image: myapp-frontend:latest
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "4200:4200"
+  #   depends_on:
+  #     - api-gateway  
 
   backend:
     image: backend:latest
@@ -22,7 +22,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32
     depends_on:
-      - sqlserver   
+      - sqlserver
+       
 
   serv-negocio:
     image: serv-negocio:latest
@@ -35,7 +36,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32 
     depends_on:
-      - sqlserver   
+      - sqlserver  
+      - smtp-notifications 
 
   api-gateway:
     image: api-gateway:latest 
@@ -43,12 +45,23 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     ports: 
-    - "3000:3000" 
+      - "3000:3000" 
     depends_on:
       - backend
-      - serv-negocio
-    #environment:
-    #-NODE_TLS_REJECT_UNAUTHORIZED=0 
+      - serv-negocio      
+    # environment:
+    #   - NODE_TLS_REJECT_UNAUTHORIZED=0 
+
+  smtp-notifications:
+    image: smtp:latest
+    build:
+      context: ./smtp
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"  # Cambia el puerto si tu aplicación usa uno diferente
+    depends_on:
+      - backend
+      
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -60,11 +73,8 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql    
-    restart: always
+    restart: always     
 
 volumes:
   sql_data:
     driver: local
-
-
-

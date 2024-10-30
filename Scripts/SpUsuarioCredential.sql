@@ -87,3 +87,28 @@ BEGIN
     WHERE Id = @Id
 END
 GO
+
+PRINT 'Creacion procedimiento Validate Credencial '
+GO
+CREATE PROCEDURE dbo.dbSpValidateUsuarioCredencial
+    @IdUsuario VARCHAR(36)
+AS 
+BEGIN
+    DECLARE @Resultado BIT;
+
+    -- Verifica si existe el usuario que cumple con las condiciones
+    SELECT @Resultado = CASE 
+                            WHEN EXISTS (
+                                SELECT 1    
+                                FROM dbo.UsuarioCredencial
+                                WHERE IdUsuario = CASE WHEN ISNULL(@IdUsuario, '') = '' THEN IdUsuario ELSE @IdUsuario END  
+                                AND Estado = 1
+                                AND Eliminado = 0
+                            ) 
+                            THEN 1 
+                            ELSE 0 
+                        END;
+
+    -- Retorna el resultado
+    SELECT @Resultado AS EsValido;
+END
