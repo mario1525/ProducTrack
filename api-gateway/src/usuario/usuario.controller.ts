@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { map } from 'rxjs/operators';
-import UrlServAdmin from 'src/helpers/indexUrl';
+import UrlServUsuario from 'src/helpers/serUsuarioUrl';
 
 @Controller('api/usuario')
 export class UsuarioController {
-  private apiUrl = UrlServAdmin;
+  private apiUrl = UrlServUsuario;
   constructor(private readonly httpService: HttpService) {}
 
   @Post()

@@ -25,8 +25,8 @@ builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
 
 //Data
 builder.Services.AddSingleton<DaoCompania>();
-builder.Services.AddSingleton<DaoUsuario>();
-builder.Services.AddSingleton<DaoUsuarioCredential>();
+//builder.Services.AddSingleton<DaoUsuario>(); //
+//builder.Services.AddSingleton<DaoUsuarioCredential>();//
 builder.Services.AddSingleton<DaoLab>();
 builder.Services.AddSingleton<DaoLabCamp>();
 builder.Services.AddSingleton<DaoOrden>();
@@ -40,11 +40,11 @@ builder.Services.AddSingleton<DaoProducto>();
 //Entity
 builder.Services.AddSingleton<Compania>();
 builder.Services.AddSingleton<VistaCompania>();
-builder.Services.AddSingleton<Usuario>();
+builder.Services.AddSingleton<Usuario>(); //
 builder.Services.AddSingleton<Mensaje>();
 builder.Services.AddSingleton<UsuarioCredential>();
 builder.Services.AddSingleton<Login>();
-builder.Services.AddSingleton<Token>();
+builder.Services.AddSingleton<Token>(); //
 builder.Services.AddSingleton<Lab>();
 builder.Services.AddSingleton<LabCamp>();
 builder.Services.AddSingleton<Orden>();
@@ -63,8 +63,8 @@ builder.Services.AddSingleton<etapas>();
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
-builder.Services.AddSingleton<UsuarioLogical>();
-builder.Services.AddSingleton<UsuarioCredentialLogical>();
+//builder.Services.AddSingleton<UsuarioLogical>();
+//builder.Services.AddSingleton<UsuarioCredentialLogical>();
 builder.Services.AddSingleton<ProcesoLogical>();
 builder.Services.AddSingleton<ProductLogical>();
 builder.Services.AddSingleton<ProductCampLogical>();

@@ -23,6 +23,21 @@ services:
       - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32
     depends_on:
       - sqlserver
+      - smtp-notifications
+
+  serv-usuario:
+    image: serv-usuario:latest
+    build:
+      context: ./Serv-usuarios
+      dockerfile: Dockerfile
+    ports:
+      - "7022:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=sqlserver,1433;Initial Catalog=ProductTrack;Persist Security Info=True;TrustServerCertificate=True; User ID=SA;Password=logPaSs#123$32
+    depends_on:
+      - sqlserver
+      - smtp-notifications      
        
 
   serv-negocio:
@@ -48,7 +63,8 @@ services:
       - "3000:3000" 
     depends_on:
       - backend
-      - serv-negocio      
+      - serv-negocio 
+      - serv-usuario     
     # environment:
     #   - NODE_TLS_REJECT_UNAUTHORIZED=0 
 
@@ -59,8 +75,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3000"  # Cambia el puerto si tu aplicación usa uno diferente
-    depends_on:
-      - backend
+    # depends_on:
+      
       
 
   sqlserver:

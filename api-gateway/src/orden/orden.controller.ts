@@ -269,8 +269,8 @@ export class OrdenController {
   @Get('etapa/:id')
   GetEtap(
     @Param('id') id: string,
-    @Headers('authorization') authHeader: string
-    ) {
+    @Headers('authorization') authHeader: string,
+  ) {
     const headers = {
       Authorization: authHeader, // Reenvía el token de autenticación
     };
