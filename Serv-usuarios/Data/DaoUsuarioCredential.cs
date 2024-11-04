@@ -45,6 +45,41 @@ namespace Data
             }
         }
 
+        public async Task<bool> ValidCredential(string idUser)
+        {
+            try
+            {
+                // Nombre del procedimiento almacenado
+                const string procedureName = "dbo.dbSpUsuarioGet";
+
+                // Definición de parámetros
+                var parameters = new[]
+                {
+                new SqlParameter("@IdUsuario", idUser)
+                };
+
+                // Ejecutar el procedimiento almacenado
+                DataTable data = await _sqlClient.ExecuteStoredProcedure(procedureName, parameters);
+
+                // Verificar si hay datos y retornar el valor booleano
+                if (data.Rows.Count > 0 && data.Rows[0][0] != DBNull.Value)
+                {
+                    return Convert.ToBoolean(data.Rows[0][0]);
+                }
+                else
+                {
+                    // Si no hay datos, asumir false 
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores aquí
+                Console.WriteLine($"Error al validar si el usuario tiene credenciales: {ex.Message}");
+                throw;
+            }
+        }
+
         // Metodo Set 
         public async void SetUsers(string operacion, UsuarioCredential user)
         {

@@ -32,7 +32,6 @@ namespace Services
                     List<Usuario> usuario = await _daoUsuario.GetUser(credetial[0].IdUsuario);
                     Token token = _Token.GenerateJwtToken(usuario[0]);
                     return token;
-
                 }   
                 return null;
             }
@@ -40,17 +39,26 @@ namespace Services
             return null;
         }
 
-        public Mensaje CreateUsuario(UsuarioCredential usuario)
+        public async Task<Mensaje> CreateUsuario(UsuarioCredential usuario)
         {
-            Guid uid = Guid.NewGuid();
-            usuario.Id = uid.ToString();
-            string PassHash = _password.Hashpassword(usuario.Contrasenia);
-            usuario.Contrasenia = PassHash;
-            _daoCredential.SetUsers("I", usuario);
-            Mensaje mensaje = new Mensaje();
-            mensaje.mensaje = "credenciales guardadas correctamente";
-            return mensaje;
-
+            bool credential = await _daoCredential.ValidCredential(usuario.IdUsuario);
+            if( credential )
+            {
+                Guid uid = Guid.NewGuid();
+                usuario.Id = uid.ToString();
+                string PassHash = _password.Hashpassword(usuario.Contrasenia);
+                usuario.Contrasenia = PassHash;
+                _daoCredential.SetUsers("I", usuario);
+                Mensaje mensaje = new Mensaje();
+                mensaje.mensaje = "Credenciales guardadas correctamente";
+                return mensaje;
+            }
+            else
+            {
+                Mensaje mensaje = new Mensaje();
+                mensaje.mensaje = "El usuario tiene credenciales asignadas";
+                return mensaje;
+            }
         }
 
         public Mensaje UpdateUsuario(UsuarioCredential usuario)

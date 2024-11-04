@@ -22,14 +22,14 @@ namespace Controllers.Endpoint
         // POST api/Credential
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public Mensaje Post([FromBody] UsuarioCredential value)
+        public Task<Mensaje> Post([FromBody] UsuarioCredential value)
         {
            return _UserLogical.CreateUsuario(value);
         }
 
         // PUT api/Credential/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Admin-Compania")]
+        [Authorize(Roles = "Admin")]
         public Mensaje Put(string id, [FromBody] UsuarioCredential value)
         {
             value.Id = id;
