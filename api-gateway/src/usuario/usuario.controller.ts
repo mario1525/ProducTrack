@@ -113,6 +113,21 @@ export class UsuarioController {
   }
 
   // credenciales
+
+  @Get('credential/:id')
+  GetCredential(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Credential/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
   @Post('credential')
   Credential(@Body() body, @Headers('authorization') authHeader: string) {
     const headers = {

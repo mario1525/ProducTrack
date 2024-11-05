@@ -54,6 +54,11 @@ export class UsuarioService {
 
       // credential
 
+      valid_credential(idUsuario: string ): Observable<boolean> {    
+        const url = `${this.apiUrl}usuario/credential/${idUsuario}`;
+        return this.http.get<boolean>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+      }
+
       create_Credential(usuario: Credential): Observable<{mensaje: string}> {
         const url = `${this.apiUrl}usuario/credential`;
         return this.http.post<{mensaje: string}>(url, usuario, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   

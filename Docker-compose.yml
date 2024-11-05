@@ -1,15 +1,15 @@
 version: "3.8"
 
 services:
-  # frontend:
-  #   image: myapp-frontend:latest
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "4200:4200"
-  #   depends_on:
-  #     - api-gateway  
+  #frontend:
+  #  image: myapp-frontend:latest
+  #  build:
+  #    context: ./frontend
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - "4200:4200"
+  #  depends_on:
+  #    - api-gateway  
 
   backend:
     image: backend:latest

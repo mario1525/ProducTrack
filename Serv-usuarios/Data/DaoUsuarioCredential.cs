@@ -50,7 +50,7 @@ namespace Data
             try
             {
                 // Nombre del procedimiento almacenado
-                const string procedureName = "dbo.dbSpUsuarioGet";
+                const string procedureName = "dbo.dbSpValidateUsuarioCredencial";
 
                 // Definición de parámetros
                 var parameters = new[]

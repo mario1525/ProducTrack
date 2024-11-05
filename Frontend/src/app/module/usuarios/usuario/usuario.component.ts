@@ -16,6 +16,7 @@ export class UsuarioComponent implements OnInit {
   userForm: FormGroup;
   Usuario: Usuario | undefined;
   idUsuario: string = "";
+  validCred: boolean = true;
   idCompania: string = "";
 
 
@@ -53,7 +54,15 @@ export class UsuarioComponent implements OnInit {
           console.log(error)
         }
       })
-
+      this.UsuaioService.valid_credential(this.idUsuario).subscribe({
+        next: (isValid) => {          
+          this.validCred = isValid;                              
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })      
     }
   }
 
@@ -93,6 +102,10 @@ export class UsuarioComponent implements OnInit {
     this.route.navigate([`/App/Compania/${this.idCompania}/Usuario/${this.idUsuario}/Credential`]);
   }
 
+  update_credential() {
+    alert("Se ha enviado un correo de recuperación a la dirección de correo registrada para este usuario.")
+  }
+
   onDelete(): void {
     this.UsuaioService.delete_usuario(this.idUsuario).subscribe({
       next: () => {
@@ -104,8 +117,5 @@ export class UsuarioComponent implements OnInit {
         alert('Error al eliminar el usuario');
       }
     })
-  } 
-
-  
-
+  }
 }

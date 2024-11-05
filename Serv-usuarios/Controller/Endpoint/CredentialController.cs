@@ -18,6 +18,14 @@ namespace Controllers.Endpoint
             _UserLogical = userLogical;
         }
 
+        // GET: api/Credential/id
+        // validar si el usuario ya tiene credenciales asociadas
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
+        public async Task<bool> Get(string id)
+        {
+            return await _UserLogical.ValidCredential(id);
+        }
 
         // POST api/Credential
         [HttpPost]
@@ -29,7 +37,7 @@ namespace Controllers.Endpoint
 
         // PUT api/Credential/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] UsuarioCredential value)
         {
             value.Id = id;

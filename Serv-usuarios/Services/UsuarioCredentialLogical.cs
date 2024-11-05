@@ -44,6 +44,12 @@ namespace Services
             bool credential = await _daoCredential.ValidCredential(usuario.IdUsuario);
             if( credential )
             {
+                Mensaje mensaje = new Mensaje();
+                mensaje.mensaje = "El usuario tiene credenciales asignadas";
+                return mensaje;
+            }
+            else
+            {
                 Guid uid = Guid.NewGuid();
                 usuario.Id = uid.ToString();
                 string PassHash = _password.Hashpassword(usuario.Contrasenia);
@@ -53,12 +59,12 @@ namespace Services
                 mensaje.mensaje = "Credenciales guardadas correctamente";
                 return mensaje;
             }
-            else
-            {
-                Mensaje mensaje = new Mensaje();
-                mensaje.mensaje = "El usuario tiene credenciales asignadas";
-                return mensaje;
-            }
+        }
+
+        public async Task<bool> ValidCredential(string idUser)
+        {
+            bool credential = await _daoCredential.ValidCredential(idUser);
+            return credential ;
         }
 
         public Mensaje UpdateUsuario(UsuarioCredential usuario)
