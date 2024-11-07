@@ -100,25 +100,24 @@ BEGIN
 END
 GO
 
-PRINT 'Creacion procedimiento Compania Get vista'
+PRINT 'Creación del procedimiento Compania Get vista'
 GO
 CREATE PROCEDURE dbo.dbSpCompaniaGetVista  
 AS 
 BEGIN
-    SELECT C.Id AS ID, C.Nombre AS Compania,
-		COUNT(U.Id) AS NumeroDeUsuarios,
-		COUNT(RO.Id) AS NOrdenesRegis, 
-		COUNT(RP.Id) AS NProductosRegis,
-		C.Fecha_log
-	FROM Compania C
-		LEFT JOIN Usuario U ON C.Id = U.IdCompania
-		LEFT JOIN Orden O ON C.Id = O.IdCompania
-		LEFT JOIN RegisOrden RO ON C.Id = O.Id
-		LEFT JOIN Producto P ON C.Id = p.IdCompania
-		LEFT JOIN RegisOrden RP ON C.Id = P.Id
-	WHERE C.Eliminado = 0
-	GROUP BY C.Nombre, C.Id, C.Fecha_log	
-	ORDER BY NumeroDeUsuarios DESC;	
+    SELECT 
+        C.Id AS ID, 
+        C.Nombre AS Compania,
+        (SELECT COUNT(U.Id) FROM Usuario U WHERE U.IdCompania = C.Id) AS NumeroDeUsuarios,
+        (SELECT COUNT(RO.Id) FROM RegisOrden RO INNER JOIN Orden O ON O.Id = RO.IdOrden WHERE O.IdCompania = C.Id) AS NOrdenesRegis, 
+        (SELECT COUNT(RP.Id) FROM RegisProduct RP INNER JOIN Producto P ON P.Id = RP.IdProduct WHERE P.IdCompania = C.Id) AS NProductosRegis,
+        C.Fecha_log
+    FROM 
+        Compania C
+    WHERE 
+        C.Eliminado = 0
+    ORDER BY 
+        NumeroDeUsuarios DESC;
 END
 GO
 
