@@ -33,6 +33,23 @@ END
 GO
 
 -- Tabla Usuario
+PRINT 'creacion de la tabla Proyecto'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Proyecto')
+BEGIN
+    CREATE TABLE dbo.Proyecto(
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
+        Nombre          VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre del usuario*/
+        IdCompania	    VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/        
+        Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.Proyecto ADD CONSTRAINT
+		FKProyectocompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+END
+GO
+
+-- Tabla Usuario
 PRINT 'creacion de la tabla Usuario'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Usuario')
 BEGIN
@@ -54,6 +71,25 @@ BEGIN
 END
 GO
 
+-- Tabla UserProyec
+PRINT 'creacion de la tabla UserProyec'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'UserProyec')
+BEGIN
+    CREATE TABLE dbo.UserProyec(
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/        
+        IdUsuario	    VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Usuario*/   
+        IdProyecto	    VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Proyecto*/        
+        Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.UserProyec ADD CONSTRAINT
+		FKUserProyecUser FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
+    ALTER TABLE dbo.UserProyec ADD CONSTRAINT
+		FKUserProyecProyec FOREIGN KEY (IdProyecto) REFERENCES dbo.Proyecto(Id)    
+END
+GO
+
 -- UsuarioCredencial
 PRINT 'creacion de la tabla UsuarioCredencial '
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'UsuarioCredencial')
@@ -68,7 +104,7 @@ BEGIN
         Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
         ALTER TABLE dbo.UsuarioCredencial ADD CONSTRAINT
-		FKUsuarioUcompania FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
+		FKUsuarioCredential FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
 END
 GO
 
@@ -99,7 +135,7 @@ IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Proceso')
 BEGIN
     CREATE TABLE dbo.Proceso(
         Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre del Proceso*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre del Proceso*/  
         IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/ 
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
@@ -128,23 +164,43 @@ BEGIN
 END
 GO
 
+-- Tabla TipoOrden
+PRINT 'creacion de la tabla TipoOrden'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'TipoOrden')
+BEGIN
+    CREATE TABLE dbo.TipoOrden(
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',             /*Nombre de la etapa*/  
+        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/     
+        Estado		  BIT NOT NULL DEFAULT 1,                     /*Estado del Usuario*/
+		Eliminado	  BIT NOT NULL DEFAULT 0,                    /*Eliminado usuario*/
+        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP   /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.TipoOrden ADD CONSTRAINT
+		FKOrdenCompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+END
+GO
+
 -- Tabla Orden
 PRINT 'creacion de la tabla Orden'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Orden')
 BEGIN
     CREATE TABLE dbo.Orden(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre de la etapa*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/ 
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',             /*Nombre de la etapa*/
+        IdProyecto    VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Proyecto*/         
+        IdTipoOrden   VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla TipoOrden*/
         IdProceso 	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Proceso*/       
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]    
     ALTER TABLE dbo.Orden ADD CONSTRAINT
-		FKOrdencompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+		FKOrdenProyecto FOREIGN KEY (IdProyecto) REFERENCES dbo.Proyecto(Id)
     ALTER TABLE dbo.Orden ADD CONSTRAINT
-		FKOrdenProces FOREIGN KEY (IdProceso) REFERENCES dbo.Proceso(Id)     
+		FKOrdenProces FOREIGN KEY (IdProceso) REFERENCES dbo.Proceso(Id)  
+    ALTER TABLE dbo.Orden ADD CONSTRAINT
+		FKOrdenTipoOrden FOREIGN KEY (IdTipoOrden) REFERENCES dbo.TipoOrden(Id)  
 END
 GO
 
@@ -172,20 +228,17 @@ PRINT 'creacion de la tabla RegisOrden'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisOrden')
 BEGIN
     CREATE TABLE dbo.RegisOrden(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/
-        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',               /*FK de la tabla Orden*/ 
-        IdCompania 	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Compania*/        
-        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Usuarios*/
-        Estado			BIT NOT NULL DEFAULT 1,                  /*Estado del Usuario*/
-		Eliminado		BIT NOT NULL DEFAULT 0,                 /*Eliminado usuario*/
-        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP  /*log fecha*/
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        IdOrden  	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Orden*/                 
+        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Usuarios, Supervisor encargado*/
+        Estado			BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado		BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP   /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
 		FKregisOrdenUsuario FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
     ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
-		FKOrdenRegisCamp FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)    
-    ALTER TABLE dbo.RegisOrden ADD CONSTRAINT
-		FKOrdenRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)        
+		FKOrdenRegisOrden FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)              
 END
 GO
 
@@ -216,7 +269,7 @@ BEGIN
         Id                      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
         IdRegisOrden            VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla regisOrden */  
         IdProcesEtap            VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla ProcesEtap*/
-        IdUsuario               VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla usuario*/
+        IdUsuario               VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla usuario, usuario que registro esa etapa*/
         Estado			        BIT NOT NULL DEFAULT 1,                   /*Estado*/
 		Eliminado		        BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
         Fecha_log               SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
@@ -230,23 +283,98 @@ BEGIN
 END
 GO
 
+-- Tabla Report
+PRINT 'creacion de la tabla de plantilla de reporte'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ReportePlant')
+BEGIN
+    CREATE TABLE dbo.ReportePlant(
+        Id                  VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/ 
+        Nombre              VARCHAR(255) NOT NULL DEFAULT '',              /*Nombre de la etapa*/
+        IdCompania	        VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Compania*/       
+        Estado			        BIT NOT NULL DEFAULT 1,                  /*Estado*/
+		Eliminado		        BIT NOT NULL DEFAULT 0,                 /*Eliminado*/       
+        Fecha_log           SMALLDATETIME DEFAULT CURRENT_TIMESTAMP    /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.ReportePlant ADD CONSTRAINT
+		FKReportePlantComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id) 
+END
+GO
+
+-- Tabla OrdenReport
+PRINT 'creacion de la tabla OrdenReport'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'OrdenReport')
+BEGIN
+    CREATE TABLE dbo.OrdenReport(
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/        
+        IdOrden	        VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Orden*/   
+        IdReportePlant  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla ReportePlant*/        
+        Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.OrdenReport ADD CONSTRAINT
+		FKOrdenReportOrden FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)
+    ALTER TABLE dbo.OrdenReport ADD CONSTRAINT
+		FKOrdenReportrep FOREIGN KEY (IdReportePlant) REFERENCES dbo.ReportePlant(Id)    
+END
+GO
+
+-- Tabla RegisOrdenReport
+PRINT 'creacion de la tabla RegisOrdenReport'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisOrdenReport')
+BEGIN
+    CREATE TABLE dbo.RegisOrdenReport(
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/        
+        IdRegisOrden	VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla RegisOrden*/   
+        IdOrdenReport   VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla OrdenReport*/        
+        Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
+		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
+        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.RegisOrdenReport ADD CONSTRAINT
+		FKOrdenReportRegisOrden FOREIGN KEY (IdOrdenReport) REFERENCES dbo.OrdenReport(Id)
+    ALTER TABLE dbo.RegisOrdenReport ADD CONSTRAINT
+		FKRegisOrdenreport FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id)    
+END
+GO
+
+
 -- Tabla Producto
 PRINT 'creacion de la tabla Producto '
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Producto')
 BEGIN
     CREATE TABLE dbo.Producto(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre Producto*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/ 
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',             /*Nombre Producto*/
+        IdProyecto    VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Proyecto*/         
         IdProceso	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Proceso*/
         Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.Producto ADD CONSTRAINT
-		FKProducComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+		FKProducComp FOREIGN KEY (IdProyecto) REFERENCES dbo.Proyecto(Id)
     ALTER TABLE dbo.Producto ADD CONSTRAINT
 		FKProductProces FOREIGN KEY (IdProceso) REFERENCES dbo.Proceso(Id)
+END
+GO
+
+-- Tabla ProductReportPlant
+PRINT 'creacion de la tabla de reportes de producto'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ProductReport')
+BEGIN
+    CREATE TABLE dbo.ProductReport(
+        Id                  VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/ 
+        IdReportPlant       VARCHAR(36) NOT NULL DEFAULT '',               /*FK de la tabla ReportPlant*/ 
+        IdProduct           VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Product*/
+        Estado			        BIT NOT NULL DEFAULT 1,                  /*Estado*/
+		Eliminado		        BIT NOT NULL DEFAULT 0,                 /*Eliminado*/       
+        Fecha_log           SMALLDATETIME DEFAULT CURRENT_TIMESTAMP    /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.ProductReport ADD CONSTRAINT
+		FKProductReportProduct FOREIGN KEY (IdProduct) REFERENCES dbo.Producto(Id)
+    ALTER TABLE dbo.ProductReport ADD CONSTRAINT
+		FKProductReport FOREIGN KEY (IdReportePlant) REFERENCES dbo.ReportePlant(Id) 
 END
 GO
 
@@ -255,24 +383,17 @@ PRINT 'creacion de la tabla RegisProduct '
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisProduct')
 BEGIN
     CREATE TABLE dbo.RegisProduct(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
-        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Producto*/
-        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla RegisOrden*/
-        IdCompania    VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/
-        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Usuarios*/
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
+        IdProduct	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Producto*/
+        IdRegisOrden  VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla RegisOrden*/        
         Estado			BIT NOT NULL DEFAULT 1,                 /*Estado*/
 		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
-    ) ON [PRIMARY]
-    ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
-		FKRegisProducUsuario FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
+    ) ON [PRIMARY]    
     ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
 		FKRegisPProduct FOREIGN KEY (IdProduct) REFERENCES dbo.Producto(Id)
     ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
-		FKRegisProductRegisOrden FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id)
-    ALTER TABLE dbo.RegisProduct ADD CONSTRAINT
-		FKRegisProductRegisComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)    
-    
+		FKRegisProductRegisOrden FOREIGN KEY (IdRegisOrden) REFERENCES dbo.RegisOrden(Id)  
 END
 GO
 
@@ -330,15 +451,39 @@ GO
 --END
 --GO
 
+
+-- Por terminar 
+-- Tabla asignacion 
+PRINT 'creacion de la tabla de asignacion'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ProductAsig')
+BEGIN
+    CREATE TABLE dbo.ProductAsig(
+        Id                      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',       /*id interno del registro*/
+        IdRegisProduct          VARCHAR(36) NOT NULL DEFAULT '',                  /*FK de la tabla regisProduct */  
+        IdProcesEtap            VARCHAR(36) NOT NULL DEFAULT '',                 /*FK de la tabla ProcesEtap*/
+        IdUsuario	            VARCHAR(36) NOT NULL DEFAULT '',                /*FK de la tabla Usuarios*/
+        Estado			         BIT NOT NULL DEFAULT 1,                       /*Estado*/
+		Eliminado		         BIT NOT NULL DEFAULT 0,                      /*Eliminado*/       
+        Fecha_log               SMALLDATETIME DEFAULT CURRENT_TIMESTAMP      /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.RegisProductProcesEtap ADD CONSTRAINT
+		FKRegisproductP FOREIGN KEY (IdRegisProduct) REFERENCES dbo.RegisProduct(Id) 
+    ALTER TABLE dbo.RegisProductProcesEtap ADD CONSTRAINT
+		FKRprocesEtap FOREIGN KEY (IdProcesEtap) REFERENCES dbo.ProcesEtap(Id) 
+    ALTER TABLE dbo.RegisProductProcesEtap ADD CONSTRAINT
+		FKReUsuarioAsig FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id) 
+END
+GO
+
 -- Tabla RegisProductProcesEtap
 PRINT 'creacion de la tabla RegisProductProcesEtap'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisProductProcesEtap')
 BEGIN
     CREATE TABLE dbo.RegisProductProcesEtap(
         Id                      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        IdRegisProduct          VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla regisProduct */  
-        IdProcesEtap            VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla ProcesEtap*/
-        IdUsuario               VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla usuario*/
+        IdProductAsig           VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla ProductAsig */  
+        Observacion             VARCHAR(255) NOT NULL DEFAULT '',           /*FK de la tabla ProcesEtap*/
+        IdAdjuntos              VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Adjuntos*/
         Estado			        BIT NOT NULL DEFAULT 1,                   /*Estado*/
 		Eliminado		        BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
         Fecha_log               SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
@@ -352,121 +497,45 @@ BEGIN
 END
 GO
 
--- Tabla Lab
-PRINT 'creacion de la tabla Lab '
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Lab')
+
+-- Por terminar 
+PRINT 'creacion de la tabla de plantilla correo'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'SMTPPlant')
 BEGIN
-    CREATE TABLE dbo.Lab(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre Laboratorio*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/
-        Estado			BIT NOT NULL DEFAULT 1,                 /*Estado del Usuario*/
-		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado usuario*/
-        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    CREATE TABLE dbo.SMTPPlant(
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',      /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',                /*Nombre de la plantilla*/
+        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',                /*FK de la tabla Compania*/        
+        Subjec        VARCHAR(255) NOT NULL DEFAULT '',              /*Sujeto del correo*/
+        mesage        VARCHAR(MAX) NOT NULL DEFAULT '',             /*Mensaje del correo*/
+        Estado			    BIT NOT NULL DEFAULT 1,                /*Estado*/
+		Eliminado		    BIT NOT NULL DEFAULT 0,               /*Eliminado*/       
+        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP    /*log fecha*/
     ) ON [PRIMARY]
-    ALTER TABLE dbo.Lab ADD CONSTRAINT
-		FKLabComp FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)    
+    ALTER TABLE dbo.SMTPPlant ADD CONSTRAINT
+		FKSMTcompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
 END
 GO
 
--- Tabla LabCamp
-PRINT 'creacion de la tabla LabCamp '
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'LabCamp')
+-- Por terminar 
+-- tabla SMTPHistorial 
+PRINT 'creacion de la tabla de historial de Notificacines SMTP'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'SMTPHistorial')
 BEGIN
-    CREATE TABLE dbo.LabCamp(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',              /*Nombre del campo*/
-        TipoDato      VARCHAR(60) NOT NULL DEFAULT 'double',        /*Tipo de dato del campo*/
-        UnidadMedida  VARCHAR(10) NOT NULL DEFAULT '',             /*Unidad de medida del campo*/
-        Obligatorio   BIT NOT NULL DEFAULT 0,                     /*campo obligatorio*/
-        IdLab         VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Lab*/
-        Estado		  BIT NOT NULL DEFAULT 1,                   /*Estado*/
-		Eliminado	  BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
-        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
+    CREATE TABLE dbo.SMTPHistorial(
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',       /*id interno del registro*/
+        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',                  /*FK de la tabla Compania*/                      
+        IdUsuario	  VARCHAR(36) NOT NULL DEFAULT '',                 /*FK de la tabla Usuarios*/        
+        para          VARCHAR(255) NOT NULL DEFAULT '',               /*a quien va el correo*/
+        CC            VARCHAR(255) NOT NULL DEFAULT '',              /*adjunto al correo*/
+        Subjec        VARCHAR(255) NOT NULL DEFAULT '',             /*sujeto del correo*/
+        Mensaje       VARCHAR(MAX) NOT NULL DEFAULT '',            /*Mensaje del correo*/
+        Estado			    BIT NOT NULL DEFAULT 1,               /*Estado*/
+		Eliminado		    BIT NOT NULL DEFAULT 0,              /*Eliminado*/       
+        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP   /*log fecha*/
     ) ON [PRIMARY]
-    ALTER TABLE dbo.LabCamp ADD CONSTRAINT
-		FKLabCamp FOREIGN KEY (IdLab) REFERENCES dbo.Lab(Id) 
-END
-GO
-
--- Tabla RegisLabProcesEtap
-PRINT 'creacion de la tabla RegisLabProcesEtap'
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'RegisLabProcesEtap')
-BEGIN
-    CREATE TABLE dbo.RegisLabProcesEtap(
-        Id                          VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        IdRegisProductProcesEtap    VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla ProcesEtap*/
-        IdUsuario                   VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla usuario*/
-        IdLab                       VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Lab*/
-        Estado			            BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
-		Eliminado		            BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
-        Fecha_log                   SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
-    ) ON [PRIMARY]
-    ALTER TABLE dbo.RegisLabProcesEtap ADD CONSTRAINT
-		FKReUsuariolabRisProces3 FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)
-    ALTER TABLE dbo.RegisLabProcesEtap ADD CONSTRAINT
-		FKLabCampLab FOREIGN KEY (IdLab) REFERENCES dbo.Lab(Id)
-    ALTER TABLE dbo.RegisLabProcesEtap ADD CONSTRAINT
-		FKregisProceslabEtap FOREIGN KEY (IdRegisProductProcesEtap) REFERENCES dbo.RegisProductProcesEtap(Id)
-END
-GO
-
--- Tabla LabCampVal
-PRINT 'creacion de la tabla LabCampVal'
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'LabCampVal')
-BEGIN
-    CREATE TABLE dbo.LabCampVal(
-        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        Valor           VARCHAR(255) NOT NULL DEFAULT '',            /*valor a guardar en campo*/
-        IdLabCamp       VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla ProductCamp*/  
-        IdRegisLabEtap  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla RegisLabEtap*/
-        Estado			BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
-		Eliminado		BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
-        Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
-    ) ON [PRIMARY]
-    ALTER TABLE dbo.LabCampVal ADD CONSTRAINT
-		FKlabCampVal FOREIGN KEY (IdLabCamp) REFERENCES dbo.LabCamp(Id)
-    ALTER TABLE dbo.LabCampVal ADD CONSTRAINT
-		FKRegisLabEtapE FOREIGN KEY (IdRegisLabEtap) REFERENCES dbo.RegisLabProcesEtap(Id)
-END
-GO
-
--- Tabla Archivo
-PRINT 'creacion de la tabla Archivo '
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Archivo')
-BEGIN
-    CREATE TABLE dbo.Archivo(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre del Archivo*/
-        TipoArchv     VARCHAR(10) NOT NULL DEFAULT '',            /*Tipo de Archivo*/
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/
-        Estado			BIT NOT NULL DEFAULT 1,                 /*Estado del*/
-		Eliminado		BIT NOT NULL DEFAULT 0,                /*Eliminado*/
-        Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
-    ) ON [PRIMARY]
-    ALTER TABLE dbo.Archivo ADD CONSTRAINT
-		FKArchivoCompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
-END
-GO
-
--- Tabla ArchivoVal
-PRINT 'creacion de la tabla ArchivoVal '
-IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ArchivoVal')
-BEGIN
-    CREATE TABLE dbo.ArchivoVal(
-        Id                  VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',     /*id interno del registro*/
-        Nombre_Archivo		VARCHAR(255) NOT NULL DEFAULT '',               /*Nombre del archivo*/
-        Extension			VARCHAR(10) NOT NULL DEFAULT '',               /*Extension*/
-		Formato				VARCHAR(255) NOT NULL DEFAULT '',             /*Formato*/
-        Archivos			IMAGE NOT NULL DEFAULT '',                   /*Archivos*/
-		Tamanio				FLOAT NOT NULL DEFAULT '',                  /*Tamanio de archivo*/
-        IdArchivo           VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Archivo*/
-        Estado			    BIT NOT NULL DEFAULT 1,                   /*Estado*/
-		Eliminado		    BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
-        Fecha_log           SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
-    ) ON [PRIMARY]
-    ALTER TABLE dbo.ArchivoVal ADD CONSTRAINT
-		FKArchivoVal FOREIGN KEY (IdArchivo) REFERENCES dbo.Archivo(Id)
+    ALTER TABLE dbo.SMTPHistorial ADD CONSTRAINT
+		FKSMTHistorialcompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
 END
 GO
 
