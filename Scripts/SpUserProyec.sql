@@ -23,7 +23,7 @@ CREATE PROCEDURE dbo.dbSpUserProyecGet
     @Estado                           INT 
 AS 
 BEGIN
-    SELECT Id, Nombre, Apellido, Identificacion, Correo, IdCompania, Cargo, Rol, Estado, Fecha_log     
+    SELECT Id, Nombre, IdUsuario, IdProyecto, Estado, Fecha_log     
     FROM dbo.UserProyec
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
@@ -47,8 +47,8 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.UserProyec(Id, Nombre, IdUsuario, IdProyecto Estado, Eliminado, Fecha_log)
-        VALUES(@Id, @Nombre, @IdUsuario, IdProyecto, @Estado, 0, GETDATE());
+        INSERT INTO dbo.UserProyec(Id, Nombre, IdUsuario, IdProyecto, Estado, Eliminado, Fecha_log)
+        VALUES(@Id, @Nombre, @IdUsuario, @IdProyecto, @Estado, 0, GETDATE());
     END
     ELSE IF @Operacion = 'A'
     BEGIN

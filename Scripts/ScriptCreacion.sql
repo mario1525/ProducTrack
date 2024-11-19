@@ -172,13 +172,13 @@ BEGIN
     CREATE TABLE dbo.TipoOrden(
         Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
         Nombre        VARCHAR(255) NOT NULL DEFAULT '',             /*Nombre de la etapa*/  
-        IdCompania	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Compania*/     
+        IdProyecto	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Proyecto*/     
         Estado		  BIT NOT NULL DEFAULT 1,                     /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                    /*Eliminado usuario*/
         Fecha_log     SMALLDATETIME DEFAULT CURRENT_TIMESTAMP   /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.TipoOrden ADD CONSTRAINT
-		FKOrdenCompania FOREIGN KEY (IdCompania) REFERENCES dbo.Compania(Id)
+		FKTipoOrdenProyect FOREIGN KEY (IdProyecto) REFERENCES dbo.Proyecto(Id)
 END
 GO
 
