@@ -37,9 +37,10 @@ PRINT 'creacion de la tabla Proyecto'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'Proyecto')
 BEGIN
     CREATE TABLE dbo.Proyecto(
-        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '', /*id interno del registro*/
-        Nombre          VARCHAR(255) NOT NULL DEFAULT '',           /*Nombre del usuario*/
-        IdCompania	    VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Compania*/        
+        Id              VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
+        Nombre          VARCHAR(255) NOT NULL DEFAULT '',            /*Nombre del usuario*/
+        IdCompania	    VARCHAR(36) NOT NULL DEFAULT '',            /*FK de la tabla Compania*/  
+        IdUsuario	    VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Usuario coordinador encargado de este proyecto*/         
         Estado		    BIT NOT NULL DEFAULT 1,                   /*Estado del Usuario*/
 		Eliminado	    BIT NOT NULL DEFAULT 0,                  /*Eliminado usuario*/
         Fecha_log       SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
