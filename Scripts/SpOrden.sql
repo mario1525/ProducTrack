@@ -1,6 +1,12 @@
 ﻿-- ========================================================
 -- Author:		Mario Beltran
 -- Create Date: 2024/06/5 
+-- Update Date: 
+--        - Date: 2024/11/18
+--        - Description: actualizacion de la DB para nuevo enfoque del 
+--                       software
+--
+-- 
 -- Description: creacion de los procedimientos almacenados
 --              para la tabla Orden de la DB 
 --              ProductTrack
@@ -15,14 +21,23 @@ BEGIN
     DROP PROCEDURE dbo.dbSpOrdenActive
 END
 
+CREATE TYPE CampoOrdenType AS TABLE
+(
+    id NVARCHAR(50),
+    nombre NVARCHAR(50),
+    tipodato NVARCHAR(20),
+    Obligatorio BIT       
+);
+
 PRINT 'Creacion procedimiento Orden Get '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenGet
-    @IdOrden VARCHAR(36),
-    @Nombre VARCHAR(255),
-    @IdCompania VARCHAR(36),
-    @IdProceso VARCHAR(36),
-    @Estado INT
+    @Id           VARCHAR(36),
+    @Nombre       VARCHAR(255),
+    @IdProyecto   VARCHAR(36),
+    @IdTipoOrden  VARCHAR(36),
+    @IdProceso    VARCHAR(36),
+    @Estado       INT
 AS 
 BEGIN
     SELECT O.Id, O.Nombre, C.Nombre AS Compania, O.Estado, O.IdProceso, O.Fecha_log     
@@ -31,7 +46,8 @@ BEGIN
     WHERE O.Id = CASE WHEN ISNULL(@IdOrden,'')='' THEN O.Id ELSE @IdOrden END
     AND O.Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN O.Nombre ELSE '%'+@Nombre+'%' END
     AND O.IdProceso LIKE CASE WHEN ISNULL(@IdProceso,'')='' THEN O.IdProceso ELSE '%'+@IdProceso+'%' END
-    AND O.IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN O.IdCompania ELSE @IdCompania END
+    AND O.IdTipoOrden LIKE CASE WHEN ISNULL(@IdTipoOrden,'')='' THEN O.IdTipoOrden ELSE '%'+@IdTipoOrden+'%' END
+    AND O.IdProyecto = CASE WHEN ISNULL(@IdProyecto,'')='' THEN O.IdProyecto ELSE @IdProyecto END
     AND O.Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND O.Eliminado = 0
 END
@@ -40,13 +56,14 @@ GO
 PRINT 'Creacion procedimiento Orden Set '
 GO
 CREATE PROCEDURE dbo.dbSpOrdenSet
-    @Id VARCHAR(36),
-    @Nombre VARCHAR(255),
-    @IdCompania VARCHAR(36),
-    @IdProceso VARCHAR(36),
-    @Estado BIT,
-    @Campos CampoOrdenType READONLY,
-    @Operacion VARCHAR(1)
+    @Id                     VARCHAR(36),
+    @Nombre                 VARCHAR(255),
+    @IdProyecto             VARCHAR(36),
+    @IdTipoOrden            VARCHAR(36),
+    @IdProceso              VARCHAR(36),
+    @Estado                 BIT,
+    @Campos CampoOrdenType  READONLY,
+    @Operacion              VARCHAR(1)
 AS
 BEGIN
     BEGIN TRY
@@ -55,8 +72,8 @@ BEGIN
             BEGIN TRANSACTION;
 
             -- Operación 1: Insertar en la tabla Orden
-            INSERT INTO dbo.Orden(Id, Nombre, IdCompania, IdProceso, Estado, Fecha_log, Eliminado)
-            VALUES(@Id, @Nombre, @IdCompania, @IdProceso, @Estado, DEFAULT, 0);
+            INSERT INTO dbo.Orden(Id, Nombre, IdProyecto, IdTipoOrden, IdProceso, Estado, Fecha_log, Eliminado)
+            VALUES(@Id, @Nombre, @IdProyecto, @IdTipoOrden, @IdProceso, @Estado, DEFAULT, 0);
 
             -- Operación 2: Insertar en la tabla OrdenCamp
             INSERT INTO dbo.OrdenCamp(Id, Nombre, TipoDato, Obligatorio, IdOrden, Estado, Fecha_log, Eliminado)
@@ -70,10 +87,11 @@ BEGIN
         BEGIN
             -- Actualización en la tabla Orden
             UPDATE dbo.Orden
-            SET Nombre = @Nombre, 
-                IdCompania = @IdCompania, 
-                IdProceso = @IdProceso, 
-                Estado = @Estado
+            SET Nombre          = @Nombre, 
+                IdProyecto      = @IdProyecto, 
+                IdTipoOrden     = @IdTipoOrden,
+                IdProceso       = @IdProceso, 
+                Estado          = @Estado
             WHERE Id = @Id;
 
             PRINT 'Actualización completada exitosamente.';
@@ -123,11 +141,3 @@ BEGIN
     WHERE Id = @Id
 END
 GO
-
-CREATE TYPE CampoOrdenType AS TABLE
-(
-    id NVARCHAR(50),
-    nombre NVARCHAR(50),
-    tipodato NVARCHAR(20),
-    Obligatorio BIT       
-);
