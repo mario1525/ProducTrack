@@ -16,6 +16,14 @@ BEGIN
     DROP PROCEDURE dbo.dbSpRegisOrdenActive    
 END
 
+PRINT 'type campos'
+CREATE TYPE CamposOrdenValType AS TABLE
+(
+    id NVARCHAR(50),
+    valor NVARCHAR(50),
+    idOrdenCamp NVARCHAR(50)   
+);
+
 PRINT 'Creacion procedimiento RegisOrden Get '
 GO
 CREATE PROCEDURE dbo.dbSpRegisOrdenGet
@@ -26,11 +34,10 @@ CREATE PROCEDURE dbo.dbSpRegisOrdenGet
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log     
+    SELECT Id, IdOrden, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisOrden
     WHERE Id = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN Id ELSE @IdRegisOrden END
     AND IdOrden = CASE WHEN ISNULL(@IdOrden,'')='' THEN IdOrden ELSE @IdOrden END
-    AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
     AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
@@ -41,8 +48,7 @@ PRINT 'Creacion procedimiento RegisOrden Set '
 GO
 CREATE PROCEDURE dbo.dbSpRegisOrdenSet
     @Id VARCHAR(36),	
-    @IdOrden VARCHAR(36),
-    @IdCompania VARCHAR(36),
+    @IdOrden VARCHAR(36),    
     @IdUsuario VARCHAR(36),
     @Estado BIT,
     @IdRegisOrdenEtap VARCHAR(36), 
@@ -59,8 +65,8 @@ BEGIN
             DECLARE @IdProcesEtap VARCHAR(36);
 
             -- Operación 1: Insertar en la tabla RegisOrden
-            INSERT INTO dbo.RegisOrden(Id, IdOrden, IdCompania, IdUsuario, Estado, Fecha_log, Eliminado)
-            VALUES(@Id, @IdOrden, @IdCompania, @IdUsuario, @Estado, DEFAULT, 0);
+            INSERT INTO dbo.RegisOrden(Id, IdOrden, IdUsuario, Estado, Fecha_log, Eliminado)
+            VALUES(@Id, @IdOrden, @IdUsuario, @Estado, DEFAULT, 0);
 
             -- Buscar el ID de la primera etapa
             SELECT @IdProcesEtap = pe.Id  
@@ -93,8 +99,7 @@ BEGIN
         BEGIN TRY
             -- Actualización en RegisOrden
             UPDATE dbo.RegisOrden
-            SET IdOrden = @IdOrden, 
-                IdCompania = @IdCompania, 
+            SET IdOrden = @IdOrden,                
                 IdUsuario = @IdUsuario, 
                 Estado = @Estado
             WHERE Id = @Id;
@@ -139,10 +144,4 @@ BEGIN
     WHERE Id = @Id
 END
 
-PRINT 'type campos'
-CREATE TYPE CamposOrdenValType AS TABLE
-(
-    id NVARCHAR(50),
-    valor NVARCHAR(50),
-    idOrdenCamp NVARCHAR(50)   
-);
+

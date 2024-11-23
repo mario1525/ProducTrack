@@ -1,6 +1,5 @@
 ﻿-- ========================================================
 -- Author:		Mario Beltran
--- Create Date: 2024/06/4
 -- Description: creacion de los procedimientos almacenados
 -- para la tabla Proceso de la DB ProductTrack
 -- ========================================================
@@ -13,6 +12,13 @@ BEGIN
     DROP PROCEDURE dbo.dbSpProcesoDel
     DROP PROCEDURE dbo.dbSpProcesoActive
 END
+
+CREATE TYPE EtapaType AS TABLE
+(
+    id NVARCHAR(50),
+    netapa  INT,
+    nombre NVARCHAR(50)           
+);
 
 PRINT 'Creacion procedimiento Proceso Get '
 GO
@@ -116,9 +122,4 @@ BEGIN
 END
 GO
 
-CREATE TYPE EtapaType AS TABLE
-(
-    id NVARCHAR(50),
-    netapa  INT,
-    nombre NVARCHAR(50)           
-);
+

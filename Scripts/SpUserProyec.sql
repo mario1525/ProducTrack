@@ -9,9 +9,9 @@ PRINT 'Creacion procedimientos tabla UserProyecs'
 IF EXISTS(SELECT NAME FROM SYSOBJECTS WHERE NAME LIKE 'dbSpUserProyec%')
 BEGIN
     DROP PROCEDURE dbo.dbSpUserProyecGet
-	DROP PROCEDURE dbo.dbSpUserProyecsSet
-	DROP PROCEDURE dbo.dbSpUserProyecsDet
-	DROP PROCEDURE dbo.dbSpUserProyecsActive
+	DROP PROCEDURE dbo.dbSpUserProyecSet
+	DROP PROCEDURE dbo.dbSpUserProyecDel
+	DROP PROCEDURE dbo.dbSpUserProyecActive
 END
 
 PRINT 'Creacion procedimiento userproyec Get '
@@ -23,10 +23,9 @@ CREATE PROCEDURE dbo.dbSpUserProyecGet
     @Estado                           INT 
 AS 
 BEGIN
-    SELECT Id, Nombre, IdUsuario, IdProyecto, Estado, Fecha_log     
+    SELECT Id, IdUsuario, IdProyecto, Estado, Fecha_log     
     FROM dbo.UserProyec
-    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
-    AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
+    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END    
     AND IdUsuario  LIKE CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario  ELSE '%'+@IdUsuario+'%' END 
     AND IdProyecto LIKE CASE WHEN ISNULL(@IdProyecto,'')='' THEN IdProyecto ELSE '%'+@IdProyecto+'%' END   
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
@@ -37,8 +36,7 @@ GO
 PRINT'Creacion procedimiento userproyec Set '
 GO
 CREATE PROCEDURE dbo.dbSpUserProyecSet
-    @Id                 VARCHAR(36),
-    @Nombre             VARCHAR(40),
+    @Id                 VARCHAR(36),    
     @IdUsuario          VARCHAR(36),
 	@IdProyecto         VARCHAR(36),
     @Estado             BIT,
@@ -47,14 +45,13 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.UserProyec(Id, Nombre, IdUsuario, IdProyecto, Estado, Eliminado, Fecha_log)
-        VALUES(@Id, @Nombre, @IdUsuario, @IdProyecto, @Estado, 0, GETDATE());
+        INSERT INTO dbo.UserProyec(Id, IdUsuario, IdProyecto, Estado, Eliminado, Fecha_log)
+        VALUES(@Id, @IdUsuario, @IdProyecto, @Estado, 0, GETDATE());
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.UserProyec
-        SET Nombre         = @Nombre,
-            IdUsuario      = @IdUsuario,
+        SET IdUsuario      = @IdUsuario,
             IdProyecto     = @IdProyecto,
             Estado         = @Estado
         WHERE Id           = @Id;
@@ -93,4 +90,3 @@ BEGIN
         SET Estado = @Estado           
         WHERE Id = @Id;
 END;
-

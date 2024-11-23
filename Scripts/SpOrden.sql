@@ -5,8 +5,8 @@
 --        - Date: 2024/11/18
 --        - Description: actualizacion de la DB para nuevo enfoque del 
 --                       software
---
--- 
+--                                                          
+--                                                         
 -- Description: creacion de los procedimientos almacenados
 --              para la tabla Orden de la DB 
 --              ProductTrack
@@ -40,10 +40,10 @@ CREATE PROCEDURE dbo.dbSpOrdenGet
     @Estado       INT
 AS 
 BEGIN
-    SELECT O.Id, O.Nombre, C.Nombre AS Compania, O.Estado, O.IdProceso, O.Fecha_log     
+    SELECT O.Id, O.Nombre, P.Nombre AS Proyecto, O.Estado, O.IdProceso, O.Fecha_log     
     FROM Orden O
-	LEFT JOIN Compania C ON O.IdCompania = C.Id
-    WHERE O.Id = CASE WHEN ISNULL(@IdOrden,'')='' THEN O.Id ELSE @IdOrden END
+	LEFT JOIN Proyecto P ON O.IdProyecto = P.Id
+    WHERE O.Id = CASE WHEN ISNULL(@Id,'')='' THEN O.Id ELSE @Id END
     AND O.Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN O.Nombre ELSE '%'+@Nombre+'%' END
     AND O.IdProceso LIKE CASE WHEN ISNULL(@IdProceso,'')='' THEN O.IdProceso ELSE '%'+@IdProceso+'%' END
     AND O.IdTipoOrden LIKE CASE WHEN ISNULL(@IdTipoOrden,'')='' THEN O.IdTipoOrden ELSE '%'+@IdTipoOrden+'%' END
