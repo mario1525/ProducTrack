@@ -18,18 +18,16 @@ END
 PRINT 'Creacion procedimiento RegisProductProcesEtap Get '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductProcesEtapGet
-    @IdRegisProductProcesEtap VARCHAR(36),
-    @IdRegisProduct VARCHAR(36),
-    @IdProcesEtap VARCHAR(36),
+    @Id VARCHAR(36),
+    @IdProductAsig VARCHAR(36),   
     @IdUsuario VARCHAR(36),
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, IdRegisProduct, IdProcesEtap, IdUsuario, Estado, Fecha_log     
+    SELECT Id, IdProductAsig, Observacion, IdUsuario, Estado, Fecha_log     
     FROM dbo.RegisProductProcesEtap
-    WHERE Id = CASE WHEN ISNULL(@IdRegisProductProcesEtap,'')='' THEN Id ELSE @IdRegisProductProcesEtap END
-    AND IdRegisProduct = CASE WHEN ISNULL(@IdRegisProduct,'')='' THEN IdRegisProduct ELSE @IdRegisProduct END
-    AND IdProcesEtap = CASE WHEN ISNULL(@IdProcesEtap,'')='' THEN IdProcesEtap ELSE @IdProcesEtap END
+    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END    
+    AND IdProductAsig = CASE WHEN ISNULL(@IdProductAsig,'')='' THEN IdProductAsig ELSE @IdProductAsig END
     AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
@@ -39,23 +37,23 @@ GO
 PRINT 'Creacion procedimiento RegisProductProcesEtap Set '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductProcesEtapSet
-    @Id VARCHAR(36),
-    @IdRegisProduct VARCHAR(36),
-    @IdProcesEtap VARCHAR(36),
-    @IdUsuario VARCHAR(36),
-    @Estado BIT,
-    @Operacion VARCHAR(1)
+    @Id                 VARCHAR(36),
+    @IdProductAsig      VARCHAR(36),   
+    @IdUsuario          VARCHAR(36),
+    @Observacion        VARCHAR(255),
+    @Estado             INT,
+    @Operacion          VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.RegisProductProcesEtap(Id, IdRegisProduct, IdProcesEtap, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdRegisProduct, @IdProcesEtap, @IdUsuario, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.RegisProductProcesEtap(Id, IdProductAsig, Observacion, IdUsuario, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @IdProductAsig, @Observacion, @IdUsuario, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.RegisProductProcesEtap
-        SET IdRegisProduct = @IdRegisProduct, IdProcesEtap = @IdProcesEtap, IdUsuario = @IdUsuario, Estado = @Estado
+        SET  IdProductAsig = @IdProductAsig, Observacion = @Observacion, IdUsuario = @IdUsuario, Estado = @Estado
         WHERE Id = @Id
     END
 END

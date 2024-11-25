@@ -1,39 +1,35 @@
 ﻿-- ========================================================
--- Author:		Mario Beltran
--- Create Date: 2024/06/5 
+-- Author: Mario Beltran
+-- Create Date: 2024/11/24 
 -- Description: creacion de los procedimientos almacenados
 --              para la tabla RegisProduct de la DB 
 --              ProductTrack
 -- ========================================================
-
+ 
 -- Procedimientos almacenados para la tabla RegisProduct
 PRINT 'Creacion procedimientos tabla RegisProduct'
 IF EXISTS(SELECT NAME FROM SYSOBJECTS WHERE NAME LIKE 'dbSpRegisProduct%')
 BEGIN
-    DROP PROCEDURE dbo.dbSpRegisProductGet
-    DROP PROCEDURE dbo.dbSpRegisProductSet
-    DROP PROCEDURE dbo.dbSpRegisProductDel
-    DROP PROCEDURE dbo.dbSpRegisProductActive
+     DROP PROCEDURE dbo.dbSpRegisProductGet
+     DROP PROCEDURE dbo.dbSpRegisProductSet
+     DROP PROCEDURE dbo.dbSpRegisProductDel
+     DROP PROCEDURE dbo.dbSpRegisProductActive
 END
 
 PRINT 'Creacion procedimiento RegisProduct Get '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductGet
     @Id VARCHAR(36),
-    @IdProducto VARCHAR(36),
-    @IdCompania VARCHAR(36),    
-    @IdRegisOrden VARCHAR(36),
-    @IdUsuario VARCHAR(36),
+    @IdProduct VARCHAR(36),    
+    @IdRegisOrden VARCHAR(36),   
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, IdProduct, IdRegisOrden, IdCompania, IdUsuario, Estado, Fecha_log     
+    SELECT Id, IdProduct, IdRegisOrden, Estado, Fecha_log     
     FROM dbo.RegisProduct
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
-    AND IdProduct = CASE WHEN ISNULL(@IdProducto,'')='' THEN IdProduct ELSE @IdProducto END
-    AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END
+    AND IdProduct = CASE WHEN ISNULL(@IdProduct,'')='' THEN IdProduct ELSE @IdProduct END
     AND IdRegisOrden = CASE WHEN ISNULL(@IdRegisOrden,'')='' THEN IdRegisOrden ELSE @IdRegisOrden END
-    AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
 END
@@ -42,24 +38,22 @@ GO
 PRINT 'Creacion procedimiento RegisProduct Set '
 GO
 CREATE PROCEDURE dbo.dbSpRegisProductSet
-    @Id VARCHAR(36),
-    @IdProducto VARCHAR(36),
-    @IdCompania VARCHAR(36),
-    @IdRegisOrden VARCHAR(36),
-    @IdUsuario VARCHAR(36),
-    @Estado BIT,
-    @Operacion VARCHAR(1)
+    @Id             VARCHAR(36),
+    @IdProduct      VARCHAR(36),    
+    @IdRegisOrden   VARCHAR(36),    
+    @Estado         BIT,
+    @Operacion      VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.RegisProduct(Id, IdProduct, IdCompania, IdRegisOrden, IdUsuario, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @IdProducto, @IdCompania, @IdRegisOrden, @IdUsuario, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.RegisProduct(Id, IdProduct, IdRegisOrden, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @IdProduct, @IdRegisOrden, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.RegisProduct
-        SET IdProduct = @IdProducto, IdCompania = @IdCompania, IdRegisOrden = @IdRegisOrden, IdUsuario = @IdUsuario, Estado = @Estado
+        SET IdProduct = @IdProduct, IdRegisOrden = @IdRegisOrden, Estado = @Estado
         WHERE Id = @Id
     END
 END

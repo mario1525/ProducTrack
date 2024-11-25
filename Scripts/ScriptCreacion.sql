@@ -487,14 +487,16 @@ BEGIN
     CREATE TABLE dbo.RegisProductProcesEtap(
         Id                      VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',  /*id interno del registro*/
         IdProductAsig           VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla ProductAsig */  
-        Observacion             VARCHAR( 255) NOT NULL DEFAULT '',           /*FK de la tabla ProcesEtap*/
-        IdAdjuntos              VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Adjuntos*/
+        Observacion             VARCHAR(255) NOT NULL DEFAULT '',           /*FK de la tabla ProcesEtap*/
+        IdUsuario	            VARCHAR(36) NOT NULL DEFAULT '',           /*FK de la tabla Usuarios*/        
         Estado			        BIT NOT NULL DEFAULT 1,                   /*Estado*/
 		Eliminado		        BIT NOT NULL DEFAULT 0,                  /*Eliminado*/
         Fecha_log               SMALLDATETIME DEFAULT CURRENT_TIMESTAMP /*log fecha*/
     ) ON [PRIMARY]
     ALTER TABLE dbo.RegisProductProcesEtap ADD CONSTRAINT
-		FKRegisproducppptP FOREIGN KEY (IdProductAsig) REFERENCES dbo.ProductAsig(Id)     
+		FKRegisproducppptP FOREIGN KEY (IdProductAsig) REFERENCES dbo.ProductAsig(Id)
+    ALTER TABLE dbo.RegisProductProcesEtap ADD CONSTRAINT
+		FKReUsuarioRePro FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(Id)        
 END
 GO
 
@@ -537,7 +539,7 @@ BEGIN
 END
 GO
 
--- Por terminar 
+
 -- tabla SMTPHistorial 
 PRINT 'creacion de la tabla de historial de Notificacines SMTP'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'SMTPHistorial')
@@ -558,8 +560,28 @@ BEGIN
 END
 GO
 
+
 -- Tabla Product
-PRINT 'creacion de la tabla de SMTPPlant de producto'
+PRINT 'creacion de la tabla de SMTPPlant de Orden'
+IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'OrdenSMTPPlant')
+BEGIN
+    CREATE TABLE dbo.OrdenSMTPPlant(
+        Id                  VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/ 
+        IdSMTPPlant         VARCHAR(36) NOT NULL DEFAULT '',               /*FK de la tabla ReportPlant*/ 
+        IdOrden             VARCHAR(36) NOT NULL DEFAULT '',              /*FK de la tabla Orden*/
+        Estado			        BIT NOT NULL DEFAULT 1,                  /*Estado*/
+		Eliminado		        BIT NOT NULL DEFAULT 0,                 /*Eliminado*/       
+        Fecha_log           SMALLDATETIME DEFAULT CURRENT_TIMESTAMP    /*log fecha*/
+    ) ON [PRIMARY]
+    ALTER TABLE dbo.OrdenSMTPPlant ADD CONSTRAINT
+		FKOrdenSMTPPlant FOREIGN KEY (IdOrden) REFERENCES dbo.Orden(Id)
+    ALTER TABLE dbo.OrdenSMTPPlant ADD CONSTRAINT
+		FKOrdenReportSMTP FOREIGN KEY (IdSMTPPlant) REFERENCES dbo.SMTPPlant(Id) 
+END
+GO
+
+-- Tabla Product
+PRINT 'creacion de la tabla de SMTPPlant de Producto'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'ProductSMTPPlant')
 BEGIN
     CREATE TABLE dbo.ProductSMTPPlant(

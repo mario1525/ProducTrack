@@ -2,29 +2,29 @@
 -- Author:		Mario Beltran
 -- Create Date: 2024/11/20
 -- Description: creacion de los procedimientos almacenados
--- para la tabla ReportePlant de la DB ProductTrack
+-- para la tabla SMTPPlant de la DB ProductTrack
 -- ========================================================
 
-PRINT 'Creacion procedimientos tabla ReportePlant'
-IF EXISTS(SELECT NAME FROM SYSOBJECTS WHERE NAME LIKE 'dbSpReportePlant%')
+PRINT 'Creacion procedimientos tabla SMTPPlant'
+IF EXISTS(SELECT NAME FROM SYSOBJECTS WHERE NAME LIKE 'dbSpSMTPPlant%')
 BEGIN
-    DROP PROCEDURE dbo.dbSpReportePlantGet
-	DROP PROCEDURE dbo.dbSpReportePlantSet
-	DROP PROCEDURE dbo.dbSpReportePlantDel
-	DROP PROCEDURE dbo.dbSpReportePlantActive    
+    DROP PROCEDURE dbo.dbSpSMTPPlantGet
+	DROP PROCEDURE dbo.dbSpSMTPPlantSet
+	DROP PROCEDURE dbo.dbSpSMTPPlantDel
+	DROP PROCEDURE dbo.dbSpSMTPPlantActive    
 END
 
-PRINT 'Creacion procedimiento ReportePlant Get '
+PRINT 'Creacion procedimiento SMTPPlant Get '
 GO
-CREATE PROCEDURE dbo.dbSpReportePlantGet
+CREATE PROCEDURE dbo.dbSpSMTPPlantGet
     @Id             VARCHAR(36),
     @Nombre         VARCHAR(255),
     @IdCompania     VARCHAR(36),
     @Estado         INT
 AS 
 BEGIN
-    SELECT Id, Nombre, Descripcion, IdCompania, plantilla, Estado, Fecha_log     
-    FROM dbo.ReportePlant
+    SELECT Id, Nombre, IdCompania, Subjec, mesage, Estado, Fecha_log     
+    FROM dbo.SMTPPlant
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END   
     AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END    
@@ -33,59 +33,59 @@ BEGIN
 END
 GO
 
-PRINT 'Creacion procedimiento ReportePlant Set '
+PRINT 'Creacion procedimiento SMTPPlant Set '
 GO
-CREATE PROCEDURE dbo.dbSpReportePlantSet
+CREATE PROCEDURE dbo.dbSpSMTPPlantSet
     @Id             VARCHAR(36),
     @Nombre         VARCHAR(255),
-    @Descripcion    VARCHAR(255),
     @IdCompania     VARCHAR(36),
-    @plantilla       VARCHAR(MAX),
+    @Subjec         VARCHAR(255),
+    @mesage         VARCHAR(MAX),
     @Estado         INT,
     @Operacion      VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.ReportePlant(Id, Nombre, Descripcion, IdCompania, plantilla, Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @Descripcion, @IdCompania, @plantilla, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.SMTPPlant(Id, Nombre, IdCompania, Subjec, mesage, Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @Nombre, @IdCompania, @Subjec, @mesage, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
-        UPDATE dbo.ReportePlant
-        SET Nombre = @Nombre,  Descripcion = @Descripcion,  IdCompania = @IdCompania, plantilla = @plantilla, Estado = @Estado
+        UPDATE dbo.SMTPPlant
+        SET Nombre = @Nombre,  Subjec = @Subjec,  IdCompania = @IdCompania, mesage = @mesage, Estado = @Estado
         WHERE Id = @Id
     END
 END
 GO
 
 
-PRINT 'Creacion procedimiento ReportePlant Del '
+PRINT 'Creacion procedimiento SMTPPlant Del '
 GO
-CREATE PROCEDURE dbo.dbSpReportePlantDel
+CREATE PROCEDURE dbo.dbSpSMTPPlantDel
     @Id VARCHAR(36)
 AS
 BEGIN
     -- Actualiza el estado "Eliminado" a 1
-    UPDATE dbo.ReportePlant
+    UPDATE dbo.SMTPPlant
     SET Eliminado = 1
     WHERE Id = @Id;
     
     -- Obtiene el estado "Eliminado" después de la actualización 
     SELECT Eliminado
-    FROM dbo.ReportePlant
+    FROM dbo.SMTPPlant
     WHERE Id = @Id;    
 END
 
 GO 
-PRINT 'Creacion procedimiento ReportePlant Active '
+PRINT 'Creacion procedimiento SMTPPlant Active '
 GO
-CREATE PROCEDURE dbo.dbSpReportePlantActive
+CREATE PROCEDURE dbo.dbSpSMTPPlantActive
     @Id VARCHAR(36),
     @Estado BIT
 AS
 BEGIN
-    UPDATE dbo.ReportePlant
+    UPDATE dbo.SMTPPlant
     SET Estado = @Estado
     WHERE Id = @Id
 END
