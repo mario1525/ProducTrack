@@ -34,7 +34,7 @@ namespace Controller.Endpoint
             return _UserLogical.Create(value);
         }
 
-        // PUT api/<UserProyectController>/5
+        // PUT api/UserProyect/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] UserProyect value)
@@ -43,7 +43,7 @@ namespace Controller.Endpoint
             return _UserLogical.Update(value);
         }
 
-        // DELETE api/<UserProyectController>/5
+        // DELETE api/UserProyect/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

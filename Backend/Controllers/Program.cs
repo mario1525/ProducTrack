@@ -3,7 +3,7 @@ using Entity;
 using System.Text;
 using Services;
 using Data.SQLClient;
-using Middlewares;
+//using Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,16 +25,13 @@ builder.Services.AddSingleton<SqlClient>(new SqlClient(connectionString));
 
 //Data
 builder.Services.AddSingleton<DaoCompania>();
-//builder.Services.AddSingleton<DaoUsuario>(); //
-//builder.Services.AddSingleton<DaoUsuarioCredential>();//
-builder.Services.AddSingleton<DaoLab>();
-builder.Services.AddSingleton<DaoLabCamp>();
 builder.Services.AddSingleton<DaoOrden>();
 builder.Services.AddSingleton<DaoProceso>();
 builder.Services.AddSingleton<DaoProductCamp>();
 builder.Services.AddSingleton<DaoOrdenCamp>();
 builder.Services.AddSingleton<DaoProcesEtap>();
 builder.Services.AddSingleton<DaoProducto>();
+builder.Services.AddSingleton<DaoProyecto>();
 
 
 //Entity
@@ -42,11 +39,7 @@ builder.Services.AddSingleton<Compania>();
 builder.Services.AddSingleton<VistaCompania>();
 builder.Services.AddSingleton<Usuario>(); //
 builder.Services.AddSingleton<Mensaje>();
-builder.Services.AddSingleton<UsuarioCredential>();
-builder.Services.AddSingleton<Login>();
 builder.Services.AddSingleton<Token>(); //
-builder.Services.AddSingleton<Lab>();
-builder.Services.AddSingleton<LabCamp>();
 builder.Services.AddSingleton<Orden>();
 builder.Services.AddSingleton<Producto>();
 builder.Services.AddSingleton<ProcesEtap>();
@@ -54,31 +47,22 @@ builder.Services.AddSingleton<Proceso>();
 builder.Services.AddSingleton<CreateProduct>();
 builder.Services.AddSingleton<CreateProces>();
 builder.Services.AddSingleton<CreateOrden>();
-builder.Services.AddSingleton<CreateLab>();
 builder.Services.AddSingleton<ProductCamp>();
 builder.Services.AddSingleton<OrdenCamp>();
 builder.Services.AddSingleton<Producto>();
+builder.Services.AddSingleton<Proyecto>();
 builder.Services.AddSingleton<etapas>();
 
 
 //Services
 builder.Services.AddSingleton<CompaniaLogical>();
-//builder.Services.AddSingleton<UsuarioLogical>();
-//builder.Services.AddSingleton<UsuarioCredentialLogical>();
 builder.Services.AddSingleton<ProcesoLogical>();
 builder.Services.AddSingleton<ProductLogical>();
+builder.Services.AddSingleton<ProyectoLogical>();
 builder.Services.AddSingleton<ProductCampLogical>();
 builder.Services.AddSingleton<OrdenLogical>();
 builder.Services.AddSingleton<OrdenCampLogical>();
-builder.Services.AddSingleton<LabLogical>();
-builder.Services.AddSingleton<LabCampLogical>();
 builder.Services.AddSingleton<EtapaProcesoLogical>();
-
-//Middlewares
-builder.Services.AddSingleton<HashPassword>();
-builder.Services.AddSingleton<GenerateToken>(new GenerateToken(SecretKey,Issuer,Audience));
-
-
 
 // Add services to the container.
 builder.Services.AddRazorPages();

@@ -20,17 +20,15 @@ GO
 CREATE PROCEDURE dbo.dbSpProyectoGet
     @Id          VARCHAR(36),
     @Nombre      VARCHAR(255),
-    @IdCompania  VARCHAR(36),
-    @IdUsuario   VARCHAR(36),
+    @IdCompania  VARCHAR(36),    
     @Estado      INT
 AS 
 BEGIN
-    SELECT Id, Nombre, IdCompania, IdUsuario, Estado, Fecha_log     
+    SELECT Id, Nombre, IdCompania, Descripcion, Estado, Fecha_log     
     FROM dbo.Proyecto
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END   
     AND IdCompania = CASE WHEN ISNULL(@IdCompania,'')='' THEN IdCompania ELSE @IdCompania END 
-    AND IdUsuario = CASE WHEN ISNULL(@IdUsuario,'')='' THEN IdUsuario ELSE @IdUsuario END
     AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
     AND Eliminado = 0
 END
@@ -42,20 +40,20 @@ CREATE PROCEDURE dbo.dbSpProyectoSet
     @Id          VARCHAR(36),
     @Nombre      VARCHAR(255),
     @IdCompania  VARCHAR(36),
-    @IdUsuario   VARCHAR(36),
+    @Descripcion VARCHAR(255),
     @Estado      BIT,
     @Operacion   VARCHAR(1)
 AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.Proyecto(Id, Nombre, IdCompania, IdUsuario,  Estado, Fecha_log, Eliminado)
-        VALUES(@Id, @Nombre, @IdCompania, @IdUsuario, @Estado, DEFAULT, 0)
+        INSERT INTO dbo.Proyecto(Id, Nombre, IdCompania, Descripcion,  Estado, Fecha_log, Eliminado)
+        VALUES(@Id, @Nombre, @IdCompania, @Descripcion, @Estado, DEFAULT, 0)
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.Proyecto
-        SET Nombre = @Nombre, IdCompania = @IdCompania, IdUsuario = @IdUsuario, Estado = @Estado
+        SET Nombre = @Nombre, IdCompania = @IdCompania, Descripcion = @Descripcion, Estado = @Estado
         WHERE Id = @Id
     END
 END
