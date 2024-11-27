@@ -7,7 +7,7 @@ using Services;
 
 namespace Controller.Endpoint
 {
-    [Route("api/UserProyect")]
+    [Route("api/Usuario/Proyecto")]
     [ApiController]
     public class UserProyectController : ControllerBase
     {
@@ -18,15 +18,15 @@ namespace Controller.Endpoint
             _UserLogical = usuariological;
         }
 
-        // GET api/UserProyect/5
-        [HttpGet("{id}")]
+        // GET api/Usuario/Proyecto/Compania/5
+        [HttpGet("Compania/{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<UserProyect>> Gets(string id)
         {
             return await _UserLogical.Gets(id);
         }
 
-        // POST api/UserProyect
+        // POST api/Usuario/Proyecto
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Post([FromBody] UserProyect value)
@@ -34,7 +34,7 @@ namespace Controller.Endpoint
             return _UserLogical.Create(value);
         }
 
-        // PUT api/UserProyect/5
+        // PUT api/Usuario/Proyecto/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Put(string id, [FromBody] UserProyect value)
@@ -43,7 +43,7 @@ namespace Controller.Endpoint
             return _UserLogical.Update(value);
         }
 
-        // DELETE api/UserProyect/5
+        // DELETE api/Usuario/Proyecto/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)

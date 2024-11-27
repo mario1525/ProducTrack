@@ -50,6 +50,7 @@ namespace Data
                 new SqlParameter("@Id", Proyecto.Id),
                 new SqlParameter("@Nombre", Proyecto.Nombre),
                 new SqlParameter("@IdCompania", Proyecto.IdCompania),
+                new SqlParameter("@Descripcion", Proyecto.Descripcion),
                 new SqlParameter("@Estado", 1),
                 new SqlParameter("@Operacion", operacion),
             };
@@ -87,6 +88,7 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
                     IdCompania = row["IdCompania"].ToString(),
+                    Descripcion = row["Descripcion"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = row["Fecha_log"].ToString(),
                     // Asigna otras propiedades según tu DataTable

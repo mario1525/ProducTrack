@@ -1,8 +1,11 @@
-﻿-- ==================================================
+﻿-- ==========================================================
 -- Author:		Mario Beltran
 -- Create Date: 2024/05/15
--- Description: creacion de la DB ProductTrack
--- ==================================================
+--        Update: 2024/11/20 
+--            - camnio de logica y se añadio los reportes 
+--              y las notificaciones por correo
+-- Description: creacion de la DB ProductTrack 
+-- ==========================================================
 
 PRINT 'creacion de la DB'
 IF NOT EXISTS(SELECT NAME FROM SYSDATABASES WHERE NAME = 'ProductTrack')

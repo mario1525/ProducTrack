@@ -3,6 +3,16 @@
 -- Create Date: 2024/06/5
 -- Description: creacion de los procedimientos almacenados
 -- para la tabla compania de la DB ProductTrack
+-- 
+-- --------------------------------------------------------
+--                     UPDATES 
+-- --------------------------------------------------------
+-- Author:		Mario Beltran
+-- Update Date: 2024/11/26
+-- Description: se actualizo el sp dbo.dbSpCompaniaGetVista 
+--              por cambios en la estructura genral de la
+--              base de datos.             
+-- --------------------------------------------------------
 -- ========================================================
 
 PRINT 'Creacion procedimientos tabla Compania'
@@ -100,24 +110,55 @@ BEGIN
 END
 GO
 
+--==================================================
+-- SP para mostrar Numero general del las companias 
+--==================================================
 PRINT 'Creación del procedimiento Compania Get vista'
 GO
 CREATE PROCEDURE dbo.dbSpCompaniaGetVista  
 AS 
 BEGIN
-    SELECT 
-        C.Id AS ID, 
-        C.Nombre AS Compania,
-        (SELECT COUNT(U.Id) FROM Usuario U WHERE U.IdCompania = C.Id) AS NumeroDeUsuarios,
-        (SELECT COUNT(RO.Id) FROM RegisOrden RO INNER JOIN Orden O ON O.Id = RO.IdOrden WHERE O.IdCompania = C.Id) AS NOrdenesRegis, 
-        (SELECT COUNT(RP.Id) FROM RegisProduct RP INNER JOIN Producto P ON P.Id = RP.IdProduct WHERE P.IdCompania = C.Id) AS NProductosRegis,
-        C.Fecha_log
-    FROM 
-        Compania C
-    WHERE 
-        C.Eliminado = 0
-    ORDER BY 
-        NumeroDeUsuarios DESC;
+	SELECT 
+		C.Id AS ID, 
+		C.Nombre AS Compania,
+
+		-- numero de usuarios en la compania
+		(SELECT COUNT(U.Id)
+		 FROM Usuario U 
+		 WHERE U.IdCompania = C.Id
+		 AND U.Eliminado = 0) AS NumeroDeUsuarios,
+
+        -- Numero de proyecto asociados a la compania
+		(SELECT COUNT(P.Id) 
+		 FROM Proyecto P 
+		 WHERE P.IdCompania = C.Id 
+		 AND P.Eliminado = 0) AS NumeroProyectos,
+     
+	    -- Numero de Ordenes Registradas en la Compania
+		(SELECT COUNT(RO.Id) 
+		 FROM RegisOrden RO 
+		 INNER JOIN Orden O ON RO.IdOrden = O.Id
+		 INNER JOIN Proyecto P ON O.IdProyecto = P.Id
+		 WHERE P.IdCompania = C.Id
+		 AND RO.Eliminado = 0) AS NOrdenesRegis,
+     
+	    -- Numero de productos registrados en la compania
+		(SELECT COUNT(RP.Id) 
+		 FROM RegisProduct RP 
+		 INNER JOIN Producto PR ON RP.IdProduct = PR.Id
+		 INNER JOIN Proyecto P ON PR.IdProyecto = P.Id
+		 WHERE P.IdCompania = C.Id
+		 AND RP.Eliminado = 0) AS NProductosRegis,
+     
+		C.Fecha_log
+	FROM 
+		Compania C
+	WHERE 
+		C.Eliminado = 0
+	ORDER BY 
+		NumeroDeUsuarios DESC;
+
 END
 GO
+
 

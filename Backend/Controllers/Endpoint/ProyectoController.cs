@@ -7,7 +7,7 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/[controller]")]
+    [Route("api/Proyecto")]
     [ApiController]
     public class ProyectoController : ControllerBase
     {

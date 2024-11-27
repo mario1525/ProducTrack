@@ -40,6 +40,7 @@ namespace Data
                     Id = row["Id"].ToString(),
                     Compania = row["Compania"].ToString(),
                     NumeroDeUsuarios = row["NumeroDeUsuarios"].ToString(),
+                    NumeroProyectos = row["NumeroProyectos"].ToString(),                   
                     NOrdenesRegis = row["NOrdenesRegis"].ToString(),
                     NProductosRegis = row["NProductosRegis"].ToString(),                    
                     Fecha_log = row["Fecha_log"].ToString(),
