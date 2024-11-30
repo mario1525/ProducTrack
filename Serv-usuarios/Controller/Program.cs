@@ -6,7 +6,6 @@ using Data.SQLClient;
 using Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Builder;
 
 
 // Configuraci?n de las variables de entorno 

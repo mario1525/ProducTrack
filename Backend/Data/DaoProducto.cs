@@ -19,7 +19,7 @@ namespace Data
             {
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdProyecto", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1),               
             };
@@ -34,7 +34,7 @@ namespace Data
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", IdCompania),
+                new SqlParameter("@IdProyecto", IdCompania),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1),                
             };
@@ -70,7 +70,7 @@ namespace Data
             {
                 new SqlParameter("@Id", producto.producto.Id),
                 new SqlParameter("@Nombre", producto.producto.Nombre),
-                new SqlParameter("@IdCompania", producto.producto.IdCompania),
+                new SqlParameter("@IdProyecto", producto.producto.IdProyecto),
                 new SqlParameter("@IdProceso", producto.producto.IdProceso),
                 new SqlParameter("@Estado", producto.producto.Estado),
                 new SqlParameter
@@ -117,7 +117,7 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    IdCompania = row["IdCompania"].ToString(),
+                    IdProyecto = row["IdProyecto"].ToString(),
                     IdProceso = row["IdProceso"].ToString(),
                     Estado = Convert.ToBoolean(row["Estado"]),                    
                     Fecha_log = row["Fecha_log"].ToString(),
