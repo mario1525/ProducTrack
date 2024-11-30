@@ -32,6 +32,7 @@ builder.Services.AddSingleton<DaoOrdenCamp>();
 builder.Services.AddSingleton<DaoProcesEtap>();
 builder.Services.AddSingleton<DaoProducto>();
 builder.Services.AddSingleton<DaoProyecto>();
+builder.Services.AddSingleton<DaoTipoOrden>();
 
 
 //Entity
@@ -52,6 +53,7 @@ builder.Services.AddSingleton<OrdenCamp>();
 builder.Services.AddSingleton<Producto>();
 builder.Services.AddSingleton<Proyecto>();
 builder.Services.AddSingleton<etapas>();
+builder.Services.AddSingleton<TipoOrden>();
 
 
 //Services
@@ -63,6 +65,7 @@ builder.Services.AddSingleton<ProductCampLogical>();
 builder.Services.AddSingleton<OrdenLogical>();
 builder.Services.AddSingleton<OrdenCampLogical>();
 builder.Services.AddSingleton<EtapaProcesoLogical>();
+builder.Services.AddSingleton<TipoOrdenLogical>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

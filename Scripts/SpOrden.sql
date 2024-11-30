@@ -40,7 +40,7 @@ CREATE PROCEDURE dbo.dbSpOrdenGet
     @Estado       INT
 AS 
 BEGIN
-    SELECT O.Id, O.Nombre, P.Nombre AS Proyecto, O.Estado, O.IdProceso, O.Fecha_log     
+    SELECT O.Id, O.Nombre, P.Nombre AS Proyecto, O.IdTipoOrden,  O.IdProceso, O.Estado, O.Fecha_log     
     FROM Orden O
 	LEFT JOIN Proyecto P ON O.IdProyecto = P.Id
     WHERE O.Id = CASE WHEN ISNULL(@Id,'')='' THEN O.Id ELSE @Id END

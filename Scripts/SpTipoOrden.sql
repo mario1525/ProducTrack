@@ -17,12 +17,13 @@ END
 PRINT 'Creacion procedimiento tipoorden Get '
 GO
 CREATE PROCEDURE dbo.dbSpTipoOrdenGet
-    @Id                               VARCHAR(36),   
+    @Id                               VARCHAR(36), 
+    @Nombre                           VARCHAR(255),
 	@IdProyecto                       VARCHAR(36),	
     @Estado                           INT 
 AS 
 BEGIN
-    SELECT Id, Nombre, Apellido, Identificacion, Correo, IdProyecto, Cargo, Rol, Estado, Fecha_log     
+    SELECT Id, Nombre, Descripcion, IdProyecto, Estado, Fecha_log     
     FROM dbo.TipoOrden
     WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
     AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END   
@@ -36,7 +37,8 @@ PRINT'Creacion procedimiento tipoorden Set '
 GO
 CREATE PROCEDURE dbo.dbSpTipoOrdenSet
     @Id                 VARCHAR(36),
-    @Nombre             VARCHAR(40),    
+    @Nombre             VARCHAR(40),
+    @Descripcion        VARCHAR(255),    
 	@IdProyecto         VARCHAR(36),
     @Estado             BIT,
     @Operacion          VARCHAR(1)
@@ -44,13 +46,14 @@ AS
 BEGIN
     IF @Operacion = 'I'
     BEGIN
-        INSERT INTO dbo.TipoOrden(Id, Nombre, IdProyecto, Estado, Eliminado, Fecha_log)
-        VALUES(@Id, @Nombre, @IdProyecto, @Estado, 0, GETDATE());
+        INSERT INTO dbo.TipoOrden(Id, Nombre, Descripcion, IdProyecto, Estado, Eliminado, Fecha_log)
+        VALUES(@Id, @Nombre, @Descripcion, @IdProyecto, @Estado, 0, GETDATE());
     END
     ELSE IF @Operacion = 'A'
     BEGIN
         UPDATE dbo.TipoOrden
-        SET Nombre         = @Nombre,            
+        SET Nombre         = @Nombre, 
+            Descripcion    = @Descripcion,           
             IdProyecto     = @IdProyecto,
             Estado         = @Estado
         WHERE Id           = @Id;

@@ -153,8 +153,9 @@ PRINT 'creacion de la tabla TipoOrden'
 IF NOT EXISTS(SELECT NAME FROM sysobjects WHERE NAME = 'TipoOrden')
 BEGIN
     CREATE TABLE dbo.TipoOrden(
-        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',   /*id interno del registro*/
-        Nombre        VARCHAR(255) NOT NULL DEFAULT '',             /*Nombre de la etapa*/  
+        Id            VARCHAR(36) NOT NULL PRIMARY KEY DEFAULT '',    /*id interno del registro*/
+        Nombre        VARCHAR(255) NOT NULL DEFAULT '',              /*Nombre de la etapa*/ 
+        Descripcion	  VARCHAR(255) NOT NULL DEFAULT '',             /*Descripcion del tipo de orden*/  
         IdProyecto	  VARCHAR(36) NOT NULL DEFAULT '',             /*FK de la tabla Proyecto*/     
         Estado		  BIT NOT NULL DEFAULT 1,                     /*Estado del Usuario*/
 		Eliminado	  BIT NOT NULL DEFAULT 0,                    /*Eliminado usuario*/

@@ -18,9 +18,10 @@ namespace Data
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@IdOrden", Id),
+                new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdProyecto", ""),
+                new SqlParameter("@IdTipoOrden", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -28,14 +29,15 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<Orden>> Gets(string IdCompania)
+        public async Task<List<Orden>> Gets(string IdProyecto)
         {
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
             {
-                new SqlParameter("@IdOrden", ""),
+                new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdCompania", IdCompania),
+                new SqlParameter("@IdProyecto", IdProyecto),
+                new SqlParameter("@IdTipoOrden", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
             };
@@ -72,7 +74,8 @@ namespace Data
             {
                 new SqlParameter("@Id", orden.Orden.Id),
                 new SqlParameter("@Nombre", orden.Orden.Nombre),
-                new SqlParameter("@IdCompania", orden.Orden.IdCompania),
+                new SqlParameter("@IdProyecto", orden.Orden.IdProyecto),
+                new SqlParameter("@IdTipoOrden", orden.Orden.IdTipoOrden),
                 new SqlParameter("@IdProceso", orden.Orden.IdProceso),
                 new SqlParameter("@Estado", orden.Orden.Estado),
                 new SqlParameter
@@ -119,10 +122,10 @@ namespace Data
                 {
                     Id = row["Id"].ToString(),
                     Nombre = row["Nombre"].ToString(),
-                    IdCompania = row["Compania"].ToString(),
-                    IdProceso = row["IdProceso"].ToString(),
-                    Estado = Convert.ToBoolean(row["Estado"]),                    
-                    //Eliminado = Convert.ToBoolean(row["Eliminado"]),
+                    IdTipoOrden = row["IdTipoOrden"].ToString(),
+                    IdProyecto  = row["Proyecto"].ToString(),                    
+                    IdProceso   = row["IdProceso"].ToString(),
+                    Estado      = Convert.ToBoolean(row["Estado"]),
                     Fecha_log = row["Fecha_log"].ToString(),
                 };
                 ordenList.Add(orden);

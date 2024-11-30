@@ -7,51 +7,51 @@ using Services;
 
 namespace Controllers.Endpoint
 {
-    [Route("api/Orden/Campo")]
+    [Route("api/Orden/Tipo")]
     [ApiController]
-    public class OrdenCampController : ControllerBase
+    public class OrdenTipoController : ControllerBase
     {
-        private readonly OrdenCampLogical _Logical;
+        private readonly TipoOrdenLogical _Logical;
 
-        public OrdenCampController(OrdenCampLogical logical)
+        public OrdenTipoController(TipoOrdenLogical logical)
         {
             _Logical = logical;
         }
-        // GET api/Orden/Campo/Orden/5
-        [HttpGet("Orden/{idOrden}")]
+        // GET api/Orden/Tipo/Proyecto/5
+        [HttpGet("Proyecto/{idProyecto}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
-        public async Task<List<OrdenCamp>> Gets(string idOrden)
+        public async Task<List<TipoOrden>> Gets(string idProyecto)
         {
-            return await _Logical.Gets(idOrden);
+            return await _Logical.Gets(idProyecto);
         }
 
-        // GET api/Orden/Campo/5
+        // GET api/Orden/Tipo/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
-        public async Task<List<OrdenCamp>> Get(string id)
+        public async Task<List<TipoOrden>> Get(string id)
         {
             return await _Logical.Get(id);
         }
 
-        // POST api/Orden/Campo
+        // POST api/Orden/Tipo
         [HttpPost]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public Mensaje Post([FromBody] OrdenCamp value)
+        public Mensaje Post([FromBody] TipoOrden value)
         {
             return _Logical.Create(value);
         }
 
 
-        // PUT api/Orden/Campo/5
+        // PUT api/Orden/Tipo/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
-        public Mensaje Put(string id, [FromBody] OrdenCamp value)
+        public Mensaje Put(string id, [FromBody] TipoOrden value)
         {
             value.Id = id;
             return _Logical.Update(value);
         }
 
-        // DELETE api/Orden/Campo/5
+        // DELETE api/Orden/Tipo/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public Mensaje Delete(string id)
@@ -60,3 +60,4 @@ namespace Controllers.Endpoint
         }
     }
 }
+
