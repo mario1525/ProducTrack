@@ -1,8 +1,9 @@
 
 export type VistaCompania = {
     id: string,    
-    compania: string,
+    compania: string,    
     numeroDeUsuarios: string,
+    NumeroProyectos: string,
     nOrdenesRegis: string,
     nProductosRegis: string,
     fecha_log : string

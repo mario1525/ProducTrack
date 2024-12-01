@@ -2,7 +2,7 @@ import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { Compania } from 'src/types/compania';
 import { producto } from 'src/types/Producto';
-import { lab } from 'src/types/laboratorios';
+import { Proyecto } from 'src/types/proyecto';
 import { orden } from 'src/types/ordenes';
 import { Proceso } from 'src/types/procesos';
 import { TokenserviceService } from '../../../shared/services/Token.service';
@@ -10,7 +10,7 @@ import { CompaniaService } from 'src/app/shared/services/Compania.service';
 import { ordenService } from 'src/app/shared/services/Orden.service';
 import { procesoService } from 'src/app/shared/services/Proceso.service';
 import { productoService } from 'src/app/shared/services/Producto.service';
-import { labService } from 'src/app/shared/services/laboratorio.service';
+import { ProyectoService } from 'src/app/shared/services/Proyecto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -24,23 +24,23 @@ export class DetallecompaniaComponent implements OnInit {
   IdCompania: string = "";
   Compania: Compania | undefined;
   procesos: Proceso[] = [];
-  laboratorios: lab[] = [];
+  proyecto: Proyecto[] = [];
   ordenes: orden[] = [];
   productos: producto[] = [];
   navRoutes = [ 
+    { path: 'App/Compania/:id/Proyectos', label: 'Proyectos' },
     { path: 'App/Compania/:id/Usuarios', label: 'Usuarios' },
     { path: 'App/Compania/:id/Productos', label: 'Productos' },
     { path: 'App/Compania/:id/Procesos', label: 'Procesos' },
     { path: 'App/Compania/:id/Ordenes', label: 'Ordenes' },    
-    { path: 'App/Compania/:id/Laboratorios', label: 'Laboratorios' },
     { path: 'App/Compania/:id/Registros/Productos', label: 'Registros Productos' },
     { path: 'App/Compania/:id/Registros/Ordenes', label: 'Registros Ordenes' },
   ];
   constructor(
      private route: Router,
      private procesoService : procesoService, 
-     private productoService : productoService, 
-     private labService : labService, 
+     private productoService : productoService,
+     private ProyectoService : ProyectoService,       
      private CompaniaService : CompaniaService, 
      private ordenService : ordenService ,
      private auth: TokenserviceService, 
@@ -98,13 +98,13 @@ export class DetallecompaniaComponent implements OnInit {
           return; 
         },
         error: (error) => {
-          console.log(error)
+          console.log(error) 
         }
       })
   
-      this.labService.obtener_labs(this.IdCompania).subscribe({
-        next: (laboratorios) => {
-          this.laboratorios = laboratorios
+      this.ProyectoService.obtener_proyectos(this.IdCompania).subscribe({
+        next: (proyectos) => {
+          this.proyecto = proyectos
           return; 
         },
         error: (error) => {

@@ -56,7 +56,7 @@
       </div>
   
       <div class="section">
-        <h3>Laboratorios</h3>
+        <h3>Proyectos</h3>
         <button class="btn agregar" (click)="createLab()">Agregar</button>
         <table>
           <tr>
@@ -64,9 +64,9 @@
             <th>Nombre</th>
             <th>Acciones</th>
           </tr>
-          <tr *ngFor="let laboratorio of laboratorios; let indice = index;">
-            <td>{{ laboratorio.id }}</td>
-            <td>{{ laboratorio.nombre }}</td>
+          <tr *ngFor="let proyect of proyecto; let indice = index;">
+            <td>{{ proyect.id }}</td>
+            <td>{{ proyect.nombre }}</td>
             <td>
               <button class="btn editar" (click)="rediretLab(indice)">✏️</button>              
             </td>

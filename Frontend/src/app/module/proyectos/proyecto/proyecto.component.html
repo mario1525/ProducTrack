@@ -1,0 +1,26 @@
+
+<div>
+    <div class="form">    
+    <div class="header">
+        <h2>Producto</h2>        
+        <div class="btns">
+        <button *ngIf="idProyecto" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idProyecto ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idProyecto? 'Actualizar' : 'agregar' }}</button>
+    </div>
+      </div>
+    <form [formGroup]="Form" >
+    <div class="general-info">
+      <div>
+        <label>Nombre</label>
+        <input formControlName="nombre" />
+      </div>  
+      <div>
+        <label>Descripcion</label>
+        <input formControlName="descripcion" />
+      </div>          
+    </div>       
+    </form>
+    </div>
+</div>
+
+

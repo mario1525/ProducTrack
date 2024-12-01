@@ -9,18 +9,18 @@ import { UsuarioComponent } from './module/usuarios/usuario/usuario.component';
 import { ProductosComponent } from './module/productos/productos.component';
 import { ProcesosComponent } from './module/procesos/procesos.component';
 import { OrdenesComponent } from './module/ordenes/ordenes.component';
-import { LaboratoriosComponent } from './module/laboratorios/laboratorios.component';
 import { DetallecompaniaComponent } from './module/compania/detallecompania/detallecompania.component';
 import { ProcesoComponent } from './module/procesos/proceso/proceso.component';
 import { CredentialComponent } from './module/usuarios/credential/credential.component';
 import { OrdenComponent } from './module/ordenes/orden/orden.component';
-import { LaboratorioComponent } from './module/laboratorios/laboratorio/laboratorio.component';
 import { ProductoComponent } from './module/productos/producto/producto.component';
 import { RegistrosComponent } from './module/ordenes/registros/registros.component'
 import { RegistrarComponent } from './module/ordenes/registrar/registrar.component'
 import { RegistrarProductoComponent } from './module/productos/registrar-producto/registrar-producto.component';
 import { RegistrosProductoComponent } from './module/productos/registros-producto/registros-producto.component';
 import { EtapaOrdenComponent } from './module/etapa/etapa-orden/etapa-orden.component';
+import { ProyectosComponent } from './module/proyectos/proyectos.component';
+import { ProyectoComponent } from './module/proyectos/proyecto/proyecto.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +30,10 @@ const routes: Routes = [
     { path: 'App/Companias', component: CompaniaComponent},
     { path: 'App/Compania', component: DetallecompaniaComponent},
     { path: 'App/Compania/:id', component: DetallecompaniaComponent},
+
+    { path: 'App/Compania/:id/Proyectos', component: ProyectosComponent},
+    { path: 'App/Compania/:id/Proyecto', component: ProyectoComponent},
+    { path: 'App/Compania/:id/Proyecto/:id', component: ProyectoComponent},
 
     { path: 'App/Compania/:id/Usuarios', component: UsuariosComponent},
     { path: 'App/Compania/:id/Usuario/:id', component: UsuarioComponent},
@@ -57,9 +61,7 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Registro/Orden/:id/Etapa/:id', component: EtapaOrdenComponent},
     { path: 'App/Compania/:id/Registro/Orden/:id/Etapa', component: EtapaOrdenComponent},
     
-    { path: 'App/Compania/:id/Laboratorios', component: LaboratoriosComponent}, 
-    { path: 'App/Compania/:id/Laboratorio/:id', component: LaboratorioComponent},
-    { path: 'App/Compania/:id/Laboratorio', component: LaboratorioComponent},  
+ 
           
   ];
   

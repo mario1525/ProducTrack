@@ -12,8 +12,8 @@ import { UsuariosModule } from './module/usuarios/usuarios.module';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './component/header/header.component';
 import { ProductosModule } from './module/productos/productos.module';
-import { LaboratoriosModule } from './module/laboratorios/laboratorios.module';
 import { ProcesosModule } from './module/procesos/procesos.module';
+import { ProyectosModule } from './module/proyectos/proyectos.module';
 import { OrdenesModule } from './module/ordenes/ordenes.module';
 import { EtapaModule } from './module/etapa/etapa.module';
 //import { InputComponent } from './component/input/input.component';
@@ -31,8 +31,8 @@ import { EtapaModule } from './module/etapa/etapa.module';
     LoginModule,
     SharedModule,
     HomeModule,
-    LaboratoriosModule,
     ProcesosModule,
+    ProyectosModule,
     OrdenesModule,
     CompaniaModule,
     UsuariosModule,

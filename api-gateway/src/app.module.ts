@@ -6,11 +6,11 @@ import { HttpModule } from '@nestjs/axios';
 import { UsuarioModule } from './usuario/usuario.module';
 import { CompaniaModule } from './compania/compania.module';
 import { ProcesoModule } from './proceso/proceso.module';
-import { LabModule } from './lab/lab.module';
 import { ProductoModule } from './producto/producto.module';
 import { OrdenModule } from './orden/orden.module';
 import { EtapaController } from './etapa/etapa.controller';
 import { EtapaModule } from './etapa/etapa.module';
+import { ProyectoModule } from './proyecto/proyecto.module';
 
 @Module({
   imports: [
@@ -19,10 +19,10 @@ import { EtapaModule } from './etapa/etapa.module';
     UsuarioModule,
     CompaniaModule,
     ProcesoModule,
-    LabModule,
     ProductoModule,
     OrdenModule,
     EtapaModule,
+    ProyectoModule,
   ],
   controllers: [AppController, EtapaController],
   providers: [AppService],

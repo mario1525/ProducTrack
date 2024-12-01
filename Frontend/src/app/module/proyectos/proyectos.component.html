@@ -1,0 +1,45 @@
+
+<div class="header">
+    <h2>Proyectos</h2>
+    <div class="header-item">
+      <label for="identification">Identificación</label>
+      <input id="identification" type="text" placeholder="Identificación">
+    </div>
+    <div class="header-item">
+      <label for="name">Nombre</label>
+      <input id="name" type="text" placeholder="Nombre">
+    </div>
+    <div class="header-item">
+      <label for="company">Compañía</label>
+      <input id="company" type="text" placeholder="Compañía">
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="btn filtrar">Filtrar</button>
+    <button class="btn agregar" (click)="create()">Agregar</button>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Compañía</th>
+          <th>Fecha Creación</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="datos_Proyectos.length">
+        <tr *ngFor="let product of datos_Proyectos; let indice = index;">
+          <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="rediretdetalle(indice)" /></td>
+          <td>{{ product.id }}</td>
+          <td>{{ product.nombre }}</td>
+          <td>{{ product.descripcion }}</td>
+          <td>{{ product.idCompania }}</td>
+          <td>{{ product.fecha_log }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+

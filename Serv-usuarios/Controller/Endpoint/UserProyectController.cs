@@ -18,8 +18,8 @@ namespace Controller.Endpoint
             _UserLogical = usuariological;
         }
 
-        // GET api/Usuario/Proyecto/Compania/5
-        [HttpGet("Compania/{id}")]
+        // GET api/Usuario/Proyecto/5
+        [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]
         public async Task<List<UserProyect>> Gets(string id)
         {
