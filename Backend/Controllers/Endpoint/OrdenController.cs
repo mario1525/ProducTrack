@@ -27,6 +27,14 @@ namespace Controllers.Endpoint
             return await _Logical.Gets(idCompania);
         }
 
+        // GET: api/Orden/Proyecto/5
+        [HttpGet("Proyecto/{idProyecto}")]
+        [Authorize(Roles = "Admin,Admin-Compania,Cordinador")]
+        public async Task<List<Orden>> GetsP(string idProyecto)
+        {
+            return await _Logical.GetsP(idProyecto);
+        }
+
         // GET: api/Orden/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Admin-Compania")]

@@ -22,6 +22,11 @@ namespace Services
             return await _orden.Gets(IdCompania);
         }
 
+        public async Task<List<Orden>> GetsP(string IdProyecto)
+        {
+            return await _orden.GetsP(IdProyecto);
+        }
+
         public async Task<List<Orden>> Get(string Id)
         {
             return await _orden.Get(Id);

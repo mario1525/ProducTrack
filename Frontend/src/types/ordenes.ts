@@ -1,8 +1,18 @@
 export type orden = {
     id: string;
     nombre: string;
-    idCompania: string;
+    idProyecto: string;
+    idTipoOrden: string;
     idProceso: string;
+    estado: boolean;
+    fecha_log: string; // Usar string si la fecha se maneja como cadena de texto
+  }
+
+  export type ordenTipo = {
+    id: string;
+    nombre: string;
+    descripcion: string;
+    idProyecto: string;   
     estado: boolean;
     fecha_log: string; // Usar string si la fecha se maneja como cadena de texto
   }

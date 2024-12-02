@@ -30,6 +30,17 @@ export class OrdenController {
       .pipe(map((response) => response.data));
   }
 
+  @Get('proyecto/:id')
+  GetsP(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Orden/Proyecto/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
   @Get(':id')
   Get(@Param('id') id: string, @Headers('authorization') authHeader: string) {
     const headers = {
@@ -72,6 +83,66 @@ export class OrdenController {
     const headers = { Authorization: authHeader };
     return this.httpService
       .delete(`${this.apiUrl}api/Orden/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  // Tipo Orden
+  @Get('tipo/proyecto/:id')
+  GetsPT(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Orden/Tipo/Proyecto/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Get('tipo/:id')
+  GetT(@Param('id') id: string, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .get(`${this.apiUrl}api/Orden/Tipo/${id}`, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Post('tipo')
+  createT(@Body() body, @Headers('authorization') authHeader: string) {
+    const headers = {
+      Authorization: authHeader, // Reenvía el token de autenticación
+    };
+    // Redirigir la solicitud de registro al servicio de autenticación
+    return this.httpService
+      .post(`${this.apiUrl}api/Orden/Tipo`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Put('tipo/:id')
+  updateT(
+    @Param('id') id: string,
+    @Body() body,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .put(`${this.apiUrl}api/Orden/Tipo/${id}`, body, { headers })
+      .pipe(map((response) => response.data));
+  }
+
+  @Delete('tipo/:id')
+  removeT(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    const headers = { Authorization: authHeader };
+    return this.httpService
+      .delete(`${this.apiUrl}api/Orden/Tipo/${id}`, { headers })
       .pipe(map((response) => response.data));
   }
 

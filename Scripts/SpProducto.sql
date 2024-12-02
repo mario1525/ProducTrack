@@ -29,18 +29,29 @@ CREATE PROCEDURE dbo.dbSpProductoGet
     @Id VARCHAR(36),
     @Nombre VARCHAR(255),
     @IdProyecto VARCHAR(36),
+    @IdCompania VARCHAR(36),
     @IdProceso VARCHAR(36),
     @Estado INT
 AS 
 BEGIN
-    SELECT Id, Nombre, IdProyecto, IdProceso, Estado, Fecha_log     
-    FROM dbo.Producto
-    WHERE Id = CASE WHEN ISNULL(@Id,'')='' THEN Id ELSE @Id END
-    AND Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN Nombre ELSE '%'+@Nombre+'%' END
-    AND IdProyecto = CASE WHEN ISNULL(@IdProyecto,'')='' THEN IdProyecto ELSE @IdProyecto END
-    AND IdProceso = CASE WHEN ISNULL(@IdProceso,'')='' THEN IdProceso ELSE @IdProceso END
-    AND Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
-    AND Eliminado = 0
+    SELECT 
+        P.Id, 
+        P.Nombre, 
+        P.IdProyecto, 
+        P.IdProceso, 
+        PR.Nombre AS Proyecto,         
+        P.Estado, 
+        P.Fecha_log
+    FROM dbo.Producto P
+    LEFT JOIN Proyecto PR ON P.IdProyecto = PR.Id
+    LEFT JOIN Compania C ON PR.IdCompania = C.Id -- Relación con Compania
+    WHERE (P.Id = @Id OR @Id IS NULL)
+    AND (P.Nombre LIKE '%' + @Nombre + '%' OR @Nombre IS NULL)
+    AND (P.IdProyecto = @IdProyecto OR @IdProyecto IS NULL)
+    AND (P.IdProceso = @IdProceso OR @IdProceso IS NULL)
+    AND (P.Estado = @Estado OR @Estado IS NULL)
+    AND (C.Id = @IdCompania OR @IdCompania IS NULL) -- Filtro por compañía
+    AND P.Eliminado = 0
 END
 
 GO

@@ -35,22 +35,33 @@ CREATE PROCEDURE dbo.dbSpOrdenGet
     @Id           VARCHAR(36),
     @Nombre       VARCHAR(255),
     @IdProyecto   VARCHAR(36),
+    @IdCompania   VARCHAR(36),
     @IdTipoOrden  VARCHAR(36),
     @IdProceso    VARCHAR(36),
     @Estado       INT
 AS 
 BEGIN
-    SELECT O.Id, O.Nombre, P.Nombre AS Proyecto, O.IdTipoOrden,  O.IdProceso, O.Estado, O.Fecha_log     
+    SELECT 
+        O.Id, 
+        O.Nombre, 
+        P.Nombre AS Proyecto,         
+        O.IdTipoOrden,  
+        O.IdProceso, 
+        O.Estado, 
+        O.Fecha_log     
     FROM Orden O
-	LEFT JOIN Proyecto P ON O.IdProyecto = P.Id
-    WHERE O.Id = CASE WHEN ISNULL(@Id,'')='' THEN O.Id ELSE @Id END
-    AND O.Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN O.Nombre ELSE '%'+@Nombre+'%' END
-    AND O.IdProceso LIKE CASE WHEN ISNULL(@IdProceso,'')='' THEN O.IdProceso ELSE '%'+@IdProceso+'%' END
-    AND O.IdTipoOrden LIKE CASE WHEN ISNULL(@IdTipoOrden,'')='' THEN O.IdTipoOrden ELSE '%'+@IdTipoOrden+'%' END
-    AND O.IdProyecto = CASE WHEN ISNULL(@IdProyecto,'')='' THEN O.IdProyecto ELSE @IdProyecto END
-    AND O.Estado = CASE WHEN ISNULL(@Estado,0) = 1 THEN 1 ELSE 0 END
+    LEFT JOIN Proyecto P ON O.IdProyecto = P.Id
+    LEFT JOIN Compania C ON P.IdCompania = C.Id -- Relación adicional con Compania
+    WHERE O.Id = CASE WHEN ISNULL(@Id, '') = '' THEN O.Id ELSE @Id END
+    AND O.Nombre LIKE CASE WHEN ISNULL(@Nombre, '') = '' THEN O.Nombre ELSE '%' + @Nombre + '%' END
+    AND O.IdProceso LIKE CASE WHEN ISNULL(@IdProceso, '') = '' THEN O.IdProceso ELSE '%' + @IdProceso + '%' END
+    AND O.IdTipoOrden LIKE CASE WHEN ISNULL(@IdTipoOrden, '') = '' THEN O.IdTipoOrden ELSE '%' + @IdTipoOrden + '%' END
+    AND O.IdProyecto = CASE WHEN ISNULL(@IdProyecto, '') = '' THEN O.IdProyecto ELSE @IdProyecto END
+    AND C.Id = CASE WHEN ISNULL(@IdCompania, '') = '' THEN C.Id ELSE @IdCompania END -- Filtro por compañía
+    AND O.Estado = CASE WHEN ISNULL(@Estado, 0) = 1 THEN 1 ELSE 0 END
     AND O.Eliminado = 0
 END
+
 
 GO
 PRINT 'Creacion procedimiento Orden Set '

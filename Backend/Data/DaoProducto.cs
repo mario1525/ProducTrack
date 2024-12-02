@@ -20,6 +20,7 @@ namespace Data
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdProyecto", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1),               
             };
@@ -34,9 +35,25 @@ namespace Data
             {
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
-                new SqlParameter("@IdProyecto", IdCompania),
+                new SqlParameter("@IdProyecto", ""),
+                new SqlParameter("@IdCompania", IdCompania),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1),                
+            };
+            return await GetList(procedureName, parameters);
+        }
+
+        public async Task<List<Producto>> GetsP(string idProyecto)
+        {
+            const string procedureName = "dbo.dbSpProductoGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@IdProyecto", idProyecto),
+                new SqlParameter("@IdCompania", ""),
+                new SqlParameter("@IdProceso", ""),
+                new SqlParameter("@Estado", 1),
             };
             return await GetList(procedureName, parameters);
         }

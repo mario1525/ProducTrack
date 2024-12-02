@@ -2,11 +2,10 @@
 <div>
     <div class="form">    
     <div class="header">
-        <h2>Producto</h2>        
+        <h2>Tipo de orden</h2>        
         <div class="btns">
-        <button *ngIf="idProyecto" (click)="onDelete()" class="btn eliminar">Eliminar</button>
-        <button *ngIf="idProyecto" (click)="CreateTipoO()" class="btn agregar">agregar Tipo orden</button>
-        <button class="{{ idProyecto ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idProyecto? 'Actualizar' : 'agregar' }}</button>
+        <button *ngIf="idTipoOrden" (click)="onDelete()" class="btn eliminar">Eliminar</button>
+        <button class="{{ idTipoOrden ? 'btn actualizar' : 'btn agregar' }}" (click)="onSubmit()">{{ idTipoOrden? 'Actualizar' : 'agregar' }}</button>
     </div>
       </div>
     <form [formGroup]="Form" >
@@ -23,5 +22,4 @@
     </form>
     </div>
 </div>
-
 

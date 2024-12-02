@@ -9,6 +9,14 @@
             <label for="nombre">Nombre</label>
             <input id="nombre" type="text" placeholder="Nombre">
           </div>
+          <div class="filter-group">
+            <label for="nombre">Proyecto</label>
+            <input id="nombre" type="text" placeholder="Nombre">
+          </div>
+          <div class="filter-group">
+            <label for="nombre">Tipo de orden</label>
+            <input id="nombre" type="text" placeholder="Nombre">
+          </div>
         </div>
         <div class="buttons">
           <button class="btn filtrar">Filtrar</button>
@@ -22,7 +30,7 @@
           <th></th>
           <th>ID</th>
           <th>Nombre</th>                
-          <th>Compañía</th>
+          <th>Proyecto</th>
           <th>Fecha Creación</th>
         </tr>
       </thead>
@@ -31,7 +39,7 @@
           <td><img class="img-table" src="./../../../assets/img/editar.png" (click)="rediretdetalle(indice)" /></td>
           <td>{{ value.id }}</td>
           <td>{{ value.nombre }}</td>               
-          <td>{{ value.idCompania }}</td>
+          <td>{{ value.idProyecto }}</td>
           <td>{{ value.fecha_log }}</td>
         </tr>
       </tbody>

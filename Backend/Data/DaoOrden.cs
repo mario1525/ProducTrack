@@ -21,6 +21,7 @@ namespace Data
                 new SqlParameter("@Id", Id),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdProyecto", ""),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdTipoOrden", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)
@@ -29,7 +30,23 @@ namespace Data
         }
 
         // Metodo Gets
-        public async Task<List<Orden>> Gets(string IdProyecto)
+        public async Task<List<Orden>> Gets(string IdCompania)
+        {
+            const string procedureName = "dbo.dbSpOrdenGet";
+            var parameters = new[]
+            {
+                new SqlParameter("@Id", ""),
+                new SqlParameter("@Nombre", ""),
+                new SqlParameter("@IdProyecto", ""),
+                new SqlParameter("@IdCompania", IdCompania),
+                new SqlParameter("@IdTipoOrden", ""),
+                new SqlParameter("@IdProceso", ""),
+                new SqlParameter("@Estado", 1)
+            };
+            return await GetList(procedureName, parameters);
+        }
+
+        public async Task<List<Orden>> GetsP(string IdProyecto)
         {
             const string procedureName = "dbo.dbSpOrdenGet";
             var parameters = new[]
@@ -37,6 +54,7 @@ namespace Data
                 new SqlParameter("@Id", ""),
                 new SqlParameter("@Nombre", ""),
                 new SqlParameter("@IdProyecto", IdProyecto),
+                new SqlParameter("@IdCompania", ""),
                 new SqlParameter("@IdTipoOrden", ""),
                 new SqlParameter("@IdProceso", ""),
                 new SqlParameter("@Estado", 1)

@@ -21,6 +21,11 @@ namespace Services
             return await _Dao.Gets(IdCompania);
         }
 
+        public async Task<List<Producto>> GetsP(string IdProyecto)
+        {
+            return await _Dao.GetsP(IdProyecto);
+        }
+
         public async Task<List<Producto>> Get(string Id)
         {
             return await _Dao.Get(Id);

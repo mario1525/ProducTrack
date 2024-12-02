@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OrdenesComponent } from './ordenes.component';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { RegistrosComponent } from './registros/registros.component';
+import { TipoComponent } from './tipo/tipo.component';
 
 
 
@@ -14,7 +15,8 @@ import { RegistrosComponent } from './registros/registros.component';
     OrdenesComponent,
     OrdenComponent,
     RegistrarComponent,
-    RegistrosComponent
+    RegistrosComponent,
+    TipoComponent
   ],
   imports: [
     CommonModule,

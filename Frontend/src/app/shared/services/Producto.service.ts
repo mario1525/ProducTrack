@@ -18,6 +18,11 @@ import { producto, Camp, create_Product, Regisproducto, create_Regis, oCampV } f
     return this.http.get<producto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
+  obtener_ProductosPro(id: string): Observable<producto[] | []> {    
+    const url = `${this.apiUrl}producto/proyecto/${id}`;
+    return this.http.get<producto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
   obtener(id: string): Observable<producto[] | []> {    
     const url = `${this.apiUrl}producto/${id}`;
     return this.http.get<producto[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    

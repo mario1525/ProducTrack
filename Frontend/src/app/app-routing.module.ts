@@ -21,6 +21,7 @@ import { RegistrosProductoComponent } from './module/productos/registros-product
 import { EtapaOrdenComponent } from './module/etapa/etapa-orden/etapa-orden.component';
 import { ProyectosComponent } from './module/proyectos/proyectos.component';
 import { ProyectoComponent } from './module/proyectos/proyecto/proyecto.component';
+import { TipoComponent } from './module/ordenes/tipo/tipo.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,6 +35,9 @@ const routes: Routes = [
     { path: 'App/Compania/:id/Proyectos', component: ProyectosComponent},
     { path: 'App/Compania/:id/Proyecto', component: ProyectoComponent},
     { path: 'App/Compania/:id/Proyecto/:id', component: ProyectoComponent},
+
+    { path: 'App/Compania/:id/Proyecto/:id/TipoOrden/:id', component: TipoComponent},
+    { path: 'App/Compania/:id/Proyecto/:id/TipoOrden', component: TipoComponent},
 
     { path: 'App/Compania/:id/Usuarios', component: UsuariosComponent},
     { path: 'App/Compania/:id/Usuario/:id', component: UsuarioComponent},

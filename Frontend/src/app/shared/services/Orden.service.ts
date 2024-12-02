@@ -18,6 +18,11 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrde
     return this.http.get<orden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
+  obtener_OrdenProyecto(id: string): Observable<orden[] | []> {    
+    const url = `${this.apiUrl}orden/proyecto/${id}`;
+    return this.http.get<orden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
   obtener(id: string): Observable<orden[] | []> {    
     const url = `${this.apiUrl}orden/${id}`;
     return this.http.get<orden[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
@@ -37,6 +42,34 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrde
     const url = `${this.apiUrl}orden/${id}`;
     return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
   }
+
+  // Tipo Orden 
+
+  obtener_T_orden(id: string): Observable<oCamp[] | []> {    
+    const url = `${this.apiUrl}orden/tipo/${id}`;
+    return this.http.get<oCamp[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  obtener_t(id: string): Observable<oCamp[] | []> {    
+    const url = `${this.apiUrl}orden/tipo/${id}`;
+    return this.http.get<oCamp[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  }
+
+  create_t(Value: oCamp): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/tipo`;
+    return this.http.post<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  update_t(id: string, Value: oCamp): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/tipo/${id}`;
+    return this.http.put<{mensaje: string}>(url, Value, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
+  delete_t(id: string): Observable<{mensaje: string}> {
+    const url = `${this.apiUrl}orden/tipo/${id}`;
+    return this.http.delete<{mensaje: string}>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});   
+  }
+
 
   // campo
 
