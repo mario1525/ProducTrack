@@ -45,12 +45,12 @@ BEGIN
     FROM dbo.Producto P
     LEFT JOIN Proyecto PR ON P.IdProyecto = PR.Id
     LEFT JOIN Compania C ON PR.IdCompania = C.Id -- Relación con Compania
-    WHERE (P.Id = @Id OR @Id IS NULL)
-    AND (P.Nombre LIKE '%' + @Nombre + '%' OR @Nombre IS NULL)
-    AND (P.IdProyecto = @IdProyecto OR @IdProyecto IS NULL)
-    AND (P.IdProceso = @IdProceso OR @IdProceso IS NULL)
-    AND (P.Estado = @Estado OR @Estado IS NULL)
-    AND (C.Id = @IdCompania OR @IdCompania IS NULL) -- Filtro por compañía
+    WHERE P.Id = CASE WHEN ISNULL(@Id,'')='' THEN P.Id ELSE @Id END
+    AND P.Nombre LIKE CASE WHEN ISNULL(@Nombre,'')='' THEN P.Nombre ELSE '%'+@Nombre+'%' END 
+    AND P.IdProceso LIKE CASE WHEN ISNULL(@IdProceso, '') = '' THEN P.IdProceso ELSE '%' + @IdProceso + '%' END    
+    AND P.IdProyecto = CASE WHEN ISNULL(@IdProyecto, '') = '' THEN P.IdProyecto ELSE @IdProyecto END
+    AND C.Id = CASE WHEN ISNULL(@IdCompania, '') = '' THEN C.Id ELSE @IdCompania END -- Filtro por compañía
+    AND P.Estado = CASE WHEN ISNULL(@Estado, 0) = 1 THEN 1 ELSE 0 END
     AND P.Eliminado = 0
 END
 

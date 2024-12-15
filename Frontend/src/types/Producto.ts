@@ -1,7 +1,7 @@
 export type producto = {
     id: string;
     nombre: string;
-    idCompania: string;
+    idProyecto: string;
     idProceso: string;
     estado: boolean;    
     fecha_log: string;
@@ -11,7 +11,7 @@ export type producto = {
     id: string;
     idProduct: string;
     idRegisOrden: string;
-    idCompania: string;
+    idProyecto: string;
     idUsuario: string;
     estado: boolean;    
     fecha_log: string;
