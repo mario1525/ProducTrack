@@ -2,7 +2,7 @@
 <div>
     <div class="form">    
     <div class="header">
-        <h2>Producto</h2>        
+        <h2>Proyecto</h2>        
         <div class="btns">
         <button *ngIf="idProyecto" (click)="onDelete()" class="btn eliminar">Eliminar</button>
         <button *ngIf="idProyecto" (click)="CreateTipoO()" class="btn agregar">agregar Tipo orden</button>
@@ -21,6 +21,27 @@
       </div>          
     </div>       
     </form>
+    </div>
+    <div>
+      <div class="section">
+        <h3>Tipo de ordenes</h3>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+          </tr>
+          <tr *ngFor="let value of ordenTipo; let indice = index;">
+            <td>{{ value.id }}</td>
+            <td>{{ value.nombre }}</td>
+            <td>{{ value.descripcion }}</td>
+            <td>
+              <button class="btn editar" (click)="rediretTipo(indice)" >✏️</button>              
+            </td>
+          </tr>
+        </table>
+      </div>      
     </div>
 </div>
 

@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import url from 'src/helpers/indexurl';
 import { TokenserviceService } from './Token.service';
-import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrdenEtap } from 'src/types/ordenes'
+import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrdenEtap, ordenTipo } from 'src/types/ordenes'
 
 
 @Injectable({
@@ -45,9 +45,9 @@ import { orden, create_orden, create_Regis, oCamp, regisOrden, oCampV, regisOrde
 
   // Tipo Orden 
 
-  obtener_T_orden(id: string): Observable<oCamp[] | []> {    
-    const url = `${this.apiUrl}orden/tipo/${id}`;
-    return this.http.get<oCamp[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
+  obtener_T_orden(id: string): Observable<ordenTipo[] | []> {    
+    const url = `${this.apiUrl}orden/tipo/proyecto/${id}`;
+    return this.http.get<ordenTipo[] | []>(url, { headers: { 'Authorization': `Bearer ${this.auth.getTokenFromCookie()}` }});    
   }
 
   obtener_t(id: string): Observable<oCamp[] | []> {    

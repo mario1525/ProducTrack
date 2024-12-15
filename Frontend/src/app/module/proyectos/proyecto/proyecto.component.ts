@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ProyectoService } from 'src/app/shared/services/Proyecto.service';
+import { ordenService } from 'src/app/shared/services/Orden.service';
+import { ordenTipo } from 'src/types/ordenes';
 
 
 @Component({
@@ -18,12 +20,14 @@ export class ProyectoComponent implements OnInit{
   idProyecto: string = "";
   idCompania: string = "";  
   mostrar = false;
+  ordenTipo : ordenTipo[] = [];
 
   constructor(
     private fb: FormBuilder,
     private location: Location,   
     private route: Router,
-    private Service: ProyectoService    
+    private Service: ProyectoService,
+    private ServiceOrden: ordenService  
   ) {
   
     this.Form = this.fb.group({
@@ -50,8 +54,20 @@ export class ProyectoComponent implements OnInit{
           error: (error) => {
             console.log(error)
           }
-        })        
-      }        
+        }) 
+        this.ServiceOrden.obtener_T_orden(this.idProyecto).subscribe({
+          next: (value) => {
+            this.ordenTipo = value  
+            //console.log(value)                         
+            return; 
+          },
+          error: (error) => {
+            console.log(error)
+          }
+        })       
+      } 
+      
+
   }
 
   onSubmit(): void {
@@ -103,6 +119,13 @@ export class ProyectoComponent implements OnInit{
 
   CreateTipoO(): void {
     this.route.navigate([`App/Compania/${this.idCompania}/Proyecto/${this.idProyecto}/TipoOrden`]);
+  }
+  rediretTipo(indice: number): void {
+    // Accede a los datos específicos de la fila actual
+    const datosSeleccionados = this.ordenTipo[indice];
+  
+    // Realiza la redirección con los datos específicos
+    this.route.navigate([`App/Compania/${this.idCompania}/Proyecto/${this.idProyecto}/TipoOrden/${datosSeleccionados.id}`]);
   }
 
 }
