@@ -6,6 +6,8 @@ import { procesoService } from 'src/app/shared/services/Proceso.service';
 import { productoService } from 'src/app/shared/services/Producto.service';
 import { Camp, create_Product} from 'src/types/Producto';
 import { Proceso } from 'src/types/procesos'
+import { Proyecto } from 'src/types/proyecto';
+import { ProyectoService } from 'src/app/shared/services/Proyecto.service';
 
 @Component({
   selector: 'app-producto',
@@ -18,6 +20,7 @@ export class ProductoComponent implements OnInit{
   CampoForm: FormGroup;
   campos: Camp[] = [];
   procesos: Proceso[] = [];
+  proyectos: Proyecto[] = [];
   create_Product: create_Product | undefined;
   //pop_Campo = false;
   idProduct: string = "";
@@ -30,13 +33,14 @@ export class ProductoComponent implements OnInit{
     private location: Location,   
     private route: Router,
     private Service: productoService,
-    private ProcesoService: procesoService
+    private ProcesoService: procesoService,
+    private ProyectoService: ProyectoService
   ) {
   
     this.Form = this.fb.group({
       id: [''],
       nombre: ['', Validators.required],      
-      idCompania: [''],
+      idProyecto: [''],
       idProceso: [''],    
       estado: [true],      
       fecha_log: ['']
@@ -77,6 +81,15 @@ export class ProductoComponent implements OnInit{
           }
         })        
       } 
+      this.ProyectoService.obtener_proyectos(this.idCompania).subscribe({
+        next: (Campos) => {
+          this.proyectos = Campos                                     
+          return; 
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
       this.ProcesoService.obtener_Procesos(this.idCompania).subscribe({
         next: (Campos) => {
           this.procesos = Campos                                     
@@ -91,8 +104,7 @@ export class ProductoComponent implements OnInit{
   onSubmit(): void {
     if (this.Form.valid) {        
       const Value = this.Form.value      
-      if(this.idProduct){
-        Value.idCompania = this.idCompania;
+      if(this.idProduct){        
         this.Service.update(this.idProduct,Value).subscribe({
           next: () => {
             alert("Producto Actualizado")
@@ -103,8 +115,7 @@ export class ProductoComponent implements OnInit{
             alert('Error al actualizar el Producto');
           }
         })
-      } else {   
-        Value.idCompania = this.idCompania;
+      } else {          
         this.create_Product =  {
           producto: Value,
           campos: this.campos

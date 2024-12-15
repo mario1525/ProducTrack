@@ -14,6 +14,12 @@
         <input formControlName="nombre" />
       </div> 
       <div>
+        <label>Proyecto</label>
+        <select formControlName="idProyecto" id="Proyecto" name="Proyecto">
+            <option *ngFor="let proyecto of proyectos" [value]="proyecto.id">{{ proyecto.nombre }}</option>
+        </select>
+      </div>
+      <div>
         <label>Proceso</label>
         <select formControlName="idProceso" id="Proceso" name="Proceso">
             <option *ngFor="let proceso of procesos" [value]="proceso.id">{{ proceso.nombre }}</option>
